@@ -1,0 +1,383 @@
+{
+    "objectType": {
+        "dbtable": {
+            "length": 128,
+            "dbkeywords": "database_keywords.txt",
+            "regexp": "^[A-Za-z][A-Za-z_0-9]*$"
+        },
+        "dbcolumn": {
+            "length": 128,
+            "dbkeywords": "database_keywords.txt",
+            "regexp": "^[A-Za-z][A-Za-z_0-9]*$"
+        },
+        "dbcolumnList": {
+            "length": 500,
+            "dbkeywords": "database_keywords.txt",
+            "regexp": "^([A-Za-z][A-Za-z_0-9,]*(->>'.+'|->'(.+'->>)+'.+')|[A-Za-z][A-Za-z_0-9,]*)$"
+        },
+        "dbtableList": {
+            "length": 500,
+            "dbkeywords": "database_keywords.txt",
+            "regexp": "^[A-Za-z][A-Za-z_0-9,]*$"
+        },
+        "uint(2)": {
+            "length": 2,
+            "regexp": "^[1-9][0-9]{0,1}$"
+        },
+        "percent": {
+            "length": 3,
+            "regexp": "^(0|\\d{0,2}|100)$"
+        },
+        "majority": {
+            "length": 9,
+            "regexp": "^(Major|Minor|Technical)$"
+        },
+        "businesRule": {
+            "length": 4000
+        }
+    },
+    "sheetType": {
+        "Table Set for Transformation": {
+            "table": {
+                "Sheet Name": {
+                    "mandatory": true
+                },
+                "DOMAIN": {
+                    "mandatory": true,
+                    "priority": "minor"
+                },
+                "Hyperlink to sheet": {
+                    "mandatory": true
+                }
+            }
+        },
+        "Table Set for Transformation Item": {
+            "header": {
+                "Table": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                },
+                "Transformation rules": {
+                    "mandatory": true,
+                    "checkSepFile": true
+                },
+                "Primary Key": {
+                    "mandatory": true
+                },
+                "PARALLEL": {
+                    "mandatory": false,
+                    "objectType": "uint(2)"
+                },
+                "PCTFREE": {
+                    "mandatory": false,
+                    "objectType": "percent",
+                    "default": "0"
+                },
+                "Synonym": {
+                    "mandatory": false,
+                    "objectType": "dbtable"
+                },
+                "Source Tables": {
+                    "mandatory": true,
+                    "objectType": "dbtableList"
+                },
+                "Source Descriptor": {
+                    "mandatory": true
+                }
+            },
+            "table": {
+                "COLUMN_NAME": {
+                    "mandatory": true,
+                    "objectType": "dbcolumn"
+                },
+                "DATATYPE": {
+                    "mandatory": true,
+                    "default": "VARCHAR2(200)"
+                },
+                "FIELD_DESCRIPTION": {
+                    "mandatory": true,
+                    "priority": "minor"
+                },
+                "TRANSFORMATION": {
+                    "mandatory": true,
+                    "priority": "minor"
+                },
+                "REFERENTIAL_CLAUSE": {
+                    "objectType": "dbcolumnList"
+                }
+            }
+        },
+        "Source Data Structure": {
+            "table": {
+                "Sheet Name": {
+                    "mandatory": true
+                },
+                "Hyperlink to sheet": {
+                    "mandatory": true
+                }
+            }
+        },
+        "Source Data Structure Item": {
+            "header": {
+                "Table": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                }
+            },
+            "table": {
+                "COLUMN_NAME": {
+                    "mandatory": true,
+                    "objectType": "dbcolumn"
+                },
+                "DATATYPE": {
+                    "mandatory": true,
+                    "default": "VARCHAR2(200)"
+                },
+                "FIELD_DESCRIPTION": {
+                    "mandatory": true,
+                    "priority": "minor"
+                }
+            }
+        },
+        "Revision": {
+            "table": {
+                "Author": {
+                    "mandatory": true
+                },
+                "Date": {
+                    "mandatory": true
+                },
+                "Description of Change": {
+                    "mandatory": true
+                },
+                "Version": {
+                    "mandatory": true
+                }
+            }
+        },
+        "Common Dictionaries": {
+            "Header":{
+                "COLUMNS": {
+                    "default": "SDB_VALUE",
+                    "objectType": "dbcolumnList"
+                }
+            },
+            "table": {
+                "DICT_NAME": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                },
+                "SDB_VALUE":{
+                    "mandatory": true
+                }
+            }
+        },
+        "Source Dictionaries Structure": {
+            "table": {
+                "Hyperlink to sheet": {
+                    "mandatory": true
+                },
+                "Sheet Name": {
+                    "mandatory": true
+                }
+            }
+        },
+        "Source Dictionaries": {
+            "table": {
+                "Hyperlink to sheet": {
+                    "mandatory": true
+                },
+                "Sheet Name": {
+                    "mandatory": true
+                },
+                "Source Dictionary Data":{
+                    "mandatory": true,
+                    "priority": "major",
+                    "checkSepFile": true
+                }
+            }
+        },
+        "Source Dictionaries Structure Item": {
+            "header": {
+                "Table": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                }
+            },
+            "table": {
+                "COLUMN_NAME": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                },
+                "FIELD_DESCRIPTION": {
+                    "mandatory": true,
+                    "priority": "minor"
+                },
+                "DATATYPE": {
+                    "mandatory": true,
+                    "default": "VARCHAR2(200)"
+                }
+            }
+        },
+        "Source Dictionaries Item": {
+            "header": {
+                "Table": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                }
+            },
+            "table": {
+                "COLUMN_NAME": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                },
+                "FIELD_DESCRIPTION": {
+                    "mandatory": true,
+                    "priority": "minor"
+                },
+                "DATATYPE": {
+                    "mandatory": true,
+                    "default": "VARCHAR2(200)"
+                }
+            }
+        },
+        "Source Dictionary Data": {
+            "header": {
+                "Table": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                }
+            }
+        },
+        "Validation Rules": {
+            "table": {
+                "DOMAIN": {
+                    "mandatory": true,
+                    "priority": "minor"
+                },
+                "TABLE_NAME": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                },
+                "COLUMN_NAME": {
+                    "mandatory": true,
+                    "objectType": "dbcolumnList"
+                },
+                "VAL_ID": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                },
+                "VALIDATION_NAME": {
+                    "mandatory": true
+                },
+                "MAJORITY": {
+                    "mandatory": true,
+                    "objectType": "majority",
+                    "default": "Major"
+                },
+                "VALIDATION_TYPE": {
+                    "mandatory": true
+                },
+                "PARALLEL": {
+                    "mandatory": false,
+                    "objectType": "uint(2)"
+                },
+                "BUSINESS_RULE": {
+                    "mandatory": true,
+                    "priority": "minor",
+                    "objectType": "businesRule"
+                },
+                "REFERENTIAL_ENTITY": {
+                    
+                },
+                "REFERENTIAL_CLAUSE": {
+                    "objectType": "dbcolumnList"
+                }
+            }
+        },
+        "Common Scripts": {
+            "header": {
+                "Init Script": {
+                    "mandatory": true
+                }
+            },
+            "table": {
+                "NAME": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                },
+                "QUERY": {
+                    "mandatory": true,
+                    "checkSepFile": true
+                }             
+            }
+        },
+        "Dependency Validation Rules": {
+            "table": {
+                "DOMAIN": {
+                    "mandatory": true,
+                    "priority": "minor"
+                },
+                "TABLE_NAME": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                },
+                "COLUMN_NAME": {
+                    "mandatory": true,
+                    "objectType": "dbcolumnList"
+                },
+                "VAL_ID": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                },
+                "VALIDATION_NAME": {
+                    "mandatory": true
+                },
+                "MAJORITY": {
+                    "mandatory": false,
+                    "objectType": "majority",
+                    "default": "Major"
+                },
+                "PARALLEL": {
+                    "mandatory": false,
+                    "objectType": "uint(2)"
+                },
+                "MAJOR_FALLOUT": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                },
+                "CLEAR_DATA": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                },
+                "BUSINESS_RULE": {
+                    "mandatory": true,
+                    "priority": "minor"
+                },
+                "REFERENTIAL_ENTITY": {
+                    
+                },
+                "REFERENTIAL_CLAUSE": {
+                    
+                }
+            }
+        },
+        "Common Data Structure": {
+            "table":{
+                "TABLE_NAME": {
+                    "mandatory": true,
+                    "objectType": "dbtable"
+                },
+                "COLUMN_NAME": {
+                    "mandatory": true,
+                    "objectType": "dbcolumn"
+                },
+                "DATATYPE": {
+                    "mandatory": true,
+                    "default": "VARCHAR2(200)"
+                }
+            }
+        }
+    },
+    "sheetName": {}
+}

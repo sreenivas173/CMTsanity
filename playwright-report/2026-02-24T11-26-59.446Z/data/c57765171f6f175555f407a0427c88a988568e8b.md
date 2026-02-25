@@ -1,0 +1,217 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - generic [ref=e6]:
+    - img [ref=e8]
+    - generic [ref=e10]: Migration Design2Code
+    - generic [ref=e11]:
+      - img [ref=e16] [cursor=pointer]
+      - button "C" [ref=e19] [cursor=pointer]:
+        - generic [ref=e21]: C
+  - generic [ref=e22]:
+    - generic [ref=e23]:
+      - list [ref=e24]:
+        - menuitem "MM Design" [ref=e25] [cursor=pointer]:
+          - listitem [ref=e26]:
+            - generic [ref=e27]:
+              - img [ref=e29]
+              - generic [ref=e35]: MM Design
+        - menuitem "DB Level Design" [ref=e36] [cursor=pointer]:
+          - listitem [ref=e37]:
+            - generic [ref=e38]:
+              - img [ref=e40]
+              - generic [ref=e46]: DB Level Design
+        - menuitem "Settings" [ref=e47] [cursor=pointer]:
+          - listitem [ref=e48]:
+            - generic [ref=e49]:
+              - img [ref=e51]
+              - generic [ref=e57]: Settings
+        - menuitem "Templates" [ref=e58] [cursor=pointer]:
+          - listitem [ref=e59]:
+            - generic [ref=e60]:
+              - img [ref=e62]
+              - generic [ref=e68]: Templates
+      - menuitem "Collapse" [ref=e69] [cursor=pointer]:
+        - listitem [ref=e70]:
+          - generic [ref=e71]:
+            - img [ref=e73]
+            - generic [ref=e79]: Collapse
+    - generic [ref=e81]:
+      - generic [ref=e82]:
+        - generic [ref=e83]: Settings
+        - generic [ref=e84]:
+          - button "bulk-export" [ref=e85] [cursor=pointer]:
+            - generic [ref=e86]:
+              - img [ref=e88]
+              - generic [ref=e90]: Export
+          - button "bulk-import" [ref=e91] [cursor=pointer]:
+            - generic [ref=e92]:
+              - img [ref=e94]
+              - generic [ref=e96]: Import
+          - button "bulk-revert" [ref=e97] [cursor=pointer]:
+            - generic [ref=e99]: Revert All
+      - generic [ref=e104]:
+        - generic [ref=e105]:
+          - generic [ref=e107]: MM Design Settings
+          - generic [ref=e108]:
+            - button "Upload Settings" [ref=e109] [cursor=pointer]:
+              - generic [ref=e110]:
+                - img [ref=e112]
+                - generic [ref=e114]: Upload Settings
+            - button [ref=e115] [cursor=pointer]:
+              - img [ref=e118]
+        - table [ref=e121]:
+          - row "Name Status" [ref=e123]:
+            - gridcell [ref=e125] [cursor=pointer]
+            - gridcell "Name" [ref=e128] [cursor=pointer]:
+              - generic [ref=e129]: Name
+            - gridcell "Status" [ref=e132] [cursor=pointer]:
+              - generic [ref=e133]: Status
+          - row "excel-migration-dictionary.json green" [ref=e137]:
+            - gridcell [ref=e139]:
+              - img [ref=e140]
+            - gridcell "excel-migration-dictionary.json" [ref=e144]: excel-migration-dictionary.json
+            - gridcell "green" [ref=e147]:
+              - generic "green" [ref=e149]:
+                - generic [ref=e150]: Default
+          - row "generate.toml green" [ref=e154]:
+            - gridcell [ref=e156]:
+              - img [ref=e157]
+            - gridcell "generate.toml" [ref=e161]: generate.toml
+            - gridcell "green" [ref=e164]:
+              - generic "green" [ref=e166]:
+                - generic [ref=e167]: Default
+          - row "excel-migration-types.json green" [ref=e171]:
+            - gridcell [ref=e173]:
+              - img [ref=e174]
+            - gridcell "excel-migration-types.json" [ref=e178]: excel-migration-types.json
+            - gridcell "green" [ref=e181]:
+              - generic "green" [ref=e183]:
+                - generic [ref=e184]: Default
+          - row "excel-migration-type.json green" [ref=e188]:
+            - gridcell [ref=e190]:
+              - img [ref=e191]
+            - gridcell "excel-migration-type.json" [ref=e195]: excel-migration-type.json
+            - gridcell "green" [ref=e198]:
+              - generic "green" [ref=e200]:
+                - generic [ref=e201]: Default
+          - row "fallout-rules.json yellow" [ref=e205]:
+            - gridcell [ref=e207]:
+              - img [ref=e208]
+            - gridcell "fallout-rules.json" [ref=e212]: fallout-rules.json
+            - gridcell "yellow" [ref=e215]:
+              - generic "yellow" [ref=e217]:
+                - generic [ref=e218]: Custom
+          - row "excel.json yellow" [ref=e222]:
+            - gridcell [ref=e224]:
+              - img [ref=e225]
+            - gridcell "excel.json" [ref=e229]: excel.json
+            - gridcell "yellow" [ref=e232]:
+              - generic "yellow" [ref=e234]:
+                - generic [ref=e235]: Custom
+        - list [ref=e239]:
+          - listitem [ref=e240]: 6 items, 1-6 shown
+          - listitem [ref=e241] [cursor=pointer]:
+            - img [ref=e242]:
+              - img [ref=e243]
+          - listitem [ref=e245] [cursor=pointer]: "1"
+          - listitem [ref=e246] [cursor=pointer]:
+            - img [ref=e247]:
+              - img [ref=e248]
+          - listitem [ref=e250]:
+            - generic "Page Size" [ref=e251] [cursor=pointer]:
+              - generic [ref=e252]:
+                - combobox "Page Size" [ref=e254]
+                - generic "10 per page" [ref=e255]
+      - generic [ref=e260]:
+        - generic [ref=e261]:
+          - generic [ref=e263]: DB Level Design Settings
+          - generic [ref=e264]:
+            - button "Upload Settings" [ref=e265] [cursor=pointer]:
+              - generic [ref=e266]:
+                - img [ref=e268]
+                - generic [ref=e270]: Upload Settings
+            - button [ref=e271] [cursor=pointer]:
+              - img [ref=e274]
+        - table [ref=e277]:
+          - row "Name Status" [ref=e279]:
+            - gridcell [ref=e281] [cursor=pointer]
+            - gridcell "Name" [ref=e284] [cursor=pointer]:
+              - generic [ref=e285]: Name
+            - gridcell "Status" [ref=e288] [cursor=pointer]:
+              - generic [ref=e289]: Status
+          - row "database_keywords.txt green" [ref=e293]:
+            - gridcell [ref=e295]:
+              - img [ref=e296]
+            - gridcell "database_keywords.txt" [ref=e300]: database_keywords.txt
+            - gridcell "green" [ref=e303]:
+              - generic "green" [ref=e305]:
+                - generic [ref=e306]: Default
+          - row "excel.json green" [ref=e310]:
+            - gridcell [ref=e312]:
+              - img [ref=e313]
+            - gridcell "excel.json" [ref=e317]: excel.json
+            - gridcell "green" [ref=e320]:
+              - generic "green" [ref=e322]:
+                - generic [ref=e323]: Default
+          - row "generate.toml green" [ref=e327]:
+            - gridcell [ref=e329]:
+              - img [ref=e330]
+            - gridcell "generate.toml" [ref=e334]: generate.toml
+            - gridcell "green" [ref=e337]:
+              - generic "green" [ref=e339]:
+                - generic [ref=e340]: Default
+          - row "fallout-rules.json green" [ref=e344]:
+            - gridcell [ref=e346]:
+              - img [ref=e347]
+            - gridcell "fallout-rules.json" [ref=e351]: fallout-rules.json
+            - gridcell "green" [ref=e354]:
+              - generic "green" [ref=e356]:
+                - generic [ref=e357]: Default
+        - list [ref=e361]:
+          - listitem [ref=e362]: 4 items, 1-4 shown
+          - listitem [ref=e363] [cursor=pointer]:
+            - img [ref=e364]:
+              - img [ref=e365]
+          - listitem [ref=e367] [cursor=pointer]: "1"
+          - listitem [ref=e368] [cursor=pointer]:
+            - img [ref=e369]:
+              - img [ref=e370]
+          - listitem [ref=e372]:
+            - generic "Page Size" [ref=e373] [cursor=pointer]:
+              - generic [ref=e374]:
+                - combobox "Page Size" [ref=e376]
+                - generic "10 per page" [ref=e377]
+      - generic [ref=e379]:
+        - generic [ref=e380]:
+          - generic [ref=e381]: Common Parameters
+          - generic [ref=e382]:
+            - button "show-diff-for-settings" [disabled] [ref=e383]:
+              - generic [ref=e385]: Compare with Default
+            - button "revert-to-default" [disabled] [ref=e386]:
+              - generic [ref=e388]: Revert to Default
+            - button "edit-common" [ref=e389] [cursor=pointer]:
+              - generic [ref=e390]:
+                - img [ref=e392]
+                - generic [ref=e394]: Edit
+        - generic [ref=e398]:
+          - generic [ref=e399]:
+            - generic [ref=e405]: DIVIDER
+            - generic [ref=e407]: ","
+          - generic [ref=e408]:
+            - generic [ref=e414]: DATABASE_TYPE
+            - generic [ref=e416]: oracle
+          - generic [ref=e417]:
+            - generic [ref=e423]: PREFIX_FOR_OUTPUT
+            - generic [ref=e425]:
+              - generic:
+                - switch
+                - generic: "False"
+          - generic [ref=e426]:
+            - generic [ref=e432]: EXTRA_OUTPUT_FILES
+            - generic [ref=e434]:
+              - generic:
+                - switch
+                - generic: "False"
+```
