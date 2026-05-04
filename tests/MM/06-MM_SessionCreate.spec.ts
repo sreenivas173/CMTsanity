@@ -19,7 +19,7 @@ import path from 'path';
  * Test Suite: MM Session Creation Validation
  * Creates new migration session and verifies table pagination update
  */
-test.describe('MM Session Creation Validations', () => {
+test.describe('@MMsanity SMM Session Creation Validations', () => {
 
   let loginPage: MM_LoginPage;
   let mmSessionsPage: MM_SessionsPage;
@@ -63,23 +63,24 @@ test.describe('MM Session Creation Validations', () => {
 
     // Record baseline count
     const initialCount = await mmSessionsPage.getTotalItems();
+    console.log('Initial count:', initialCount);
 
     // Execute session creation via Page Object
     await mmSessionsPage.createNewSession(
       sessionName, 
-      'D2Cip_oss-sr-mig-21011_apr', 
+      'oss-lm-migMaySr-21011', 
       sessionDesc, 
       'cbt'
     );
 
-    // ✅ Wait for new session to appear (most reliable)
-// await expect(
-//   page.locator('table').getByRole('link', { name: sessionName })
-// ).toBeVisible({ timeout: 15000 });
+    // Wait for table refresh and new session
+    await page.waitForTimeout(5000);
 
     // Verify successful creation via pagination count increase
     const finalCount = await mmSessionsPage.getTotalItems();
     expect(finalCount).toBeGreaterThan(initialCount);
+    console.log(`✅ Pagination increased from ${initialCount} to ${finalCount}`);
   });
 
 });
+

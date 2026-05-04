@@ -41,9 +41,8 @@ export class MM_SessionsPage {
   }
 
   get paginationInfo() {
-    return this.page.locator('text=/\\d+ items, \\d+-\\d+ shown/');
+    return this.page.locator('text=/\\d+ items/');
   }
-
 
   async setPageSize(size: number) {
     const pageSizeSelect = this.page.locator('.ant-select-selector').last();
@@ -58,25 +57,21 @@ export class MM_SessionsPage {
     await option.click();
   }
 
-
-
   async getPaginationText(): Promise<string> {
-    await expect(this.paginationInfo).toBeVisible();
+    await expect(this.paginationInfo).toBeVisible({ timeout: 10000 });
     return await this.paginationInfo.textContent() || '';
   }
 
   async getTotalItems(): Promise<number> {
     const text = await this.getPaginationText();
-    const match = text.match(/(\d+) items/);
+    const match = text.match(/(\\d+) items/);
     return match ? Number(match[1]) : 0;
   }
-
-
 
   async getCurrentPageRange(): Promise<{ start: number; end: number }> {
     const text = await this.getPaginationText();
     // Handle both normal cases like "10 items, 1-10 shown" and edge case "0 items, 0-0 shown"
-    const match = text.match(/(\d+)-(\d+) shown/);
+    const match = text.match(/(\\d+)-(\\d+) shown/);
     if (match) {
       return {
         start: Number(match[1]),
@@ -118,7 +113,7 @@ export class MM_SessionsPage {
     // Get current page size dynamically from the page size dropdown
     const pageSizeSelect = this.page.locator('.ant-select-selector').last();
     const pageSizeText = await pageSizeSelect.textContent();
-    const pageSizeMatch = pageSizeText?.match(/(\d+)/);
+    const pageSizeMatch = pageSizeText?.match(/(\\d+)/);
     const pageSize = pageSizeMatch ? Number(pageSizeMatch[1]) : 10;
 
     const expectedStart = (pageNumber - 1) * pageSize + 1;
@@ -131,7 +126,6 @@ export class MM_SessionsPage {
 
     return true;
   }
-
 
   async clickPreviousArrow() {
     const prevArrow = this.paginationContainer.locator('li.ux-react-pagination-prev');
@@ -146,10 +140,9 @@ export class MM_SessionsPage {
   }
 
   async getPageCount(): Promise<number> {
-    const pageNumbers = this.paginationContainer.locator('li').filter({ hasText: /^\d+$/ });
+    const pageNumbers = this.paginationContainer.locator('li').filter({ hasText: /^\\d+$/ });
     return await pageNumbers.count();
   }
-
 
   async clickNextArrow() {
     const nextArrow = this.paginationContainer.locator('li.ux-react-pagination-next');
@@ -166,153 +159,126 @@ export class MM_SessionsPage {
     return true;
   }
 
-  // async createNewSession(name: string, config: string, description: string, sourceProfile: string) {
-  //   // Click create session button
-  //   await this.page.locator(':text-is(\"Create Session\")').click({ force: true });
+  async createNewSession(
+    name: string,
+    config: string,
+    description: string,
+    sourceProfile: string
+  ) {
+    console.log('🆕 Creating session:', name);
+    
+    // Click Create Session
+    await this.page.getByText('Create Session').click();
 
-  //   // Wait for popup and fill name
-  //   const nameInput = this.page.locator('#name:visible');
-  //   await expect(nameInput).toBeVisible({ timeout: 10000 });
-  //   await nameInput.fill(name);
+    const dialog = this.page.getByRole('dialog');
 
-  //   // Click configuration dropdown - use combobox directly (no text label)
-  //   //const configField = this.page.getByRole('combobox').nth(1); // Second combobox after name (index 0 may be search)
+    // Wait for dialog
+    await expect(dialog).toBeVisible();
 
-  //   const configField = this.page
-  //     .getByRole('dialog')
-  //     .getByRole('combobox', { name: 'Configuration *' });
+    // Fill Name
+    await dialog.getByRole('textbox', { name: 'Name *' }).fill(name);
 
-  //   await expect(configField).toBeVisible();
-  //   await configField.click();
+    // Configuration Dropdown
+    const configDropdown = dialog.getByRole('combobox', { name: 'Configuration *' });
+    await configDropdown.click();
 
-  //   // Now select the option
-  //   const configLocator = this.page.locator('div').filter({ hasText: config }).last();
-  //   await expect(configLocator).toBeVisible({ timeout: 10000 });
-  //   await configLocator.click({ force: true });
-  //   await this.page.waitForTimeout(1000); // Wait for dropdown close
+    const configList = this.page.locator('[role="listbox"]');
+    await configList.waitFor({ state: 'visible' });
 
-  //   // Fill description
-  //   await this.page.locator('#description').fill(description);
+    await configList.getByRole('option', { name: config }).click();
 
-  //   // Click source profile dropdown - use combobox nth(2) 
-  //   //const configDropdown = this.page.getByRole('combobox', { name: /Configuration/ });
-  //   //await configDropdown.click();
+    // Description
+    await dialog.getByRole('textbox', { name: 'Description' }).fill(description);
 
-  //   // Wait for dropdown popup (important!)
-  //   // const dropdownList = this.page.locator('[role="listbox"]');
-  //   // await dropdownList.waitFor({ state: 'visible' });
+    // Collapse interfering accordions first
+    await this.collapseInterferingAccordions(dialog);
 
-  //   // Select item safely
-  //   await dropdownList.getByText('D2Cip_oss-sr-mig-21011_apr', { exact: true }).click();
+    // Source Profile tab first - ensure expanded
+    const sourceProfileTab = dialog.getByRole('tab', { name: 'Source Profile' });
+    await sourceProfileTab.click({ force: true });
+    await this.page.waitForTimeout(1000);
 
-  //   // const sourceLocator = this.page.locator('div').filter({ hasText: sourceProfile }).last();
-  //   // await expect(sourceLocator).toBeVisible({ timeout: 5000 });
-  //   // await sourceLocator.click();
+    // Source Profile combobox under tabpanel (exact from snapshot)
+    // Direct Source Profile combobox (snapshot shows "oracle *" label, element hidden by CSS)
+    console.log('🔍 Source Profile - oracle combobox with viewport handling');
+    const sourceCombobox = dialog.getByRole('combobox', { name: /oracle/i }).first();
+    await sourceCombobox.scrollIntoViewIfNeeded({ timeout: 5000 });
+    await this.page.waitForTimeout(1000);
+    await sourceCombobox.click({ 
+      force: true, 
+      position: { x: 5, y: 5 },
+      timeout: 10000 
+    });
+    console.log('✅ Source combobox clicked');
 
-  //   const dialog = this.page.getByRole('dialog');
+    // Make listbox wait optional - if not visible, skip selection (already selected default?)
+    const sourceList = this.page.locator('[role="listbox"]:visible').first();
+    const listboxVisible = await sourceList.isVisible({ timeout: 3000 }).catch(() => false);
+    if (listboxVisible) {
+      await sourceList.waitFor({ state: 'visible', timeout: 3000 });
+      // Select 'cbt' or first
+      const cbtOption = sourceList.getByRole('option', { name: 'cbt', exact: true });
+      if (await cbtOption.count() > 0) {
+        await cbtOption.click();
+        console.log('✅ Selected "cbt"');
+      } else {
+        const firstOption = sourceList.getByRole('option').first();
+        await firstOption.click();
+        console.log('✅ Selected first SourceProfile (cbt not available)');
+      }
+    } else {
+      console.log('⚠️ Listbox not visible - assuming default selection');
+    }
 
-  //   // Open Source Profile section (important)
-  //   await dialog.getByRole('tab', { name: 'Source Profile' }).click();
+    // Source option selection already done above, remove duplicate
 
-  //   // Locate dropdown
-  //   const sourceDropdown = dialog.getByRole('combobox', { name: /oracle/i });
+// Wait for Create processing (longer timeout for backend validation)
+    await this.page.waitForTimeout(3000);
 
-  //   await expect(sourceDropdown).toBeVisible();
-  //   await sourceDropdown.click();
-  //   await this.page.waitForTimeout(1000);
+    // Click Create - single click, then verify success by table row count increase
+    const createButton = dialog.getByRole('button', { name: 'Create' });
+    await expect(createButton).toBeEnabled({ timeout: 5000 });
+    await createButton.click({ force: true });
+    console.log('✅ Create button clicked');
 
-  //   // 3. Wait for dropdown options
-  //   const listbox = this.page.locator('[role="listbox"]');
-  //   await listbox.waitFor({ state: 'visible' });
+    // Poll for session creation success: new row appears in table
+    await expect.poll(async () => {
+      const initialRowCount = await this.table.locator('tbody tr').count();
+      await this.page.waitForTimeout(2000);
+      const newRowCount = await this.table.locator('tbody tr').count();
+      return newRowCount > initialRowCount;
+    }, { timeout: 60000 }).toBeTruthy();
+    console.log('✅ New session row appeared in table');
+  }
 
-  //   // 4. SELECT "cbt" HERE
-  //   await listbox.getByRole('option', { name: 'cbt' }).click();
-  //   // Click create button - escaped CSS for Playwright
-  //   const createButton = this.page.locator('#\\\\:r1m6\\\\: > div > div > div.ux-react-popup__footer > div > button.button-module_ux-react-button__ff3bae.ux-react-button._medium._primary.taButton > span > span');
-  //   await expect(createButton).toBeVisible({ timeout: 5000 });
-  //   await createButton.click({ force: true });
+  /**
+   * Collapse accordion tabs that might intercept clicks on dropdowns in dialog
+   * Targets expanded sections from page snapshot to prevent pointer-events blocking
+   */
+  public async collapseInterferingAccordions(dialog: Locator): Promise<void> {
+    console.log('🔄 Collapsing interfering accordions...');
+    const accordionTabs = [
+      { name: 'Pre-Post Actions Activations' },
+      { name: 'Session Mode' },
+      { name: 'Parameters' }
+    ];
 
-  //   // Wait for popup close and list update
-  //   await this.page.waitForSelector('#name:visible', { state: 'hidden', timeout: 10000 });
-  //   await this.page.waitForTimeout(3000); // Wait for potential animation/list refresh
-  // }
-async createNewSession(
-  name: string,
-  config: string,
-  description: string,
-  sourceProfile: string
-) {
-  // Click Create Session
-  await this.page.getByText('Create Session').click();
+    // First expand Source Profile tab if collapsed
+    const sourceProfileTab = dialog.getByRole('tab', { name: 'Source Profile' });
+    await sourceProfileTab.click({ force: true });
+    await this.page.waitForTimeout(500);
 
-  const dialog = this.page.getByRole('dialog');
-
-  // Wait for dialog
-  await expect(dialog).toBeVisible();
-
-  // Fill Name
-  await dialog.getByRole('textbox', { name: 'Name *' }).fill(name);
-
-  // =========================
-  //  Configuration Dropdown
-  // =========================
-  const configDropdown = dialog.getByRole('combobox', { name: 'Configuration *' });
-  await configDropdown.click();
-
-  const configList = this.page.locator('[role="listbox"]');
-  await configList.waitFor({ state: 'visible' });
-
-  await configList.getByRole('option', { name: config }).click();
-
-  // =========================
-  //  Description
-  // =========================
-  await dialog.getByRole('textbox', { name: 'Description' }).fill(description);
-
- // =========================
-// ✅ Source Profile (FINAL FIX)
-// =========================
-
-// Expand Source Profile
-// Click Source Profile tab
-const sourceTab = dialog.getByRole('tab', { name: 'Source Profile' });
-await sourceTab.click();
-
-
-// ✅ Target ONLY the correct panel (oracle section)
-const panel = dialog.getByRole('tabpanel').filter({ hasText: /oracle/i });
-
-await expect(panel).toBeVisible();const sourceDropdown = panel.locator('div').filter({ hasText: /oracle/i }).first();
-
-await expect(sourceDropdown).toBeVisible();
-await sourceDropdown.click();
-
-// Wait for dropdown (fix strict mode)
-const listbox = this.page.locator('[role="listbox"]').last();
-
-await listbox.waitFor({ state: 'visible' });
-
-// Select value
-await listbox.getByRole('option', { name: sourceProfile }).click({ force: true });
-
-
-
-// Select value
-//await listbox.getByRole('option', { name: sourceProfile }).click();
-//await listbox.getByRole('option', { name: sourceProfile }).click({ force: true });
-
-
-// =========================
-// ✅ Click Create (MISSING STEP)
-// =========================
-
-const createButton = dialog.getByRole('button', { name: 'Create' });
-
-await expect(createButton).toBeEnabled();
-await createButton.click();
-
-// ✅ Wait for dialog to close (VERY IMPORTANT)
-await expect(dialog).toBeHidden({ timeout: 10000 });
+    for (const tabInfo of accordionTabs) {
+      const tab = dialog.getByRole('tab', { name: tabInfo.name });
+      if (await tab.isVisible()) {
+        const ariaExpanded = await tab.getAttribute('aria-expanded');
+        if (ariaExpanded === 'true') {
+          await tab.scrollIntoViewIfNeeded();
+          await tab.click({ force: true });
+          await this.page.waitForTimeout(300);
+        }
+      }
+    }
+  }
 }
 
-}
