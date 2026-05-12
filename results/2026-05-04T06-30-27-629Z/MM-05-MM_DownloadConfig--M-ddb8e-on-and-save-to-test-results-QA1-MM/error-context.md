@@ -1,0 +1,315 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e5]:
+    - generic [ref=e7]:
+      - img [ref=e9]
+      - generic [ref=e11]: MIGRATION HUB
+      - tablist [ref=e13]:
+        - generic [ref=e15]:
+          - tab [selected] [ref=e16]: Sessions
+          - tab [ref=e17] [cursor=pointer]: Configurations
+          - tab [ref=e18] [cursor=pointer]: Source Profiles
+          - tab [ref=e19] [cursor=pointer]: Monitoring
+      - generic [ref=e20]:
+        - img [ref=e25] [cursor=pointer]
+        - button [ref=e28] [cursor=pointer]:
+          - generic [ref=e30]: C
+    - generic [ref=e34]:
+      - generic [ref=e35]:
+        - generic [ref=e41]:
+          - textbox [ref=e42]:
+            - /placeholder: Search
+          - generic [ref=e43]:
+            - img:
+              - img
+        - generic [ref=e44]:
+          - button [ref=e45] [cursor=pointer]:
+            - generic [ref=e46]:
+              - img [ref=e48]
+              - generic [ref=e50]: Create Session
+          - button [ref=e51] [cursor=pointer]:
+            - img [ref=e54]
+          - button [expanded] [ref=e57] [cursor=pointer]:
+            - img [ref=e60]
+      - table [ref=e64]:
+        - row [ref=e66]:
+          - gridcell [ref=e68] [cursor=pointer]:
+            - generic [ref=e69]: Session Name
+          - gridcell [ref=e72] [cursor=pointer]:
+            - generic [ref=e73]: Configuration
+          - gridcell [ref=e76] [cursor=pointer]:
+            - generic [ref=e77]: Configuration Version
+          - gridcell [ref=e80] [cursor=pointer]:
+            - generic [ref=e81]: Status
+          - gridcell [ref=e84] [cursor=pointer]:
+            - generic [ref=e85]: Start Time
+          - gridcell [ref=e88] [cursor=pointer]:
+            - generic [ref=e89]: End Time
+          - gridcell [ref=e92]:
+            - generic [ref=e93]: Execution Time
+          - gridcell [ref=e96] [cursor=pointer]:
+            - generic [ref=e97]: Created When
+            - img [ref=e100]
+          - gridcell [ref=e104]:
+            - generic [ref=e105]: Description
+        - row [ref=e109]:
+          - gridcell [ref=e111]:
+            - link [ref=e112] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=cebcbf00-2e78-4c67-b7d4-d573da01767d
+              - generic [ref=e113]: 20260504_2
+          - gridcell [ref=e116]: nrm-drop1-d2c-21004
+          - gridcell [ref=e119]: 1.0.0-1777875420
+          - gridcell [ref=e122]:
+            - generic [ref=e125]: Completed
+          - gridcell [ref=e128]:
+            - generic [ref=e129]: 2026-05-04 11:53
+          - gridcell [ref=e132]:
+            - generic [ref=e133]: 2026-05-04 11:56
+          - gridcell [ref=e136]:
+            - generic [ref=e137]: 3 minutes
+          - gridcell [ref=e140]:
+            - generic [ref=e141]: 2026-05-04 11:47
+          - gridcell [ref=e144]
+        - row [ref=e148]:
+          - gridcell [ref=e150]:
+            - link [ref=e151] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=5943eb45-8862-4c62-89a9-41d5484d153b
+              - generic [ref=e152]: Oleg test
+          - gridcell [ref=e155]: nrm-drop1-d2c-21004
+          - gridcell [ref=e158]: 1.0.0-1777873627
+          - gridcell [ref=e161]:
+            - generic [ref=e164]: Completed
+          - gridcell [ref=e167]:
+            - generic [ref=e168]: 2026-05-04 11:41
+          - gridcell [ref=e171]:
+            - generic [ref=e172]: 2026-05-04 11:45
+          - gridcell [ref=e175]:
+            - generic [ref=e176]: 3 minutes
+          - gridcell [ref=e179]:
+            - generic [ref=e180]: 2026-05-04 11:41
+          - gridcell [ref=e183]
+        - row [ref=e187]:
+          - gridcell [ref=e189]:
+            - link [ref=e190] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=d3b55b3e-e61a-44cd-9994-46d825fb5b7f
+              - generic [ref=e191]: 20260504_1
+          - gridcell [ref=e194]: nrm-drop1-d2c-21004
+          - gridcell [ref=e197]: 1.0.0-1777873627
+          - gridcell [ref=e200]:
+            - generic [ref=e203]: Completed
+          - gridcell [ref=e206]:
+            - generic [ref=e207]: 2026-05-04 11:18
+          - gridcell [ref=e210]:
+            - generic [ref=e211]: 2026-05-04 11:21
+          - gridcell [ref=e214]:
+            - generic [ref=e215]: 2 minutes
+          - gridcell [ref=e218]:
+            - generic [ref=e219]: 2026-05-04 11:18
+          - gridcell [ref=e222]
+        - row [ref=e226]:
+          - gridcell [ref=e228]:
+            - link [ref=e229] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=ada07b63-c20f-447e-9d10-fcea161809e1
+              - generic [ref=e230]: swathi_may4thSanity
+          - gridcell [ref=e233]: oss-lm-migration-21011-May4thSanity
+          - gridcell [ref=e236]: 1.0.1-1777863785
+          - gridcell [ref=e239]:
+            - generic [ref=e242]: Completed
+          - gridcell [ref=e245]:
+            - generic [ref=e246]: 2026-05-04 08:35
+          - gridcell [ref=e249]:
+            - generic [ref=e250]: 2026-05-04 08:39
+          - gridcell [ref=e253]:
+            - generic [ref=e254]: 3 minutes
+          - gridcell [ref=e257]:
+            - generic [ref=e258]: 2026-05-04 08:35
+          - gridcell [ref=e261]
+        - row [ref=e265]:
+          - gridcell [ref=e267]:
+            - link [ref=e268] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=c1acb6f1-a25d-4709-9ad8-22ae900c0762
+              - generic [ref=e269]: swathi_May1stsession
+          - gridcell [ref=e272]: oss-lm-migration-21010-May1stSanity
+          - gridcell [ref=e275]: 1.0.1-1777608155
+          - gridcell [ref=e278]:
+            - generic [ref=e281]: Failed
+          - gridcell [ref=e284]:
+            - generic [ref=e285]: 2026-05-01 11:52
+          - gridcell [ref=e288]:
+            - generic [ref=e289]: 2026-05-01 11:53
+          - gridcell [ref=e292]:
+            - generic [ref=e293]: 0 minutes
+          - gridcell [ref=e296]:
+            - generic [ref=e297]: 2026-05-01 11:52
+          - gridcell [ref=e300]
+        - row [ref=e304]:
+          - gridcell [ref=e306]:
+            - link [ref=e307] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=dbf6c9d1-abea-4779-958b-d973d12b5812
+              - generic [ref=e308]: swathi_May1stSanity
+          - gridcell [ref=e311]: oss-lm-migration-21010-May1stSanity
+          - gridcell [ref=e314]: 1.0.1-1777608155
+          - gridcell [ref=e317]:
+            - generic [ref=e320]: Failed
+          - gridcell [ref=e323]:
+            - generic [ref=e324]: 2026-05-01 09:33
+          - gridcell [ref=e327]:
+            - generic [ref=e328]: 2026-05-01 09:33
+          - gridcell [ref=e331]:
+            - generic [ref=e332]: 0 minutes
+          - gridcell [ref=e335]:
+            - generic [ref=e336]: 2026-05-01 09:33
+          - gridcell [ref=e339]
+        - row [ref=e343]:
+          - gridcell [ref=e345]:
+            - link [ref=e346] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=854c4998-14b1-4458-88e9-eb037212ddf2
+              - generic [ref=e347]: OU-Test-043026-#2
+          - gridcell [ref=e350]: OU-network-element-exercise-300426
+          - gridcell [ref=e353]: 1.0.1-1777552844
+          - gridcell [ref=e356]:
+            - generic [ref=e359]: Completed
+          - gridcell [ref=e362]:
+            - generic [ref=e363]: 2026-04-30 18:13
+          - gridcell [ref=e366]:
+            - generic [ref=e367]: 2026-04-30 18:14
+          - gridcell [ref=e370]:
+            - generic [ref=e371]: 0 minutes
+          - gridcell [ref=e374]:
+            - generic [ref=e375]: 2026-04-30 18:13
+          - gridcell [ref=e378]
+        - row [ref=e382]:
+          - gridcell [ref=e384]:
+            - link [ref=e385] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=dd3af0dc-2848-4090-84ee-e07ccec80bd3
+              - generic [ref=e386]: OU-Test-043026-#1
+          - gridcell [ref=e389]: OU-network-element-exercise-300426
+          - gridcell [ref=e392]: 1.0.1-1777551363
+          - gridcell [ref=e395]:
+            - generic [ref=e398]: Failed
+          - gridcell [ref=e401]:
+            - generic [ref=e402]: 2026-04-30 17:51
+          - gridcell [ref=e405]:
+            - generic [ref=e406]: 2026-04-30 17:52
+          - gridcell [ref=e409]:
+            - generic [ref=e410]: 0 minutes
+          - gridcell [ref=e413]:
+            - generic [ref=e414]: 2026-04-30 17:51
+          - gridcell [ref=e417]
+        - row [ref=e421]:
+          - gridcell [ref=e423]:
+            - link [ref=e424] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=06bc0972-bd63-4186-941b-4456b42dfc26
+              - generic [ref=e425]: Test Lm
+          - gridcell [ref=e428]: oss-lm-migration-21007-30thSanity
+          - gridcell [ref=e431]: 1.0.1-1777528878
+          - gridcell [ref=e434]:
+            - generic [ref=e437]: Completed
+          - gridcell [ref=e440]:
+            - generic [ref=e441]: 2026-04-30 15:33
+          - gridcell [ref=e444]:
+            - generic [ref=e445]: 2026-04-30 15:35
+          - gridcell [ref=e448]:
+            - generic [ref=e449]: 1 minutes
+          - gridcell [ref=e452]:
+            - generic [ref=e453]: 2026-04-30 15:33
+          - gridcell [ref=e456]
+        - row [ref=e460]:
+          - gridcell [ref=e462]:
+            - link [ref=e463] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=76390400-79b7-4243-8050-8c87e91b1241
+              - generic [ref=e464]: swathi_session retesr
+          - gridcell [ref=e467]: oss-lm-migration-21009-Mmsessionretest
+          - gridcell [ref=e470]: 1.0.1-1777537351
+          - gridcell [ref=e473]:
+            - generic [ref=e476]: Failed
+          - gridcell [ref=e479]:
+            - generic [ref=e480]: 2026-04-30 13:55
+          - gridcell [ref=e483]:
+            - generic [ref=e484]: 2026-04-30 13:57
+          - gridcell [ref=e487]:
+            - generic [ref=e488]: 2 minutes
+          - gridcell [ref=e491]:
+            - generic [ref=e492]: 2026-04-30 13:54
+          - gridcell [ref=e495]
+      - list [ref=e499]:
+        - listitem [ref=e500]: 32 items, 1-10 shown
+        - listitem [ref=e501] [cursor=pointer]:
+          - img [ref=e502]:
+            - img [ref=e503]
+        - listitem [ref=e505] [cursor=pointer]: "1"
+        - listitem [ref=e506] [cursor=pointer]: "2"
+        - listitem [ref=e507] [cursor=pointer]: "3"
+        - listitem [ref=e508] [cursor=pointer]: "4"
+        - listitem [ref=e509] [cursor=pointer]:
+          - img [ref=e510]:
+            - img [ref=e511]
+        - listitem [ref=e513]:
+          - generic [ref=e515] [cursor=pointer]:
+            - combobox [ref=e517]
+            - generic [ref=e518]: 10 per page
+  - dialog "Filters" [ref=e520]:
+    - generic [ref=e521]:
+      - generic [ref=e522]:
+        - generic [ref=e523]: Filters
+        - button [ref=e525] [cursor=pointer]:
+          - img [ref=e528]
+      - generic [ref=e531]:
+        - generic [ref=e532]:
+          - generic [ref=e533]:
+            - generic [ref=e534]:
+              - generic [ref=e537]:
+                - log [ref=e539]
+                - generic [ref=e540] [cursor=pointer]:
+                  - generic [ref=e541]:
+                    - generic [ref=e542]: Status
+                    - combobox
+                  - generic [ref=e544]:
+                    - img:
+                      - img
+              - generic [ref=e547]:
+                - log [ref=e549]
+                - generic [ref=e550] [cursor=pointer]:
+                  - generic [ref=e551]:
+                    - generic [ref=e552]: is
+                    - combobox
+                  - generic [ref=e554]:
+                    - img:
+                      - img
+              - generic [ref=e557]:
+                - log [ref=e559]: 4 results available.Use Up and Down to choose options, press Enter to select the currently focused option, press Escape to exit the menu.
+                - generic [ref=e560] [cursor=pointer]:
+                  - generic [ref=e561]:
+                    - generic [ref=e562]: Value
+                    - combobox [expanded] [active]
+                  - generic [ref=e564]:
+                    - img:
+                      - img
+            - button [ref=e565] [cursor=pointer]:
+              - img [ref=e568]
+          - generic [ref=e571]:
+            - button "Add Filter" [ref=e572] [cursor=pointer]:
+              - generic [ref=e573]:
+                - img [ref=e575]
+                - generic [ref=e577]: Add Filter
+            - button "Clear All" [ref=e578] [cursor=pointer]:
+              - generic [ref=e579]:
+                - img [ref=e581]
+                - generic [ref=e583]: Clear All
+        - generic [ref=e584]:
+          - button "Apply" [ref=e585] [cursor=pointer]:
+            - generic [ref=e587]: Apply
+          - button "Cancel" [ref=e588] [cursor=pointer]:
+            - generic [ref=e590]: Cancel
+  - listbox [ref=e593]:
+    - option "Not Started" [ref=e594] [cursor=pointer]:
+      - generic [ref=e595]: Not Started
+    - option "In Progress" [ref=e596] [cursor=pointer]:
+      - generic [ref=e597]: In Progress
+    - option "Failed" [ref=e598] [cursor=pointer]:
+      - generic [ref=e599]: Failed
+    - option "Completed" [ref=e600] [cursor=pointer]:
+      - generic [ref=e601]: Completed
+```

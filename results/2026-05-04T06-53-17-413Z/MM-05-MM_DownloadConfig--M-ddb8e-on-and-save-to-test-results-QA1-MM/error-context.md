@@ -1,0 +1,70 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e5]:
+    - generic [ref=e7]:
+      - img [ref=e9]
+      - generic [ref=e11]: MIGRATION HUB
+      - tablist [ref=e13]:
+        - generic [ref=e15]:
+          - tab "Sessions" [ref=e16] [cursor=pointer]
+          - tab "Configurations" [selected] [ref=e17]
+          - tab "Source Profiles" [ref=e18] [cursor=pointer]
+          - tab "Monitoring" [ref=e19] [cursor=pointer]
+      - generic [ref=e20]:
+        - img [ref=e25] [cursor=pointer]
+        - button "C" [ref=e28] [cursor=pointer]:
+          - generic [ref=e30]: C
+    - generic [ref=e33]:
+      - generic [ref=e36]:
+        - link "Configurations" [ref=e37] [cursor=pointer]:
+          - /url: /fragment/migration-ui/configurations
+          - img [ref=e38]
+        - generic [ref=e41]:
+          - generic [ref=e42]: nrm-drop1-d2c-21004
+          - generic [ref=e43]: Mirgation Configuration
+        - generic [ref=e46]:
+          - generic [ref=e48]: Status
+          - generic "green" [ref=e52]:
+            - generic [ref=e53]: Active
+        - generic [ref=e56]:
+          - button "Deactivate" [ref=e57] [cursor=pointer]:
+            - generic [ref=e58]:
+              - img [ref=e60]
+              - generic [ref=e63]: Deactivate
+          - button "Download" [active] [ref=e64] [cursor=pointer]:
+            - generic [ref=e65]:
+              - img [ref=e67]
+              - generic [ref=e69]: Download
+      - generic [ref=e71]:
+        - tablist [ref=e72]:
+          - generic [ref=e74]:
+            - tab "Details" [selected] [ref=e75] [cursor=pointer]
+            - tab "Descriptors" [ref=e76] [cursor=pointer]
+        - generic:
+          - generic:
+            - tabpanel
+      - generic [ref=e84]:
+        - button "General Info" [expanded] [ref=e85] [cursor=pointer]:
+          - img [ref=e87]:
+            - img [ref=e88]
+          - generic [ref=e90]: General Info
+        - generic [ref=e94]:
+          - generic [ref=e95]:
+            - generic [ref=e101]: Configuration ID
+            - generic [ref=e106]: nrm-drop1-d2c-21004
+          - generic [ref=e107]:
+            - generic [ref=e113]: Status
+            - generic "green" [ref=e117]:
+              - generic [ref=e118]: Active
+          - generic [ref=e119]:
+            - generic [ref=e125]: Configuration Version
+            - generic [ref=e130]: 1.0.0-1777875420
+          - generic [ref=e131]:
+            - generic [ref=e137]: Created When
+            - generic [ref=e139]: 2026-05-04 11:47
+          - generic [ref=e146]: Description
+  - link:
+    - /url: blob:https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/12db916b-7012-49f6-b0a6-6440609ae710
+```

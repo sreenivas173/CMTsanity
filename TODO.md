@@ -1,32 +1,6 @@
-# Playwright Test Fix Tracker: 06-MM_SessionCreate.spec.ts
+# Project TODO
 
-## Current Status
-**Target:** Fix QA1_MM failure - "Unable to select the SourceProfile from dropdown select 'cbt'"
+- [ ] Fix Playwright/TypeScript syntax errors in `tests/MM/11-MM_Conf_delete-session-confg_UploadConf.spec.ts` so Playwright can run the test.
+- [ ] Re-run `npx playwright test tests/MM/11-MM_Conf_delete-session-confg_UploadConf.spec.ts --project=QA1_MM`.
+- [ ] Fix any remaining runtime/locator/assertion failures.
 
-## Step-by-Step Plan ✅ Approved
-
-### 1. Analyze & Update MM_SessionsPage.ts ✅ COMPLETED
-- Read current createNewSession method
-- Add accordion collapse before SourceProfile selection  
-- Implement SourceProfile combobox selection for 'cbt'
-- Remove skip logic, ensure Create button enables after selection
-- Add robust waits and error handling
-
-### 2. Test Execution ❌ FAILED - Source combobox locator issue detected
-```
-npx playwright test tests/MM/06-MM_SessionCreate.spec.ts --project=QA1_MM
-```
-
-### 3. Validation [PENDING]
-- ✅ Dialog closes successfully
-- ✅ Pagination count increases  
-- ✅ New session appears in table
-
-### 4. Final Verification [PENDING]
-```
-npx playwright show-report
-```
-
----
-
-**Next Action:** Applied more flexible combobox locator. Re-running test.

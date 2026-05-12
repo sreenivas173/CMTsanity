@@ -19,10 +19,8 @@ export default defineConfig({
   workers: 1,
 
   reporter: [
-    ['html', {
-      // Creates folders like: playwright-report/2024-03-20T10-30-00.000Z
-      outputFolder: `playwright-report/${new Date().toISOString().replace(/:/g, '-')}`
-    }]
+    ['html', { outputFolder: 'playwright-report', open: 'never' }],
+    ['json', { outputFile: 'report.json' }]
   ],
   use: {
     trace: 'on-first-retry',
@@ -38,19 +36,18 @@ export default defineConfig({
       },
     },
    
-   
-     {
+    {
        name: 'QA1_MM',
        use: {
          ...devices['Desktop Chrome'],
-         baseURL: 'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud//'
+         baseURL: 'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/'
        },
      }
     // { 
     //   name: 'QA3', 
     //   use: { ...devices['Desktop Chrome'],
-    //   baseURL: 'https://migration-design2code-ui-qa3.cloudmt.managed.netcracker.cloud/' },
-    //  },
+    //   baseURL: 'https://migration-design2code-ui-qa3.cloudmt.managed.netcracker.cloud/' },,
+    // },
 
     // {
     //   name: 'DEV1',
@@ -59,13 +56,5 @@ export default defineConfig({
     // },
 
   ],
-
-
-reporter: [
-  ['html', { outputFolder: 'playwright-report', open: 'never' }],
-  ['json', { outputFile: 'report.json' }]
-],
-
-
 
 });

@@ -8,10 +8,12 @@ export class MM_LoginPage {
   }
 
   async goto() {
-    await this.page.goto('/fragment/migration-ui');
+    await this.page.goto('https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/fragment/migration-ui');
+    await this.page.waitForLoadState('networkidle');
   }
 
   async fillEmail(email: string) {
+    await this.page.waitForSelector('#username', { timeout: 10000 });
     await this.page.fill('#username', email);
   }
 

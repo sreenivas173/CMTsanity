@@ -195,16 +195,6 @@ test.describe('MM Delete Not Active Configuration', () => {
     console.log(`✅ PASS: Successfully deleted Not Active config. Count reduced from ${initialCount} to ${afterCount}`);
   });
 
-  // ===== BEST PRACTICES & FUTURE IMPROVEMENTS =====
-  /*
-  TODO: [High] Parametrize test data (test.describe.each configs to delete)
-  TODO: [Med] Add video capture assertion for success toast
-  TODO: [Med] Extract confirmDelete XPath to MM_ConfigPage.deleteConfirmBtn
-  TODO: [Low] Assert specific error text beyond regex
-  TODO: [Low] Test multiple deletes if available (loop over rows)
-  NOTE: Current timeouts conservative for CI flakiness
-  
-  */
 });
 
 

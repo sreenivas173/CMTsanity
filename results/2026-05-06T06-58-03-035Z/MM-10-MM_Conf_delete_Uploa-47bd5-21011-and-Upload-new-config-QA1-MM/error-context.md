@@ -1,0 +1,78 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e5]:
+    - generic [ref=e7]:
+      - img [ref=e9]
+      - generic [ref=e11]: MIGRATION HUB
+      - tablist [ref=e13]:
+        - generic [ref=e15]:
+          - tab [ref=e16] [cursor=pointer]: Sessions
+          - tab [selected] [ref=e17]: Configurations
+          - tab [ref=e18] [cursor=pointer]: Source Profiles
+          - tab [ref=e19] [cursor=pointer]: Monitoring
+      - generic [ref=e20]:
+        - img [ref=e26] [cursor=pointer]
+        - button [ref=e29] [cursor=pointer]:
+          - generic [ref=e31]: C
+    - generic [ref=e34]:
+      - generic [ref=e37]:
+        - link [ref=e38] [cursor=pointer]:
+          - /url: /fragment/migration-ui/configurations
+          - img [ref=e39]
+        - generic [ref=e42]:
+          - generic [ref=e43]: oss-lm-migMaySr-21011
+          - generic [ref=e44]: Mirgation Configuration
+        - generic [ref=e47]:
+          - generic [ref=e49]: Status
+          - generic [ref=e54]: Not Active
+        - generic [ref=e57]:
+          - button [ref=e58] [cursor=pointer]:
+            - generic [ref=e59]:
+              - img [ref=e61]
+              - generic [ref=e64]: Activate
+          - button [ref=e65] [cursor=pointer]:
+            - generic [ref=e66]:
+              - img [ref=e68]
+              - generic [ref=e70]: Download
+          - button [ref=e71] [cursor=pointer]:
+            - generic [ref=e72]:
+              - img [ref=e74]
+              - generic [ref=e77]: Delete
+      - tablist [ref=e80]:
+        - generic [ref=e82]:
+          - tab [selected] [ref=e83] [cursor=pointer]: Details
+          - tab [ref=e84] [cursor=pointer]: Descriptors
+      - generic [ref=e92]:
+        - button [expanded] [ref=e93] [cursor=pointer]:
+          - img [ref=e95]:
+            - img [ref=e96]
+          - generic [ref=e98]: General Info
+        - generic [ref=e102]:
+          - generic [ref=e103]:
+            - generic [ref=e109]: Configuration ID
+            - generic [ref=e114]: oss-lm-migMaySr-21011
+          - generic [ref=e115]:
+            - generic [ref=e121]: Status
+            - generic [ref=e126]: Not Active
+          - generic [ref=e127]:
+            - generic [ref=e133]: Configuration Version
+            - generic [ref=e138]: 1.0.1-1777954716
+          - generic [ref=e139]:
+            - generic [ref=e145]: Created When
+            - generic [ref=e147]: 2026-05-05 09:49
+          - generic [ref=e154]: Description
+  - dialog [ref=e158]:
+    - generic [ref=e160]:
+      - generic [ref=e161]:
+        - generic [ref=e162]: Delete ‘oss-lm-migMaySr-21011’?
+        - button "Close" [ref=e164] [cursor=pointer]:
+          - img [ref=e167]
+      - generic [ref=e170]: Are you sure that you want to delete this Migration Configuration?
+      - generic [ref=e172]:
+        - button "Delete" [active] [ref=e173] [cursor=pointer]:
+          - generic [ref=e175]: Delete
+        - button "Cancel" [ref=e176] [cursor=pointer]:
+          - generic [ref=e178]: Cancel
+```

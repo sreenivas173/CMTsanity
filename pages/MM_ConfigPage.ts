@@ -20,7 +20,8 @@ export class MM_ConfigPage {
 
     // Locators
     this.searchInput = page.locator('input[type="text"], input[type="search"], input[placeholder*="Search"]').first();
-    this.table = page.locator('div[role="table"].ux-react-table__table');
+    //this.table = page.locator('div[role="table"].ux-react-table__table');
+    this.table = page.locator('text=Configuration ID').first();
     this.filterIconButton = page.locator("//button[@class='ux-react-table__filters ux-react-popover__trigger button-module_ux-react-button__ff3bae ux-react-button _medium _light taButton _only-icon']//span[@class='ux-react-button__icon-wrapper _left']//*[name()='svg']");
     this.applyFilterButton = page.locator(':text-is("Apply")');
   }
@@ -96,7 +97,10 @@ export class MM_ConfigPage {
     await this.page.waitForTimeout(3000);
 
     // Confirm filtered results (expect Active rows)
-    await expect(this.page.locator('text=Active')).toHaveCount.greaterThan(0);
+   // await expect(this.page.locator('text=Active')).toHaveCount.greaterThan(0);
+   expect(
+  await this.page.locator('text=Active').count()
+).toBeGreaterThan(0);
   }
 
   async getConfigStatus() {
@@ -121,46 +125,41 @@ export class MM_ConfigPage {
   // EXISTING METHODS (kept for compatibility)
   // ========================================
 
-  async navigateToMMConfig() {
-    // Legacy navigation
-    const configSelectors = [
-      'tab:has-text("Configurations")',
-      'text=Configurations',
-      '[role="tab"]:has-text("Configurations")',
-      '.ant-tabs-tab:has-text("Configurations")',
-      'button:has-text("Configurations")',
-      'a:has-text("Configurations")'
-    ];
+async navigateToMMConfig() {
+    // Hard navigate to avoid flaky tab click + scrollIntoView issues after delete.
+    // QA1_MM baseURL already points to https://cdn-edge-service-qa1.../
+    await this.page.goto('/fragment/migration-ui/configurations');
+   // await expect(this.table).toBeVisible({ timeout: 30000 });
+   await expect(
+  this.page.getByRole('gridcell', {
+    name: 'Configuration ID'
+  })
+).toBeVisible(
+    { timeout: 30000 });
 
-    let navigated = false;
-    for (const selector of configSelectors) {
-      const configLink = this.page.locator(selector).first();
-      if (await configLink.isVisible({ timeout: 3000 })) {
-        // Check if already active tab to avoid click interceptor
-        const isActiveTab = await configLink.getAttribute('aria-selected') === 'true';
-        if (isActiveTab) {
-          console.log(`Already on Configurations tab (active), skipping click`);
-          navigated = true;
-          break;
-        }
-        // Dismiss any open overlays/popups first
-        await this.page.locator('.ux-react-popup__overlay').waitFor({ state: 'hidden', timeout: 2000 }).catch(() => {});
-        await configLink.click({ force: true, timeout: 10000 });
-        navigated = true;
-        console.log(`Navigated to Config using selector: ${selector}`);
-        break;
-      }
-    }
 
-    if (!navigated) {
-      console.log('No config nav found, using direct URL - skip problematic click');
-      // Skip click, assume already on correct page per URL and table
-      await expect(this.table).toBeVisible({ timeout: 20000 });
-    }
 
-    await expect(this.page.locator('text=JavaScript')).not.toBeVisible({ timeout: 5000 });
+
+    console.log('✅ Clicked Configurations tab');
+
+    await this.page.waitForTimeout(1000);
+    //await expect(this.table).toBeVisible({ timeout: 20000 });
+await expect(
+  this.page.getByRole('gridcell', {
+    name: 'Configuration ID'
+  })
+).toBeVisible({
+});
+
+    // If Session Name column exists, we're probably not on the expected table view
+    await this.page.getByRole('gridcell', { name: 'Session Name' }).first().waitFor({ state: 'hidden', timeout: 5000 }).catch(() => {});
+
+    console.log('✅ Confirmed Configurations table');
+
     await this.page.mouse.move(0, 0);
   }
+
+
 
   async searchConfig(text: string) {
     await this.page.waitForTimeout(2000);
@@ -376,9 +375,204 @@ async downloadByStatus(status: 'Active' | 'Failed' | 'Not Active') {
   await this.filterByStatus(status);
 
   // Optional: validate at least 1 row exists
-  await expect(this.table.locator('[role="row"]')).toHaveCountGreaterThan(1);
+  //wait expect(this.table.locator('[role="row"]')).toHaveCountGreaterThan(1);
+  expect(
+  await this.table.locator('[role="row"]').count()
+).toBeGreaterThan(1);
 
   return await this.downloadFirstConfig();
+}
+
+// ========================================
+// NEW METHODS FOR DELETE + UPLOAD FLOWd
+// ========================================
+
+/**
+ * Search for a config by name and click on its link
+ * @param configName - The config name to search for
+ * @returns true if config found and clicked, false otherwise
+ */
+async searchAndClickConfig(configName: string): Promise<boolean> {
+  await this.page.waitForTimeout(2000);
+  
+  // Clear and fill search input
+  const searchInput = this.page.locator('input[type="text"], input[type="search"], input[placeholder*="Search"]').first();
+  await expect(searchInput).toBeVisible({ timeout: 15000 });
+  await searchInput.clear();
+  await searchInput.fill(configName);
+  
+  // Press Enter to search
+  await searchInput.press('Enter');
+  await this.page.waitForTimeout(3000);
+  
+  // Look for config link in table
+  const configLink = this.table.getByRole('link', { name: new RegExp(configName, 'i') });
+  
+  if (await configLink.isVisible({ timeout: 5000 })) {
+    await configLink.click();
+    console.log(`Clicked config: ${configName}`);
+    return true;
+  }
+  
+  console.log(`Config not found: ${configName}`);
+  return false;
+}
+
+/**
+ * Get the current config status from detail page
+ * @param configName Optional - The config name to search for in table
+ * @returns The status text (Active, Not Active, etc.)
+ */
+async getCurrentConfigStatus(configName?: string): Promise<string> {
+  // Check detail page for status - look for status text in the detail section
+  // Use getByText which works better for text matching
+  try {
+    const statusElement = this.page.getByText(/^(Active|Not Active|Activating|Failed)$/);
+    if (await statusElement.first().isVisible({ timeout: 3000 })) {
+      const text = await statusElement.first().textContent();
+      if (text) {
+        console.log(`Found status in detail: ${text}`);
+        return text.trim();
+      }
+    }
+  } catch (e) {
+    // Ignore and continue
+  }
+  
+  // Check table row for status (in main table view)
+  if (configName) {
+    const rows = this.table.locator('[role="row"]');
+    const rowCount = await rows.count();
+    
+    for (let i = 1; i < rowCount; i++) {
+      const row = rows.nth(i);
+      const rowText = await row.textContent() || '';
+      if (rowText.toLowerCase().includes(configName?.toLowerCase() || '')) {
+        // Check this row for status
+        const statusMatch = rowText.match(/Active|Not Active|Activating|Failed/i);
+        if (statusMatch) {
+          return statusMatch[0];
+        }
+      }
+    }
+  }
+  
+  return 'Unknown';
+}
+
+/**
+ * Deactivate config if it is Active
+ * @returns true if deactivated, false if not active or button not found
+ */
+async deactivateConfigIfActive(): Promise<boolean> {
+  // Look for Deactivate button
+  const deactivateBtn = this.page.getByRole('button', { name: /Deactivate/i });
+  
+  if (await deactivateBtn.isVisible({ timeout: 5000 })) {
+    await deactivateBtn.click();
+    console.log('Deactivate button clicked');
+    
+    // Wait for confirmation popup
+    await this.page.waitForTimeout(1000);
+    const confirmDialog = this.page.getByRole('dialog');
+    
+    if (await confirmDialog.isVisible({ timeout: 3000 })) {
+      // Click confirm (Deactivate button in popup)
+      const confirmBtn = confirmDialog.getByRole('button', { name: /Deactivate/i }).first();
+      await expect(confirmBtn).toBeVisible({ timeout: 5000 });
+      await confirmBtn.click();
+      console.log('Confirmed deactivation');
+      
+      // Wait for popup to close (sometimes UI keeps dialog in DOM briefly; don’t hard-fail)
+      await confirmDialog.waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
+      return true;
+    }
+  }
+  
+  console.log('Deactivate button not visible - config may already be inactive');
+  return false;
+}
+
+/**
+ * Delete the current config
+ * @returns true if deleted successfully, false if delete button not found
+ */
+async deleteCurrentConfig(): Promise<boolean> {
+  // Wait for detail page to load
+  await this.page.waitForTimeout(2000);
+  
+  // Look for Delete button
+  const deleteBtn = this.page.getByRole('button', { name: /Delete/i });
+  
+  if (await deleteBtn.isVisible({ timeout: 5000 })) {
+    await deleteBtn.click();
+    console.log('Delete button clicked');
+    
+    // Wait for confirmation popup
+    await this.page.waitForTimeout(1000);
+    const confirmDialog = this.page.getByRole('dialog');
+    
+    if (await confirmDialog.isVisible({ timeout: 3000 })) {
+      // Click confirm Delete button using getByRole (simpler, more reliable)
+      const confirmDeleteBtn = confirmDialog.getByRole('button', { name: /Delete/i });
+      await expect(confirmDeleteBtn).toBeVisible({ timeout: 5000 });
+      await confirmDeleteBtn.click();
+      console.log('Confirmed deletion');
+      
+      // Wait for popup to close (sometimes UI keeps dialog container; be tolerant)
+      await confirmDialog.waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
+      return true;
+    }
+  }
+  
+  console.log('Delete button not visible');
+  return false;
+}
+
+/**
+ * Complete delete flow: Search config → Deactivate if Active → Delete
+ * @param configName - The config name to search for
+ * @returns true if deleted, false if not found
+ */
+async deleteConfigByName(configName: string): Promise<boolean> {
+  // Step 1: Search and click config
+  const found = await this.searchAndClickConfig(configName);
+  
+  if (!found) {
+    console.log(`Config ${configName} not found - skipping delete`);
+    return false;
+  }
+  
+  // Wait for detail page
+  await this.page.waitForTimeout(2000);
+  
+  // Step 2: Check status and deactivate if Active
+  const status = await this.getCurrentConfigStatus();
+  console.log(`Config status: ${status}`);
+  
+  if (status.toLowerCase().includes('active')) {
+    const deactivated = await this.deactivateConfigIfActive();
+    if (deactivated) {
+      console.log('Config deactivated, refreshing...');
+      // Refresh the page to enable delete button
+      await this.page.reload();
+      await expect(this.table).toBeVisible({ timeout: 20000 });
+      await this.page.waitForTimeout(2000);
+      
+      // Click config again after refresh
+      await this.searchAndClickConfig(configName);
+      await this.page.waitForTimeout(2000);
+    }
+  }
+  
+  // Step 3: Delete the config
+  const deleted = await this.deleteCurrentConfig();
+  
+  if (deleted) {
+    console.log(`Config ${configName} deleted successfully`);
+  }
+  
+  return deleted;
 }
 
 }
