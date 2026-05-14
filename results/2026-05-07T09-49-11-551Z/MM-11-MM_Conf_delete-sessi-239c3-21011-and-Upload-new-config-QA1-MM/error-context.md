@@ -1,0 +1,121 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e5]:
+    - generic [ref=e7]:
+      - img [ref=e9]
+      - generic [ref=e11]: MIGRATION HUB
+      - tablist [ref=e13]:
+        - generic [ref=e15]:
+          - tab [selected] [ref=e16]: Sessions
+          - tab [ref=e17] [cursor=pointer]: Configurations
+          - tab [ref=e18] [cursor=pointer]: Source Profiles
+          - tab [ref=e19] [cursor=pointer]: Monitoring
+      - generic [ref=e20]:
+        - img [ref=e25] [cursor=pointer]
+        - button [ref=e28] [cursor=pointer]:
+          - generic [ref=e30]: C
+    - generic [ref=e34]:
+      - generic [ref=e35]:
+        - generic [ref=e41]:
+          - textbox [ref=e42]:
+            - /placeholder: Search
+            - text: 1.0.1-1777625561
+          - button [ref=e44] [cursor=pointer]
+        - generic [ref=e45]:
+          - button [ref=e46] [cursor=pointer]:
+            - generic [ref=e47]:
+              - img [ref=e49]
+              - generic [ref=e51]: Create Session
+          - button [ref=e52] [cursor=pointer]:
+            - img [ref=e55]
+          - button [expanded] [ref=e58] [cursor=pointer]:
+            - img [ref=e61]
+      - table [ref=e65]:
+        - row [ref=e67]:
+          - gridcell [ref=e69] [cursor=pointer]:
+            - generic [ref=e70]: Session Name
+          - gridcell [ref=e73] [cursor=pointer]:
+            - generic [ref=e74]: Configuration
+          - gridcell [ref=e77] [cursor=pointer]:
+            - generic [ref=e78]: Configuration Version
+          - gridcell [ref=e81] [cursor=pointer]:
+            - generic [ref=e82]: Status
+          - gridcell [ref=e85] [cursor=pointer]:
+            - generic [ref=e86]: Start Time
+          - gridcell [ref=e89] [cursor=pointer]:
+            - generic [ref=e90]: End Time
+          - gridcell [ref=e93]:
+            - generic [ref=e94]: Execution Time
+          - gridcell [ref=e97] [cursor=pointer]:
+            - generic [ref=e98]: Created When
+            - img [ref=e101]
+          - gridcell [ref=e105]:
+            - generic [ref=e106]: Description
+        - generic [ref=e109]:
+          - img [ref=e110]
+          - text: No data to display
+  - dialog "Filters" [ref=e113]:
+    - generic [ref=e114]:
+      - generic [ref=e115]:
+        - generic [ref=e116]: Filters
+        - button [ref=e118] [cursor=pointer]:
+          - img [ref=e121]
+      - generic [ref=e124]:
+        - generic [ref=e125]:
+          - generic [ref=e126]:
+            - generic [ref=e127]:
+              - generic [ref=e130]:
+                - log [ref=e132]
+                - generic [ref=e133] [cursor=pointer]:
+                  - generic [ref=e134]:
+                    - generic [ref=e135]: Status
+                    - combobox
+                  - generic [ref=e137]:
+                    - img:
+                      - img
+              - generic [ref=e140]:
+                - log [ref=e142]
+                - generic [ref=e143] [cursor=pointer]:
+                  - generic [ref=e144]:
+                    - generic [ref=e145]: is
+                    - combobox
+                  - generic [ref=e147]:
+                    - img:
+                      - img
+              - generic [ref=e150]:
+                - log [ref=e152]: 4 results available.Use Up and Down to choose options, press Enter to select the currently focused option, press Escape to exit the menu.
+                - generic [ref=e153] [cursor=pointer]:
+                  - generic [ref=e154]:
+                    - generic [ref=e155]: Value
+                    - combobox [expanded] [active]
+                  - generic [ref=e157]:
+                    - img:
+                      - img
+            - button [ref=e158] [cursor=pointer]:
+              - img [ref=e161]
+          - generic [ref=e164]:
+            - button "Add Filter" [ref=e165] [cursor=pointer]:
+              - generic [ref=e166]:
+                - img [ref=e168]
+                - generic [ref=e170]: Add Filter
+            - button "Clear All" [ref=e171] [cursor=pointer]:
+              - generic [ref=e172]:
+                - img [ref=e174]
+                - generic [ref=e176]: Clear All
+        - generic [ref=e177]:
+          - button "Apply" [ref=e178] [cursor=pointer]:
+            - generic [ref=e180]: Apply
+          - button "Cancel" [ref=e181] [cursor=pointer]:
+            - generic [ref=e183]: Cancel
+  - listbox [ref=e186]:
+    - option "Not Started" [ref=e187] [cursor=pointer]:
+      - generic [ref=e188]: Not Started
+    - option "In Progress" [ref=e189] [cursor=pointer]:
+      - generic [ref=e190]: In Progress
+    - option "Failed" [ref=e191] [cursor=pointer]:
+      - generic [ref=e192]: Failed
+    - option "Completed" [ref=e193] [cursor=pointer]:
+      - generic [ref=e194]: Completed
+```

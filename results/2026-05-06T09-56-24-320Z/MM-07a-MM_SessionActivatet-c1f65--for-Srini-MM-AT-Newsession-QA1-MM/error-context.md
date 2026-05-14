@@ -1,0 +1,185 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e5]:
+  - generic [ref=e7]:
+    - img [ref=e9]
+    - generic [ref=e11]: MIGRATION HUB
+    - tablist [ref=e13]:
+      - generic [ref=e15]:
+        - tab "Sessions" [selected] [ref=e16]
+        - tab "Configurations" [ref=e17] [cursor=pointer]
+        - tab "Source Profiles" [ref=e18] [cursor=pointer]
+        - tab "Monitoring" [ref=e19] [cursor=pointer]
+    - generic [ref=e20]:
+      - img [ref=e25] [cursor=pointer]
+      - button "C" [ref=e28] [cursor=pointer]:
+        - generic [ref=e30]: C
+  - generic [ref=e33]:
+    - generic [ref=e36]:
+      - link "Sessions" [ref=e37] [cursor=pointer]:
+        - /url: /fragment/migration-ui/sessions
+        - img [ref=e38]
+      - generic [ref=e41]:
+        - generic [ref=e42]: Srini_MM_AT_Newsession_2026-05-06_09-04-51
+        - generic [ref=e43]: Session
+      - generic [ref=e45]:
+        - generic [ref=e46]:
+          - generic [ref=e48]: Status
+          - generic "blue" [ref=e52]:
+            - generic [ref=e53]: In Progress
+        - generic [ref=e54]:
+          - generic [ref=e56]: Configuration
+          - generic [ref=e58]: oss-lm-migMaySr-21011
+        - generic [ref=e59]:
+          - generic [ref=e61] [cursor=pointer]: Configuration Version
+          - generic [ref=e63]: 1.0.1-1777625561
+        - generic [ref=e64]:
+          - generic [ref=e66] [cursor=pointer]: Session Mode
+          - generic [ref=e68]: all
+        - generic [ref=e69]:
+          - generic [ref=e71]: Start Time
+          - generic [ref=e73]: 2026-05-06 15:26
+        - generic [ref=e74]:
+          - generic [ref=e76] [cursor=pointer]: Execution Time
+          - generic [ref=e78]: 0 minutes
+      - generic [ref=e81]:
+        - button "Open Workflow" [ref=e82] [cursor=pointer]:
+          - generic [ref=e83]:
+            - img [ref=e85]
+            - generic [ref=e87]: Open Workflow
+        - button [ref=e88] [cursor=pointer]:
+          - img [ref=e91]
+    - generic [ref=e94]:
+      - tablist [ref=e95]:
+        - generic [ref=e97]:
+          - tab "Details" [ref=e98] [cursor=pointer]
+          - tab "Summary" [selected] [ref=e99] [cursor=pointer]
+          - tab "Extracted Data" [ref=e100] [cursor=pointer]
+          - tab "Transformed Data" [ref=e101] [cursor=pointer]
+          - tab "Fallouts" [ref=e102] [cursor=pointer]
+          - tab "Logs" [ref=e103] [cursor=pointer]
+      - generic:
+        - generic:
+          - tabpanel
+    - generic [ref=e108]:
+      - generic [ref=e112]:
+        - generic [ref=e115]:
+          - generic [ref=e116]: Total
+          - generic [ref=e118]: "0"
+        - generic [ref=e121]:
+          - generic [ref=e122]: Migrated
+          - generic [ref=e123]:
+            - img [ref=e124]
+            - generic [ref=e126]: "0"
+        - generic [ref=e129]:
+          - generic [ref=e130]: Migrated without Minors
+          - generic [ref=e131]:
+            - img [ref=e132]
+            - generic [ref=e134]: "0"
+        - generic [ref=e137]:
+          - generic [ref=e138]: Migrated with Minors
+          - generic [ref=e139]:
+            - img [ref=e140]
+            - generic [ref=e142]: "0"
+        - generic [ref=e145]:
+          - generic [ref=e146]: Remaining
+          - generic [ref=e147]:
+            - img [ref=e148]
+            - generic [ref=e150]: "0"
+        - generic [ref=e153]:
+          - generic [ref=e154]: Failed
+          - generic [ref=e155]:
+            - img [ref=e156]
+            - generic [ref=e158]: "0"
+        - generic [ref=e161]:
+          - generic [ref=e162]: Quantity
+          - generic [ref=e164]: 0%
+        - generic [ref=e167]:
+          - generic [ref=e168]: Quality
+          - generic [ref=e170]: 0%
+      - generic [ref=e173]:
+        - log [ref=e175]
+        - generic [ref=e176] [cursor=pointer]:
+          - generic [ref=e177]:
+            - generic [ref=e178]: Summary Report by Migration Type
+            - combobox
+          - generic [ref=e180]:
+            - img:
+              - img
+      - generic [ref=e182]:
+        - generic [ref=e183]:
+          - generic [ref=e184]:
+            - generic [ref=e189]:
+              - textbox "Search" [ref=e190]
+              - generic [ref=e191]:
+                - img:
+                  - img
+            - generic [ref=e193]:
+              - generic [ref=e194] [cursor=pointer]:
+                - generic [ref=e195]:
+                  - radio "Value" [checked]
+                - generic [ref=e196]: Value
+              - generic [ref=e197] [cursor=pointer]:
+                - generic [ref=e198]:
+                  - radio "Percent"
+                - generic [ref=e199]: Percent
+          - generic [ref=e200]:
+            - button "Export to Excel" [ref=e201] [cursor=pointer]:
+              - generic [ref=e202]:
+                - img [ref=e204]
+                - generic [ref=e206]: Export to Excel
+            - button "Allows setting the automatic or manual loading" [ref=e207] [cursor=pointer]:
+              - generic [ref=e208]:
+                - img [ref=e210]
+                - img [ref=e213]
+            - button [ref=e215] [cursor=pointer]:
+              - img [ref=e218]
+            - button [ref=e221] [cursor=pointer]:
+              - img [ref=e224]
+        - table [ref=e227]:
+          - row "Migration Type Total Migrated Migrated without Minors Migrated with Minors Remaining Failed to Migrate Quantity, % Quality, % Batching Mode" [ref=e229]:
+            - gridcell "Migration Type" [ref=e231] [cursor=pointer]:
+              - generic [ref=e233]:
+                - text: Migration Type
+                - img [ref=e234]
+            - gridcell "Total" [ref=e239] [cursor=pointer]:
+              - generic [ref=e241]:
+                - text: Total
+                - img [ref=e242]
+            - gridcell "Migrated" [ref=e247] [cursor=pointer]:
+              - generic [ref=e249]:
+                - text: Migrated
+                - img [ref=e250]
+            - gridcell "Migrated without Minors" [ref=e255] [cursor=pointer]:
+              - generic [ref=e257]:
+                - text: Migrated without Minors
+                - img [ref=e258]
+            - gridcell "Migrated with Minors" [ref=e263] [cursor=pointer]:
+              - generic [ref=e265]:
+                - text: Migrated with Minors
+                - img [ref=e266]
+            - gridcell "Remaining" [ref=e271] [cursor=pointer]:
+              - generic [ref=e273]:
+                - text: Remaining
+                - img [ref=e274]
+            - gridcell "Failed to Migrate" [ref=e279] [cursor=pointer]:
+              - generic [ref=e281]:
+                - text: Failed to Migrate
+                - img [ref=e282]
+            - gridcell "Quantity, %" [ref=e287] [cursor=pointer]:
+              - generic [ref=e289]:
+                - text: Quantity, %
+                - img [ref=e290]
+            - gridcell "Quality, %" [ref=e295] [cursor=pointer]:
+              - generic [ref=e297]:
+                - text: Quality, %
+                - img [ref=e298]
+            - gridcell "Batching Mode" [ref=e303] [cursor=pointer]:
+              - generic [ref=e305]:
+                - text: Batching Mode
+                - img [ref=e306]
+          - generic [ref=e311]:
+            - img [ref=e312]
+            - text: No data to display
+```

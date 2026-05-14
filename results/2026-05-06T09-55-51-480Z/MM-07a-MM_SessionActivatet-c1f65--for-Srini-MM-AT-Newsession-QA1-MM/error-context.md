@@ -1,0 +1,134 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e5]:
+    - generic [ref=e7]:
+      - img [ref=e9]
+      - generic [ref=e11]: MIGRATION HUB
+      - tablist [ref=e13]:
+        - generic [ref=e15]:
+          - tab "Sessions" [selected] [ref=e16]
+          - tab "Configurations" [ref=e17] [cursor=pointer]
+          - tab "Source Profiles" [ref=e18] [cursor=pointer]
+          - tab "Monitoring" [ref=e19] [cursor=pointer]
+      - generic [ref=e20]:
+        - img [ref=e26] [cursor=pointer]
+        - button "C" [ref=e29] [cursor=pointer]:
+          - generic [ref=e31]: C
+    - generic [ref=e34]:
+      - generic [ref=e37]:
+        - link "Sessions" [ref=e38] [cursor=pointer]:
+          - /url: /fragment/migration-ui/sessions
+          - img [ref=e39]
+        - generic [ref=e42]:
+          - generic [ref=e43]: Srini_MM_AT_Newsession_2026-05-06_09-04-51
+          - generic [ref=e44]: Session
+        - generic [ref=e46]:
+          - generic [ref=e47]:
+            - generic [ref=e49]: Status
+            - generic "blue" [ref=e53]:
+              - generic [ref=e54]: In Progress
+          - generic [ref=e55]:
+            - generic [ref=e57]: Configuration
+            - generic [ref=e59]: oss-lm-migMaySr-21011
+          - generic [ref=e60]:
+            - generic [ref=e62] [cursor=pointer]: Configuration Version
+            - generic [ref=e64]: 1.0.1-1777625561
+          - generic [ref=e65]:
+            - generic [ref=e67] [cursor=pointer]: Session Mode
+            - generic [ref=e69]: all
+          - generic [ref=e70]:
+            - generic [ref=e72]: Start Time
+            - generic [ref=e74]: 2026-05-06 15:26
+          - generic [ref=e75]:
+            - generic [ref=e77] [cursor=pointer]: Execution Time
+            - generic [ref=e79]: 0 minutes
+        - generic [ref=e82]:
+          - button "Open Workflow" [ref=e83] [cursor=pointer]:
+            - generic [ref=e84]:
+              - img [ref=e86]
+              - generic [ref=e88]: Open Workflow
+          - button [ref=e89] [cursor=pointer]:
+            - img [ref=e92]
+      - generic [ref=e95]:
+        - tablist [ref=e96]:
+          - generic [ref=e98]:
+            - tab "Details" [selected] [ref=e99] [cursor=pointer]
+            - tab "Summary" [ref=e100] [cursor=pointer]
+            - tab "Extracted Data" [ref=e101] [cursor=pointer]
+            - tab "Transformed Data" [ref=e102] [cursor=pointer]
+            - tab "Fallouts" [ref=e103] [cursor=pointer]
+            - tab "Logs" [ref=e104] [cursor=pointer]
+        - generic:
+          - generic:
+            - tabpanel
+      - generic [ref=e111]:
+        - generic [ref=e112]:
+          - button "General Info" [expanded] [ref=e113] [cursor=pointer]:
+            - img [ref=e115]:
+              - img [ref=e116]
+            - generic [ref=e118]: General Info
+          - generic [ref=e122]:
+            - generic [ref=e123]:
+              - generic [ref=e129]: Name
+              - generic [ref=e134] [cursor=pointer]: Srini_MM_AT_Newsession_2026-05-06_09-04-51
+            - generic [ref=e135]:
+              - generic [ref=e141]: Configuration
+              - generic [ref=e146]: oss-lm-migMaySr-21011
+            - generic [ref=e153] [cursor=pointer]: Previous Session Name
+            - generic [ref=e161] [cursor=pointer]: Previous Session Mode
+            - generic [ref=e163]:
+              - generic [ref=e169]: Pre-Action
+              - generic [ref=e174]: "No"
+            - generic [ref=e175]:
+              - generic [ref=e181]: Post-Action
+              - generic [ref=e186]: "No"
+            - generic [ref=e187]:
+              - generic [ref=e193]: Description
+              - generic [ref=e198]: SRINI_MM_AT_smoke_2026-05-06_09-04-51
+        - generic [ref=e199]:
+          - button "Source Profile" [expanded] [ref=e200] [cursor=pointer]:
+            - img [ref=e202]:
+              - img [ref=e203]
+            - generic [ref=e205]: Source Profile
+          - generic [ref=e210]:
+            - generic [ref=e216]: oracle
+            - generic [ref=e221]: cbt
+        - generic [ref=e222]:
+          - button "Parameters" [expanded] [ref=e223] [cursor=pointer]:
+            - img [ref=e225]:
+              - img [ref=e226]
+            - generic [ref=e228]: Parameters
+          - generic [ref=e232]:
+            - generic [ref=e239] [cursor=pointer]: List of descriptors to skip all processing
+            - generic [ref=e241]:
+              - generic [ref=e247] [cursor=pointer]: Batch Processing Limit (empty for full scope)
+              - generic [ref=e252]: "1"
+            - generic [ref=e253]:
+              - generic [ref=e259]: Country Batch Size
+              - generic [ref=e264]: "1"
+            - generic [ref=e265]:
+              - generic [ref=e271] [cursor=pointer]: Customer Location Batch Size
+              - generic [ref=e276]: "150"
+            - generic [ref=e277]:
+              - generic [ref=e283] [cursor=pointer]: Indoor Space Batch Size
+              - generic [ref=e288]: "40"
+            - generic [ref=e289]:
+              - generic [ref=e295] [cursor=pointer]: Provider Location Batch Size
+              - generic [ref=e300]: "200"
+            - generic [ref=e301]:
+              - generic [ref=e307]: Region Batch Size
+              - generic [ref=e312]: "100"
+            - generic [ref=e313]:
+              - generic [ref=e319] [cursor=pointer]: Wire Center Batch Size
+              - generic [ref=e324]: "50"
+            - generic [ref=e331] [cursor=pointer]: Order of migration types for cleanup
+  - generic [ref=e335]:
+    - img [ref=e337]
+    - generic [ref=e339]:
+      - generic [ref=e340]: Success
+      - generic [ref=e341]: Session Srini_MM_AT_Newsession_2026-05-06_09-04-51 has been started
+    - button [ref=e342] [cursor=pointer]:
+      - img [ref=e345]
+```

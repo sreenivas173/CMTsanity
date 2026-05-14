@@ -1,0 +1,25 @@
+{
+	"REF": {
+        "Required": ["REFERENTIAL_ENTITY", "REFERENTIAL_CLAUSE"]
+    },
+    "NNL": {},
+    "UNQ": {},
+    "CREF": {
+        "Required": ["REFERENTIAL_ENTITY", "REFERENTIAL_CLAUSE"]
+    },
+    "RGXP": {
+        "Required": ["CUSTOM_VALIDATION"]
+    },
+    "LIKE": {
+        "Required": ["CUSTOM_VALIDATION"]
+    },
+    "LST": {
+        "Required": ["LIST_VALUES"]
+    },
+    "CLST": {
+        "Required": ["LIST_VALUES"]
+    },
+    "CST": {
+        "Required": ["CUSTOM_VALIDATION"]
+    }
+}

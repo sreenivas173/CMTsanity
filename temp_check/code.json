@@ -1,0 +1,221 @@
+{
+    "FileName": "oss-lm-migration-types.xlsx",
+    "ID": "oss-lm-migration-Mar12thsanity",
+    "Version": "1.0.1-1773290279",
+    "Description": "",
+    "MigrationTypes": {
+        "country": {
+            "Index": 2,
+            "SheetName": "Migration Types",
+            "Name": "country",
+            "MigrationFilePath": "country-mapping.xlsx",
+            "SourceSystem": "cbt",
+            "TargetSystem": "Location Inventory",
+            "TargetEntityType": "country",
+            "MigrationTypeDependencies": [],
+            "BatchMode": "single",
+            "BatchSize": "1"
+        },
+        "customer-location": {
+            "Index": 5,
+            "SheetName": "Migration Types",
+            "Name": "customer-location",
+            "MigrationFilePath": "customer-location-mapping.xlsx",
+            "SourceSystem": "cbt",
+            "TargetSystem": "Location Inventory",
+            "TargetEntityType": "location",
+            "MigrationTypeDependencies": [
+                "wire-center"
+            ],
+            "BatchMode": "built-in",
+            "BatchSize": "150"
+        },
+        "indoor-space": {
+            "Index": 7,
+            "SheetName": "Migration Types",
+            "Name": "indoor-space",
+            "MigrationFilePath": "indoor-space-mapping.xlsx",
+            "SourceSystem": "cbt",
+            "TargetSystem": "Location Inventory",
+            "TargetEntityType": "indoor-space",
+            "MigrationTypeDependencies": [
+                "provider-location"
+            ],
+            "BatchMode": "built-in",
+            "BatchSize": "40"
+        },
+        "provider-location": {
+            "Index": 6,
+            "SheetName": "Migration Types",
+            "Name": "provider-location",
+            "MigrationFilePath": "provider-location-mapping.xlsx",
+            "SourceSystem": "cbt",
+            "TargetSystem": "Location Inventory",
+            "TargetEntityType": "location",
+            "MigrationTypeDependencies": [
+                "wire-center"
+            ],
+            "BatchMode": "built-in",
+            "BatchSize": "200"
+        },
+        "region": {
+            "Index": 3,
+            "SheetName": "Migration Types",
+            "Name": "region",
+            "MigrationFilePath": "region-mapping.xlsx",
+            "SourceSystem": "cbt",
+            "TargetSystem": "Location Inventory",
+            "TargetEntityType": "region",
+            "MigrationTypeDependencies": [
+                "country"
+            ],
+            "BatchMode": "built-in",
+            "BatchSize": "100"
+        },
+        "wire-center": {
+            "Index": 4,
+            "SheetName": "Migration Types",
+            "Name": "wire-center",
+            "MigrationFilePath": "wire-center-mapping.xlsx",
+            "SourceSystem": "cbt",
+            "TargetSystem": "Location Inventory",
+            "TargetEntityType": "city",
+            "MigrationTypeDependencies": [
+                "region"
+            ],
+            "BatchMode": "built-in",
+            "BatchSize": "50"
+        }
+    },
+    "SourceSystems": {
+        "cbt": {
+            "Index": 2,
+            "SheetName": "Source Systems",
+            "Name": "CBT",
+            "SourceSystemKey": "cbt",
+            "SourceType": "oracle"
+        }
+    },
+    "SourceTypes": {
+        "Index": 16,
+        "SheetName": "mongoDB",
+        "Name": [
+            "oracle",
+            "postgreSQL",
+            "kafka",
+            "arangoDB",
+            "mongoDB"
+        ]
+    },
+    "Port": 21008,
+    "Orchestrator": {
+        "nifi": {
+            "Index": 2,
+            "SheetName": "Orchestrator",
+            "Name": "nifi",
+            "Parameters": {
+                "port": "21008"
+            }
+        }
+    },
+    "Variables": {
+        "dl-enrichment": "false",
+        "generate-names": "true",
+        "load-data-processor": "oss-yang-inventory",
+        "load-data-step": "true",
+        "oss-inventory": "location-manager"
+    },
+    "PrePostActions": [
+        {
+            "Index": 2,
+            "SheetName": "Pre-Post Actions",
+            "Action": "pre",
+            "StepDescription": "create a dictionary",
+            "Processor": "sql",
+            "RelativePath": "scripts/create_dict_generic.sql",
+            "SourceSystem": "cbt"
+        },
+        {
+            "Index": 4,
+            "SheetName": "Pre-Post Actions",
+            "Action": "post",
+            "StepDescription": "Gather mdc statistics",
+            "Processor": "sql",
+            "RelativePath": "scripts/gather-session-statistics.sql",
+            "SourceSystem": "cbt"
+        },
+        {
+            "Index": 5,
+            "SheetName": "Pre-Post Actions",
+            "Action": "post",
+            "StepDescription": "Get current date and time",
+            "Processor": "python",
+            "RelativePath": "scripts/currdate.py",
+            "SourceSystem": ""
+        },
+        {
+            "Index": 6,
+            "SheetName": "Pre-Post Actions",
+            "Action": "pre",
+            "StepDescription": "Recreate MDC fallout views",
+            "Processor": "mdc",
+            "RelativePath": "scripts/recreate_fallout_views.sql",
+            "SourceSystem": ""
+        },
+        {
+            "Index": 7,
+            "SheetName": "Pre-Post Actions",
+            "Action": "pre",
+            "StepDescription": "create sdb table countries",
+            "Processor": "sql",
+            "RelativePath": "scripts/sdb_countries.sql",
+            "SourceSystem": "cbt"
+        },
+        {
+            "Index": 8,
+            "SheetName": "Pre-Post Actions",
+            "Action": "pre",
+            "StepDescription": "create sdb table regions",
+            "Processor": "sql",
+            "RelativePath": "scripts/sdb_regions.sql",
+            "SourceSystem": "cbt"
+        },
+        {
+            "Index": 9,
+            "SheetName": "Pre-Post Actions",
+            "Action": "pre",
+            "StepDescription": "create sdb table wire_centers",
+            "Processor": "sql",
+            "RelativePath": "scripts/sdb_wire_centers.sql",
+            "SourceSystem": "cbt"
+        },
+        {
+            "Index": 10,
+            "SheetName": "Pre-Post Actions",
+            "Action": "pre",
+            "StepDescription": "create sdb table indoor_spaces",
+            "Processor": "sql",
+            "RelativePath": "scripts/sdb_indoor_spaces.sql",
+            "SourceSystem": "cbt"
+        },
+        {
+            "Index": 11,
+            "SheetName": "Pre-Post Actions",
+            "Action": "pre",
+            "StepDescription": "create sdb table cust_locations",
+            "Processor": "sql",
+            "RelativePath": "scripts/sdb_cust_locations.sql",
+            "SourceSystem": "cbt"
+        },
+        {
+            "Index": 12,
+            "SheetName": "Pre-Post Actions",
+            "Action": "pre",
+            "StepDescription": "create sdb table provider_locations",
+            "Processor": "sql",
+            "RelativePath": "scripts/sdb_provider_locations.sql",
+            "SourceSystem": "cbt"
+        }
+    ],
+    "SourceValidationList": null
+}

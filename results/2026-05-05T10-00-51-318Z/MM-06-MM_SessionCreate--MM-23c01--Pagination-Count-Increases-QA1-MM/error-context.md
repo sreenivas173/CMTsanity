@@ -1,0 +1,271 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e5]:
+    - generic [ref=e7]:
+      - img [ref=e9]
+      - generic [ref=e11]: MIGRATION HUB
+      - tablist [ref=e13]:
+        - generic [ref=e15]:
+          - tab "Sessions" [selected] [ref=e16]
+          - tab "Configurations" [ref=e17] [cursor=pointer]
+          - tab "Source Profiles" [ref=e18] [cursor=pointer]
+          - tab "Monitoring" [ref=e19] [cursor=pointer]
+      - generic [ref=e20]:
+        - img [ref=e26] [cursor=pointer]
+        - button "C" [ref=e29] [cursor=pointer]:
+          - generic [ref=e31]: C
+    - generic [ref=e35]:
+      - generic [ref=e36]:
+        - generic [ref=e42]:
+          - textbox "Search" [ref=e43]
+          - generic [ref=e44]:
+            - img:
+              - img
+        - generic [ref=e45]:
+          - button "Create Session" [active] [ref=e46] [cursor=pointer]:
+            - generic [ref=e47]:
+              - img [ref=e49]
+              - generic [ref=e51]: Create Session
+          - button [ref=e52] [cursor=pointer]:
+            - img [ref=e55]
+          - button [ref=e58] [cursor=pointer]:
+            - img [ref=e61]
+      - table [ref=e64]:
+        - row "Session Name Configuration Configuration Version Status Start Time End Time Execution Time Created When Description" [ref=e66]:
+          - gridcell "Session Name" [ref=e68] [cursor=pointer]:
+            - generic [ref=e69]: Session Name
+          - gridcell "Configuration" [ref=e72] [cursor=pointer]:
+            - generic [ref=e73]: Configuration
+          - gridcell "Configuration Version" [ref=e76] [cursor=pointer]:
+            - generic [ref=e77]: Configuration Version
+          - gridcell "Status" [ref=e80] [cursor=pointer]:
+            - generic [ref=e81]: Status
+          - gridcell "Start Time" [ref=e84] [cursor=pointer]:
+            - generic [ref=e85]: Start Time
+          - gridcell "End Time" [ref=e88] [cursor=pointer]:
+            - generic [ref=e89]: End Time
+          - gridcell "Execution Time" [ref=e92]:
+            - generic [ref=e93]: Execution Time
+          - gridcell "Created When" [ref=e96] [cursor=pointer]:
+            - generic [ref=e97]: Created When
+            - img [ref=e100]
+          - gridcell "Description" [ref=e104]:
+            - generic [ref=e105]: Description
+        - row "Srini_MM_AT_Newsession_1777975258234 oss-lm-migMaySr-21011 1.0.1-1777954716 gray 2026-05-05 15:31 SRINI_MM_AT_2026-05-05_10-00-58" [ref=e109]:
+          - gridcell "Srini_MM_AT_Newsession_1777975258234" [ref=e111]:
+            - link "Srini_MM_AT_Newsession_1777975258234" [ref=e112] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/details?objectId=d43f9b6b-b662-44f9-9e7e-162a03f1932d
+              - generic [ref=e113]: Srini_MM_AT_Newsession_1777975258234
+          - gridcell "oss-lm-migMaySr-21011" [ref=e116]: oss-lm-migMaySr-21011
+          - gridcell "1.0.1-1777954716" [ref=e119]: 1.0.1-1777954716
+          - gridcell "gray" [ref=e122]:
+            - generic "gray" [ref=e124]:
+              - generic [ref=e125]: Not Started
+          - gridcell [ref=e128]
+          - gridcell [ref=e131]
+          - gridcell [ref=e134]
+          - gridcell "2026-05-05 15:31" [ref=e137]:
+            - generic [ref=e138]: 2026-05-05 15:31
+          - gridcell "SRINI_MM_AT_2026-05-05_10-00-58" [ref=e141]:
+            - generic [ref=e143]: SRINI_MM_AT_2026-05-05_10-00-58
+        - row "Srini_MM_AT_Newsession_20260505 oss-lm-migMaySr-21011 1.0.1-1777954716 gray 2026-05-05 15:26 SRINI_MM_AT_2026-05-05_09-56-00" [ref=e147]:
+          - gridcell "Srini_MM_AT_Newsession_20260505" [ref=e149]:
+            - link "Srini_MM_AT_Newsession_20260505" [ref=e150] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/details?objectId=72369fdd-edde-4e42-890f-db17faa906a7
+              - generic [ref=e151]: Srini_MM_AT_Newsession_20260505
+          - gridcell "oss-lm-migMaySr-21011" [ref=e154]: oss-lm-migMaySr-21011
+          - gridcell "1.0.1-1777954716" [ref=e157]: 1.0.1-1777954716
+          - gridcell "gray" [ref=e160]:
+            - generic "gray" [ref=e162]:
+              - generic [ref=e163]: Not Started
+          - gridcell [ref=e166]
+          - gridcell [ref=e169]
+          - gridcell [ref=e172]
+          - gridcell "2026-05-05 15:26" [ref=e175]:
+            - generic [ref=e176]: 2026-05-05 15:26
+          - gridcell "SRINI_MM_AT_2026-05-05_09-56-00" [ref=e179]:
+            - generic [ref=e181]: SRINI_MM_AT_2026-05-05_09-56-00
+        - row "srujana b2c scope1 nrm-drop1-d2c-21004 1.0.0-1777974604 green 2026-05-05 15:23 2026-05-05 15:26 3 minutes 2026-05-05 15:21" [ref=e185]:
+          - gridcell "srujana b2c scope1" [ref=e187]:
+            - link "srujana b2c scope1" [ref=e188] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=f31349ca-ec6f-456a-8f0f-fa99f5e74419
+              - generic [ref=e189]: srujana b2c scope1
+          - gridcell "nrm-drop1-d2c-21004" [ref=e192]: nrm-drop1-d2c-21004
+          - gridcell "1.0.0-1777974604" [ref=e195]: 1.0.0-1777974604
+          - gridcell "green" [ref=e198]:
+            - generic "green" [ref=e200]:
+              - generic [ref=e201]: Completed
+          - gridcell "2026-05-05 15:23" [ref=e204]:
+            - generic [ref=e205]: 2026-05-05 15:23
+          - gridcell "2026-05-05 15:26" [ref=e208]:
+            - generic [ref=e209]: 2026-05-05 15:26
+          - gridcell "3 minutes" [ref=e212]:
+            - generic [ref=e213]: 3 minutes
+          - gridcell "2026-05-05 15:21" [ref=e216]:
+            - generic [ref=e217]: 2026-05-05 15:21
+          - gridcell [ref=e220]
+        - row "Srini_MM_AT_Newsession_20260505 oss-lm-migMaySr-21011 1.0.1-1777954716 gray 2026-05-05 15:18 SRINI_MM_AT_2026-05-05_09-48-36" [ref=e224]:
+          - gridcell "Srini_MM_AT_Newsession_20260505" [ref=e226]:
+            - link "Srini_MM_AT_Newsession_20260505" [ref=e227] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/details?objectId=b1440693-5e44-47a7-8584-0f7d54b1a0e6
+              - generic [ref=e228]: Srini_MM_AT_Newsession_20260505
+          - gridcell "oss-lm-migMaySr-21011" [ref=e231]: oss-lm-migMaySr-21011
+          - gridcell "1.0.1-1777954716" [ref=e234]: 1.0.1-1777954716
+          - gridcell "gray" [ref=e237]:
+            - generic "gray" [ref=e239]:
+              - generic [ref=e240]: Not Started
+          - gridcell [ref=e243]
+          - gridcell [ref=e246]
+          - gridcell [ref=e249]
+          - gridcell "2026-05-05 15:18" [ref=e252]:
+            - generic [ref=e253]: 2026-05-05 15:18
+          - gridcell "SRINI_MM_AT_2026-05-05_09-48-36" [ref=e256]:
+            - generic [ref=e258]: SRINI_MM_AT_2026-05-05_09-48-36
+        - row "srujana b2c scope1 nrm-drop1-d2c-21004 1.0.0-1777972968 green 2026-05-05 14:56 2026-05-05 14:59 3 minutes 2026-05-05 14:55" [ref=e262]:
+          - gridcell "srujana b2c scope1" [ref=e264]:
+            - link "srujana b2c scope1" [ref=e265] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=58ca8d27-bc73-4fa5-975d-7dc0e576060e
+              - generic [ref=e266]: srujana b2c scope1
+          - gridcell "nrm-drop1-d2c-21004" [ref=e269]: nrm-drop1-d2c-21004
+          - gridcell "1.0.0-1777972968" [ref=e272]: 1.0.0-1777972968
+          - gridcell "green" [ref=e275]:
+            - generic "green" [ref=e277]:
+              - generic [ref=e278]: Completed
+          - gridcell "2026-05-05 14:56" [ref=e281]:
+            - generic [ref=e282]: 2026-05-05 14:56
+          - gridcell "2026-05-05 14:59" [ref=e285]:
+            - generic [ref=e286]: 2026-05-05 14:59
+          - gridcell "3 minutes" [ref=e289]:
+            - generic [ref=e290]: 3 minutes
+          - gridcell "2026-05-05 14:55" [ref=e293]:
+            - generic [ref=e294]: 2026-05-05 14:55
+          - gridcell [ref=e297]
+        - row "Srini_May5_sanity oss-lm-migMaySr-21011 1.0.1-1777954716 green 2026-05-05 09:51 2026-05-05 09:54 3 minutes 2026-05-05 09:50 Srini_May5_sanity" [ref=e301]:
+          - gridcell "Srini_May5_sanity" [ref=e303]:
+            - link "Srini_May5_sanity" [ref=e304] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=3dc4b87d-b35d-4d5e-ad4d-3406d4af59d1
+              - generic [ref=e305]: Srini_May5_sanity
+          - gridcell "oss-lm-migMaySr-21011" [ref=e308]: oss-lm-migMaySr-21011
+          - gridcell "1.0.1-1777954716" [ref=e311]: 1.0.1-1777954716
+          - gridcell "green" [ref=e314]:
+            - generic "green" [ref=e316]:
+              - generic [ref=e317]: Completed
+          - gridcell "2026-05-05 09:51" [ref=e320]:
+            - generic [ref=e321]: 2026-05-05 09:51
+          - gridcell "2026-05-05 09:54" [ref=e324]:
+            - generic [ref=e325]: 2026-05-05 09:54
+          - gridcell "3 minutes" [ref=e328]:
+            - generic [ref=e329]: 3 minutes
+          - gridcell "2026-05-05 09:50" [ref=e332]:
+            - generic [ref=e333]: 2026-05-05 09:50
+          - gridcell "Srini_May5_sanity" [ref=e336]:
+            - generic [ref=e338]: Srini_May5_sanity
+        - row "OU-Test-043026-#1 OU-network-element-exercise-300426 1.0.1-1777897241 green 2026-05-04 17:51 2026-05-04 17:52 0 minutes 2026-05-04 17:51" [ref=e342]:
+          - gridcell "OU-Test-043026-#1" [ref=e344]:
+            - link "OU-Test-043026-#1" [ref=e345] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=9ebbe259-552a-479c-a663-07c61e78ec19
+              - generic [ref=e346]: OU-Test-043026-#1
+          - gridcell "OU-network-element-exercise-300426" [ref=e349]: OU-network-element-exercise-300426
+          - gridcell "1.0.1-1777897241" [ref=e352]: 1.0.1-1777897241
+          - gridcell "green" [ref=e355]:
+            - generic "green" [ref=e357]:
+              - generic [ref=e358]: Completed
+          - gridcell "2026-05-04 17:51" [ref=e361]:
+            - generic [ref=e362]: 2026-05-04 17:51
+          - gridcell "2026-05-04 17:52" [ref=e365]:
+            - generic [ref=e366]: 2026-05-04 17:52
+          - gridcell "0 minutes" [ref=e369]:
+            - generic [ref=e370]: 0 minutes
+          - gridcell "2026-05-04 17:51" [ref=e373]:
+            - generic [ref=e374]: 2026-05-04 17:51
+          - gridcell [ref=e377]
+        - row "OU-Test-043026-#1 OU-network-element-exercise-300426 1.0.1-1777897087 green 2026-05-04 17:49 2026-05-04 17:49 0 minutes 2026-05-04 17:49" [ref=e381]:
+          - gridcell "OU-Test-043026-#1" [ref=e383]:
+            - link "OU-Test-043026-#1" [ref=e384] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=da3e70aa-b5b2-41b0-af3f-8d5cf22688a1
+              - generic [ref=e385]: OU-Test-043026-#1
+          - gridcell "OU-network-element-exercise-300426" [ref=e388]: OU-network-element-exercise-300426
+          - gridcell "1.0.1-1777897087" [ref=e391]: 1.0.1-1777897087
+          - gridcell "green" [ref=e394]:
+            - generic "green" [ref=e396]:
+              - generic [ref=e397]: Completed
+          - gridcell "2026-05-04 17:49" [ref=e400]:
+            - generic [ref=e401]: 2026-05-04 17:49
+          - gridcell "2026-05-04 17:49" [ref=e404]:
+            - generic [ref=e405]: 2026-05-04 17:49
+          - gridcell "0 minutes" [ref=e408]:
+            - generic [ref=e409]: 0 minutes
+          - gridcell "2026-05-04 17:49" [ref=e412]:
+            - generic [ref=e413]: 2026-05-04 17:49
+          - gridcell [ref=e416]
+        - row "drop1 b2c 20260504 nrm-drop1-d2c-21004 1.0.0-1777896921 green 2026-05-04 17:46 2026-05-04 17:51 4 minutes 2026-05-04 17:46" [ref=e420]:
+          - gridcell "drop1 b2c 20260504" [ref=e422]:
+            - link "drop1 b2c 20260504" [ref=e423] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=4e239bb1-26c2-40a3-b884-0b519f2235b5
+              - generic [ref=e424]: drop1 b2c 20260504
+          - gridcell "nrm-drop1-d2c-21004" [ref=e427]: nrm-drop1-d2c-21004
+          - gridcell "1.0.0-1777896921" [ref=e430]: 1.0.0-1777896921
+          - gridcell "green" [ref=e433]:
+            - generic "green" [ref=e435]:
+              - generic [ref=e436]: Completed
+          - gridcell "2026-05-04 17:46" [ref=e439]:
+            - generic [ref=e440]: 2026-05-04 17:46
+          - gridcell "2026-05-04 17:51" [ref=e443]:
+            - generic [ref=e444]: 2026-05-04 17:51
+          - gridcell "4 minutes" [ref=e447]:
+            - generic [ref=e448]: 4 minutes
+          - gridcell "2026-05-04 17:46" [ref=e451]:
+            - generic [ref=e452]: 2026-05-04 17:46
+          - gridcell [ref=e455]
+        - row "OU-Test-043026-#1 OU-network-element-exercise-300426 1.0.1-1777896603 red 2026-05-04 17:45 2026-05-04 17:45 0 minutes 2026-05-04 17:45" [ref=e459]:
+          - gridcell "OU-Test-043026-#1" [ref=e461]:
+            - link "OU-Test-043026-#1" [ref=e462] [cursor=pointer]:
+              - /url: /fragment/migration-ui/session/summary?objectId=4d7ec27b-1edb-4617-ae2f-c5667062aff6
+              - generic [ref=e463]: OU-Test-043026-#1
+          - gridcell "OU-network-element-exercise-300426" [ref=e466]: OU-network-element-exercise-300426
+          - gridcell "1.0.1-1777896603" [ref=e469]: 1.0.1-1777896603
+          - gridcell "red" [ref=e472]:
+            - generic "red" [ref=e474]:
+              - generic [ref=e475]: Failed
+          - gridcell "2026-05-04 17:45" [ref=e478]:
+            - generic [ref=e479]: 2026-05-04 17:45
+          - gridcell "2026-05-04 17:45" [ref=e482]:
+            - generic [ref=e483]: 2026-05-04 17:45
+          - gridcell "0 minutes" [ref=e486]:
+            - generic [ref=e487]: 0 minutes
+          - gridcell "2026-05-04 17:45" [ref=e490]:
+            - generic [ref=e491]: 2026-05-04 17:45
+          - gridcell [ref=e494]
+      - list [ref=e498]:
+        - listitem [ref=e499]: 50 items, 1-10 shown
+        - listitem [ref=e500] [cursor=pointer]:
+          - img [ref=e501]:
+            - img [ref=e502]
+        - listitem [ref=e504] [cursor=pointer]: "1"
+        - listitem [ref=e505] [cursor=pointer]: "2"
+        - listitem [ref=e506] [cursor=pointer]: "3"
+        - listitem [ref=e507] [cursor=pointer]: "4"
+        - listitem [ref=e508] [cursor=pointer]: "5"
+        - listitem [ref=e509] [cursor=pointer]:
+          - img [ref=e510]:
+            - img [ref=e511]
+        - listitem [ref=e513]:
+          - generic "Page Size" [ref=e514] [cursor=pointer]:
+            - generic [ref=e515]:
+              - combobox "Page Size" [ref=e517]
+              - generic "10 per page" [ref=e518]
+  - generic [ref=e521]:
+    - img [ref=e523]
+    - generic [ref=e525]:
+      - generic [ref=e526]: Success
+      - generic [ref=e528]:
+        - text: Session
+        - link "Srini_MM_AT_Newsession_1777975258234" [ref=e529] [cursor=pointer]:
+          - /url: /fragment/migration-ui/session/details?objectId=d43f9b6b-b662-44f9-9e7e-162a03f1932d
+          - generic [ref=e530]: Srini_MM_AT_Newsession_1777975258234
+        - text: has been created
+    - button [ref=e531] [cursor=pointer]:
+      - img [ref=e534]
+```

@@ -1,0 +1,334 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e6]:
+      - img [ref=e8]
+      - generic [ref=e10]: Migration Design2Code
+      - generic [ref=e11]:
+        - img [ref=e16] [cursor=pointer]
+        - button [ref=e19] [cursor=pointer]:
+          - generic [ref=e21]: C
+    - generic [ref=e22]:
+      - generic [ref=e23]:
+        - list [ref=e24]:
+          - menuitem [ref=e25] [cursor=pointer]:
+            - listitem [ref=e26]:
+              - generic [ref=e27]:
+                - img [ref=e29]
+                - generic [ref=e35]: MM Design
+          - menuitem [ref=e36] [cursor=pointer]:
+            - listitem [ref=e37]:
+              - generic [ref=e38]:
+                - img [ref=e40]
+                - generic [ref=e46]: DB Level Design
+          - menuitem [ref=e47] [cursor=pointer]:
+            - listitem [ref=e48]:
+              - generic [ref=e49]:
+                - img [ref=e51]
+                - generic [ref=e57]: Settings
+          - menuitem [ref=e58] [cursor=pointer]:
+            - listitem [ref=e59]:
+              - generic [ref=e60]:
+                - img [ref=e62]
+                - generic [ref=e68]: Templates
+        - menuitem [ref=e69] [cursor=pointer]:
+          - listitem [ref=e70]:
+            - generic [ref=e71]:
+              - img [ref=e73]
+              - generic [ref=e79]: Collapse
+      - generic [ref=e86]:
+        - generic [ref=e87]:
+          - generic [ref=e93]:
+            - textbox [ref=e94]:
+              - /placeholder: Search
+            - generic [ref=e95]:
+              - img:
+                - img
+          - generic [ref=e96]:
+            - button [ref=e97] [cursor=pointer]:
+              - generic [ref=e99]: Upload File
+            - button [ref=e100] [cursor=pointer]:
+              - img [ref=e103]
+            - button [ref=e106] [cursor=pointer]:
+              - img [ref=e109]
+        - generic:
+          - table:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell:
+                    - generic: Type
+                - generic:
+                  - gridcell:
+                    - generic: ID
+                - generic:
+                  - gridcell:
+                    - generic: Design File
+                - generic:
+                  - gridcell:
+                    - generic: Date
+                - generic:
+                  - gridcell:
+                    - generic: Author
+                - generic:
+                  - gridcell:
+                    - generic: Error Severity
+            - generic:
+              - generic:
+                - row:
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+            - generic:
+              - generic:
+                - row:
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+            - generic:
+              - generic:
+                - row:
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+            - generic:
+              - generic:
+                - row:
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+            - generic:
+              - generic:
+                - row:
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+            - generic:
+              - generic:
+                - row:
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+            - generic:
+              - generic:
+                - row:
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+            - generic:
+              - generic:
+                - row:
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+            - generic:
+              - generic:
+                - row:
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+            - generic:
+              - generic:
+                - row:
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+            - generic:
+              - generic:
+                - row:
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+            - generic:
+              - generic:
+                - row:
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+            - generic:
+              - generic:
+                - row:
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+            - generic:
+              - generic:
+                - row:
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+                  - generic:
+                    - gridcell
+        - list [ref=e113]:
+          - listitem [ref=e114]: 0 items, 0-0 shown
+          - listitem [ref=e115] [cursor=pointer]:
+            - img [ref=e116]:
+              - img [ref=e117]
+          - listitem [ref=e119] [cursor=pointer]: "1"
+          - listitem [ref=e120] [cursor=pointer]:
+            - img [ref=e121]:
+              - img [ref=e122]
+          - listitem [ref=e124]:
+            - generic [ref=e126] [cursor=pointer]:
+              - combobox [ref=e128]
+              - generic [ref=e129]: 10 per page
+  - dialog [ref=e132]:
+    - generic [ref=e134]:
+      - generic [ref=e135]:
+        - generic [ref=e136]: Upload Design File
+        - button "Close" [active] [ref=e138] [cursor=pointer]:
+          - img [ref=e141]
+      - generic [ref=e146]:
+        - generic [ref=e147]: Documents
+        - generic [ref=e150]:
+          - button "Drag files and folders here or Select Folder" [ref=e152] [cursor=pointer]:
+            - generic [ref=e154]:
+              - img [ref=e155]:
+                - img [ref=e156]
+              - generic [ref=e160]:
+                - generic [ref=e161]: Drag files and folders here or
+                - button "Select Folder" [ref=e162]:
+                  - generic [ref=e164]: Select Folder
+          - generic [ref=e167]:
+            - img [ref=e169]:
+              - img [ref=e170]
+            - generic "oss-lm-migration-21" [ref=e172] [cursor=pointer]: oss-lm-migration-21008.zip
+            - generic [ref=e173]: 205.2 KB
+            - button "delete" [ref=e174] [cursor=pointer]:
+              - img [ref=e177]:
+                - img [ref=e178]
+        - generic [ref=e184] [cursor=pointer]:
+          - checkbox "Ignore Errors" [ref=e186]
+          - generic [ref=e188]: Ignore Errors
+      - generic [ref=e191]:
+        - button "Proceed" [ref=e192] [cursor=pointer]:
+          - generic [ref=e194]: Proceed
+        - button "Cancel" [ref=e195] [cursor=pointer]:
+          - generic [ref=e197]: Cancel
+```

@@ -1,0 +1,15 @@
+id: oss-lm-migration-Mar12thsanity
+version: 1.0.1-1773290279
+description: |
+  
+ 
+source-systems:
+  - key: cbt
+    type: oracle
+    displayed-name: oracle
+ 
+orchestrator: 
+  type: nifi
+  nifi:
+    port: 21008
+  

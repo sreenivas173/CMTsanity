@@ -11,7 +11,7 @@ const runTimestamp = getTimestamp();
 export default defineConfig({
   testDir: './tests',
   fullyParallel: false,
-  outputDir: `test-results/${runTimestamp}`,
+  outputDir: `results/${runTimestamp}`,
   // forbidOnly: !!process.env.CI,
   // retries: process.env.CI ? 2 : 0,
 
@@ -19,30 +19,35 @@ export default defineConfig({
   workers: 1,
 
   reporter: [
-    ['html', {
-      // Creates folders like: playwright-report/2024-03-20T10-30-00.000Z
-      outputFolder: `playwright-report/${new Date().toISOString().replace(/:/g, '-')}`
-    }]
+    ['html', { outputFolder: 'playwright-report', open: 'never' }],
+    ['json', { outputFile: 'report.json' }]
   ],
   use: {
     trace: 'on-first-retry',
     screenshot: 'on',
-    video: 'off'
+    video: 'on'
   },
   projects: [
     {
-      name: 'QA1',
+      name: 'QA1_D2C',
       use: {
         ...devices['Desktop Chrome'],
         baseURL: 'https://migration-design2code-ui-qa1.cloudmt.managed.netcracker.cloud/'
       },
     },
-
+   
+    {
+       name: 'QA1_MM',
+       use: {
+         ...devices['Desktop Chrome'],
+         baseURL: 'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/'
+       },
+     }
     // { 
     //   name: 'QA3', 
     //   use: { ...devices['Desktop Chrome'],
-    //   baseURL: 'https://migration-design2code-ui-qa3.cloudmt.managed.netcracker.cloud/' },
-    //  },
+    //   baseURL: 'https://migration-design2code-ui-qa3.cloudmt.managed.netcracker.cloud/' },,
+    // },
 
     // {
     //   name: 'DEV1',

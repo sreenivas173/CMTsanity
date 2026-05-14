@@ -1,0 +1,456 @@
+{{/*
+In some cases '.' (e.g.you can't use '.GetVariable' inside the range) in template unavailable. You can avoid it using variable '$d' or '$loadDataStep'
+*/ -}}
+{{ $d := . -}}
+{{ $Data := .Data -}}
+{{ $loadDataStep := .GetVariable "load-data-step" -}}
+{{ $loadDataProc := .GetVariable "load-data-processor" -}}
+{{ $ParentRefField := "" -}}
+id: {{ .MigrationType | ToLower }}
+version: {{ .Version }}
+description: |
+{{ .Description | Indent 2 }}
+actions:
+{{- define "CustomScriptStep" }}
+      - id: custom-script
+        description: {{ .StepDescription }}
+        processor: {{ .Processor }}
+        config:
+          filename: {{ .RelativePath | BasePath }}
+          {{- if ne .SourceSystem "" }}
+          source-system: {{ .SourceSystem | ToLower }}
+          {{- end }}
+          {{- if ne .Processor "python" }}
+          type: {{ .ProcessorMode }}
+          {{- end }}
+        {{- if .Input }}
+        input:
+            - name: {{.Input}}
+        {{- end }}
+        {{- if .Output}}
+        output:
+            - name: {{.Output}}
+        {{- end }}
+{{- end }}
+
+  - id: batching
+    description: |
+      Action for preparing batches.
+      It creates table and fulfills with info about batches.
+      Returns batch amounts and total amount of migration objects.
+    output:
+      - batch-amount
+    steps:
+    {{- if ne .BatchMode "single" }}
+      - id: declare-functions
+        description: create or replace all necessary functions and procedures
+        processor: sql
+        config:
+          filename: declare_functions.sql
+          source-system: {{ .SourceSystem }}
+          type: execute
+          {{- if eq (.GetVariable "db-type") "oracle" }}
+          parameters:
+            - name: batch_size
+              value: $.params['batch-size']
+            - name: configuration_id
+              value: $.configuration
+            - name: descriptor_id
+              value: $.descriptor
+          {{- end }}
+    {{- end }}
+      - id: perform-batching-and-get-estimation
+        description: divide scope into batches and calculate estimations
+        processor: sql
+        config:
+          filename: perform_batching_and_get_estimation.sql
+          source-system: {{ .SourceSystem }}
+          type: select
+        {{- if eq .BatchMode "built-in" }}
+          parameters:
+            {{- if ne (.GetVariable "db-type") "oracle" }}
+            - name: batch_size
+              value: $.params['batch-size']
+            {{- end }}
+            - name: configuration_id
+              value: $.configuration
+            - name: descriptor_id
+              value: $.descriptor
+            - name: get_first_batch
+              value: $.params['get-first-batch']
+        {{- end }}
+        output:
+          - name: batch-amount
+
+    {{- if gt (len .CustomScript) 0 }}
+    {{- range .CustomScript }}
+      {{- if eq .StepName "perform-batching-and-get-estimation" }}
+      {{ template "CustomScriptStep" . }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+
+{{- if gt (len .CustomScript) 0 }}
+  {{- range .CustomScript }}
+    {{- if eq .StepName "prepare-batches" }}
+    {{ template "CustomScriptStep" . }}
+    {{- end }}
+  {{- end }}
+{{- end}}
+
+{{- $SourceSystem := .SourceSystem }}
+{{- if gt (len $.SourceValidation.Items) 0 }}
+  - id: validate-source
+    description: action for performing source validations
+    steps:
+      - id: validate-source-data
+        description:
+        processor: sql-validator
+        config:
+          source-system: {{ $SourceSystem }}
+          execute:
+            filename: validate_source_data_execute.sql
+            parameters:
+              - name: session_id
+                value: $['session-id']
+          select:
+            filename: validate_source_data_select.sql
+            parameters:
+              - name: session_id
+                value: $['session-id']
+{{end}}
+
+    {{- if gt (len .CustomScript) 0 }}
+      {{- range .CustomScript }}
+        {{- if eq .StepName "validate-source-data" }}
+        {{ template "CustomScriptStep" . }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+  - id: migrate-batch
+    description: action for performing batch migration
+    params:
+      - name: batch-id
+        description: sequential number of batch
+    steps:
+    {{- range $key, $item := .Data }}
+      {{- if gt (len $item.ExtractionRule) 0 }}
+      - id: extract-{{ $item.ItemType | ToLower }}
+        description: |
+{{ $item.ExtractionRuleDescription | Indent 10 }}
+        processor: sql
+        {{- if $item.AggregationRelation }}
+        input:
+          - name: raw-{{ index $item.AggregationParentArray 0 }}
+        {{- end }}
+        config:
+          filename: extract_{{ ReplaceAll $item.ItemType "-" "_" | ToLower }}.sql
+          source-system: {{ $SourceSystem }}
+          type: select
+          parameters:
+            {{- if $item.AggregationRelation }}
+              {{- if ne $item.ParentRefField "" }}
+                {{- $ParentRefField = $item.ParentRefField }}
+              {{- else }}
+                {{- $ParentRefField = (index $Data (index $item.AggregationParentArray 0)).ExtractedObjectKey }}
+              {{- end }}
+            - name: sourceid
+              value: $.resources['raw-{{ index $item.AggregationParentArray 0 }}'].data[*]["{{ $ParentRefField }}"]
+              multiple: true
+            {{- else }}
+            - name: batch_id
+              value: $.params['batch-id']
+            - name: configuration_id
+              value: $.configuration
+            - name: descriptor_id
+              value: $.descriptor 
+            {{- end }}
+        output:
+          - name: {{ $item.ItemRaw | ToLower }}
+        {{- range $datakey, $dataitem := $item.Items }}
+          {{- if not $dataitem.ReferenceDescriptor.IsEmpty }}
+      - id: extract-reference-{{ $dataitem.ReferenceDescriptor.Name | ToLower }}
+        description:
+        processor: mdc
+        input:
+          - name: raw-{{ $key }}
+        config:
+          filename: extract_reference_{{ $dataitem.ReferenceDescriptor.Name | ToLower }}.sql
+          type: select
+          session-id: $['session-id']
+          parameters:
+            - name: {{ $dataitem.ExtractedJsonField }}
+              value: $.resources['raw-{{ $key }}'].data[*]["{{ $dataitem.ExtractedJsonField }}"]
+              multiple: true
+        output:
+          - name: raw-reference-{{ $dataitem.ReferenceDescriptor.Name | ToLower }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+  {{- if gt (len .CustomScript) 0 }}
+  {{- range .CustomScript }}
+    {{- if eq .StepName "extract" }}
+    {{ template "CustomScriptStep" . }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+
+      - id: aggregate-data
+        description: |
+{{ .RootType.AggregationRuleDescription | Indent 10 }}
+        processor: aggregate
+        config:
+          root: raw-{{ .RootType.ItemType | ToLower }}
+          migr-id: {{ .RootType.ExtractedObjectKey }}
+          migr-type: {{ .MigrationType | ToLower }}
+          {{- if gt (len .AggregationRules) 0 }}
+          rules: 
+            {{- range .AggregationRules }}
+            - parent: [{{- range $idx, $item := .Parent }} {{- if gt $idx 0 }}, {{ end }} {{- $item | ToLower -}} {{ end }}]
+              parent-key-field: {{ .ParentKeyField }}
+              child: {{ .Child | ToLower }}
+              child-ref-field: {{ .ChildRefField }}
+              aggregation-field: {{ .AggregationField }}
+            {{- end }}
+          {{- end }}
+        input: 
+        {{- range $key, $item := .Data }}
+          {{- if gt (len $item.ExtractionRule) 0 }}
+          - name: {{$item.ItemRaw | ToLower }}
+            {{- range $datakey, $dataitem := $item.Items }}
+              {{- if not $dataitem.ReferenceDescriptor.IsEmpty }}
+          - name: raw-reference-{{ $dataitem.ReferenceDescriptor.Name | ToLower }}
+              {{- end }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+        output:
+          - name: extracted-data
+     {{- if gt (len .CustomScript) 0 }}
+     {{- range .CustomScript }}
+        {{- if eq .StepName "aggregate-data" }}
+        {{ template "CustomScriptStep" . }}
+        {{- end }}
+     {{- end }}
+     {{- end }}
+
+      {{- if gt (len .ExtractedValidation.SeverityList) 0 }}
+      - id: validate-extracted-data
+        description:
+        processor: json-schema
+        config:
+          severity:
+          {{- range .ExtractedValidation.SeverityList }}
+            - level: {{ ToLower . }}
+              filename: {{ ToLower . }}_validate_extracted_data.json
+          {{- end }}
+          type: extracted
+        input:
+          - name: extracted-data
+        output:
+          - name: valid-extracted-data
+          - name: failed-extracted-data
+          - name: extracted-data-fallouts
+      {{- end }}
+
+      {{- if gt (len .CustomScript) 0 }}
+      {{- range .CustomScript }}
+        {{- if eq .StepName "validate-extracted-data" }}
+        {{ template "CustomScriptStep" . }}
+        {{- end }}
+      {{- end }}
+      {{- end }}
+
+      - id: transform-data
+        description: |
+{{ .RootType.TransformationRuleDescription | Indent 10 }}
+        processor: template
+        config:
+          filename: transformation_rule_{{ ReplaceAll .RootType.ItemType "-" "_" | ToLower }}.json
+        input:
+        {{- if gt (len .ExtractedValidation.SeverityList) 0 }}
+          - name: valid-extracted-data
+          - name: extracted-data-fallouts
+        {{- else }}
+          - name: extracted-data
+        {{- end }}
+        output:
+          - name: transformed-data
+          - name: failed-transformed-data
+          - name: transformed-fallouts
+
+      {{- if gt (len .CustomScript) 0 }}
+      {{- range .CustomScript }}
+        {{- if eq .StepName "transform-data" }}
+        {{ template "CustomScriptStep" . }}
+        {{- end }}
+      {{- end }}
+      {{- end }}
+
+      {{- if gt (len .TargetValidation.SeverityList) 0 }}
+      - id: validate-transformed-data
+        description:
+        processor: json-schema
+        config:
+          severity:
+          {{- range .TargetValidation.SeverityList }}
+            - level: {{ ToLower . }}
+              filename: {{ ToLower . }}_validate_transformed_data.json
+          {{- end }}
+          type: transformed
+        input:
+          - name: transformed-data
+        output:
+          - name: valid-transformed-data
+          - name: failed-transformed-data
+          - name: transformed-data-fallouts
+      {{- end }}
+
+      {{- if gt (len .CustomScript) 0 }}
+      {{- range .CustomScript }}
+        {{- if eq .StepName "validate-transformed-data" }}
+        {{ template "CustomScriptStep" . }}
+        {{- end }}
+      {{- end }}
+      {{- end }}
+
+    {{- if and (eq $loadDataStep "true") (ne $loadDataProc "") }}
+      - id: load-data
+        description: "Load prepared data into the target system"
+      {{- if eq $loadDataProc "python" }}
+        processor: python
+        config:
+          filename: conventional_load.py
+        input:
+        {{- if gt (len .TargetValidation.SeverityList) 0 }}
+          - name: valid-transformed-data
+          - name: transformed-data-fallouts
+        {{- else }}
+          - name: transformed-data
+        {{- end }}
+        output:
+          - name: result
+      {{- else if eq $loadDataProc "oss-yang-inventory" }}
+        processor: oss-yang-inventory
+        config:
+          context:
+            {{- if ne (.GetVariable "oss-inventory") "" }}
+            inventory: {{ .GetVariable "oss-inventory" }}
+            {{- end }}
+          configuration:
+            {{- if ne (.GetVariable "generate-names") "" }}
+            generate-names: {{ .GetVariable "generate-names" }}
+            {{- else }}
+            generate-names: false
+            {{- end }}
+            {{- if ne (.GetVariable "dl-enrichment") "" }}
+            dl-enrichment: {{ .GetVariable "dl-enrichment" }}
+            {{- else}}
+            dl-enrichment: false
+            {{- end}}
+        input:
+        {{- if gt (len .TargetValidation.SeverityList) 0 }}
+          - name: valid-transformed-data
+          - name: transformed-data-fallouts
+        {{- else }}
+          - name: transformed-data
+        {{- end }}
+        output:
+          - name: load-result-data
+          - name: load-fallouts
+      {{- end }}
+    {{- end }}
+
+    {{- if gt (len .CustomScript) 0 }}
+      {{- range .CustomScript }}
+        {{- if eq .StepName "load-data" }}
+        {{ template "CustomScriptStep" . }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+{{- if .TargetEntityType }}
+  - id: cleanup
+    description: action for cleanup target system
+    steps: 
+    - id: cleanup
+      description: step that performs cleanup for target system
+      processor: cleanup
+      config: 
+        filename: cleanup.py
+        batch-size: {{ .RootType.BatchSize }}
+{{- end }}
+
+    {{- if gt (len .CustomScript) 0 }}
+      {{- range .CustomScript }}
+        {{- if eq .StepName "cleanup" }}
+        {{ template "CustomScriptStep" . }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+{{ if and (eq $loadDataStep "true") (ne $loadDataProc "") }}
+  - id: technical-retry
+    description: |
+      Action for uploading transformed data in statuses Failed and In-progress into target system.
+    steps:
+      - id: get-transformed-missed
+        description: "Get transformed data from MDC db into JSON format"
+        processor: mdc
+        config:
+          type: select
+          filename: mdc_technical_retry.sql
+          parameters:
+            - name: migr_type
+              value: $.descriptor
+            - name: batch_id
+              value: $.params['batch-id']
+              multiple: true
+        output:
+          - name: previously-missed-data
+
+    {{- if gt (len .CustomScript) 0 }}
+    {{- range .CustomScript }}
+      {{- if eq .StepName "get-transformed-missed" }}
+        {{ template "CustomScriptStep" . }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+
+      - id: load-data
+        description: "Upload previously unprocessed data into target system"
+      {{- if eq $loadDataProc "python" }}
+        processor: python
+        config:
+          filename: conventional_load.py
+        input:
+          - name: previously-missed-data
+        output:
+          - name: result
+      {{- else if eq $loadDataProc "oss-yang-inventory" }}
+        processor: oss-yang-inventory
+        config:
+          context:
+            {{- if ne (.GetVariable "oss-inventory") "" }}
+            inventory: {{ .GetVariable "oss-inventory" }}
+            {{- end }}
+          configuration:
+            {{- if ne (.GetVariable "generate-names") "" }}
+            generate-names: {{ .GetVariable "generate-names" }}
+            {{- else }}
+            generate-names: false
+            {{- end }}
+            {{- if ne (.GetVariable "dl-enrichment") "" }}
+            dl-enrichment: {{ .GetVariable "dl-enrichment" }}
+            {{- else}}
+            dl-enrichment: false
+            {{- end}}
+        input:
+          - name: previously-missed-data
+        output:
+          - name: load-result-data
+          - name: load-fallouts
+      {{- end }}
+{{- end }}

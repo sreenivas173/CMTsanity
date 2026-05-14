@@ -1,0 +1,96 @@
+name: CMT Sanity Tests
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: self-hosted
+
+    steps:
+    # Checkout code
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Setup Node
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+
+    # Install dependencies
+    - name: Install dependencies
+      run: npm ci
+
+    # Install Playwright browsers
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+
+    # Run D2C Sanity Tests
+    - name: Run D2C Sanity Tests
+      run: npx playwright test -g "@sanity" --project=QA1_D2C --reporter=html
+      env:
+        PLAYWRIGHT_HTML_OUTPUT_DIR: d2c-report
+
+    # Run MM Sanity Tests
+    - name: Run MM Sanity Tests
+      run: npx playwright test -g "@MMsanity" --project=QA1_MM --reporter=html
+      env:
+        PLAYWRIGHT_HTML_OUTPUT_DIR: mm-report
+
+    - name: Upload D2C Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: d2c-report
+        path: d2c-report/
+
+    - name: Upload MM Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: mm-report
+        path: mm-report/
+
+    # ✅ Deploy HTML report to gh-pages (NO WSL, NO gh-pages npm)
+    - name: Deploy HTML Report to GitHub Pages
+      if: always()
+      shell: powershell
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+
+        Write-Host "Preparing clean gh-pages folder..."
+
+        New-Item -ItemType Directory -Force -Path deploy\d2c
+        New-Item -ItemType Directory -Force -Path deploy\mm
+
+        Copy-Item -Path "d2c-report\*" -Destination "deploy\d2c\" -Recurse -Force
+        Copy-Item -Path "mm-report\*" -Destination "deploy\mm\" -Recurse -Force
+         Set-Location deploy
+
+        git init
+        git checkout -b gh-pages
+
+        git add .
+        git commit -m "Deploy D2C & MM Reports"
+
+        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git gh-pages --force
+
+
+    # Send Webex notification
+    - name: Send Webex Notification
+      if: always()
+      run: node sendWebex.js
+      env:
+        WEBEX_TOKEN: ${{ secrets.WEBEX_TOKEN }}
+        WEBEX_ROOM_ID: ${{ secrets.WEBEX_ROOM_ID }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+##--------UPDATED_Fin------##

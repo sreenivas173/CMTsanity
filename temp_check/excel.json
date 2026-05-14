@@ -1,0 +1,726 @@
+{
+    "FileName": "input/oss-lm-migration-types-1773290279/oss-lm-migration-Mar12thsanity/oss-lm-migration-types.xlsx",
+    "Revision": {
+        "Table": {
+            "Fields": [
+                "version",
+                "date",
+                "author",
+                "description of change",
+                "tickets",
+                "sprint",
+                "design_index"
+            ],
+            "Rows": [
+                {
+                    "Columns": {
+                        "author": "Denis",
+                        "date": "08-14-24",
+                        "description of change": "Initial design",
+                        "design_index": "2",
+                        "sprint": "",
+                        "tickets": "",
+                        "version": "1.0.0"
+                    },
+                    "Index": 2
+                },
+                {
+                    "Columns": {
+                        "author": "Denis",
+                        "date": "08-22-24",
+                        "description of change": "Add column 'Migration File Relative Path'",
+                        "design_index": "3",
+                        "sprint": "",
+                        "tickets": "",
+                        "version": "1.0.1"
+                    },
+                    "Index": 3
+                }
+            ],
+            "RealFieldNames": {
+                "author": "Author",
+                "date": "Date",
+                "description of change": "Description of Change",
+                "sprint": "Sprint",
+                "tickets": "Tickets",
+                "version": "Version"
+            }
+        }
+    },
+    "Config": {
+        "Items": {
+            "Migration Types": {
+                "SheetName": "Migration Types",
+                "SheetType": "Migration Types",
+                "Description": "Migration Types",
+                "SheetStructure": {
+                    "Table": {
+                        "Fields": [
+                            "migration type",
+                            "migration file relative path",
+                            "description",
+                            "source system",
+                            "source entity type",
+                            "target system",
+                            "target entity type",
+                            "migration type dependencies",
+                            "batch size",
+                            "batch mode",
+                            "use",
+                            "design_index"
+                        ],
+                        "Rows": [
+                            {
+                                "Columns": {
+                                    "batch mode": "single",
+                                    "batch size": "1",
+                                    "description": "",
+                                    "design_index": "2",
+                                    "migration file relative path": "country-mapping.xlsx",
+                                    "migration type": "country",
+                                    "migration type dependencies": "",
+                                    "source entity type": "Country",
+                                    "source system": "cbt",
+                                    "target entity type": "country",
+                                    "target system": "Location Inventory",
+                                    "use": "YES"
+                                },
+                                "Index": 2
+                            },
+                            {
+                                "Columns": {
+                                    "batch mode": "built-in",
+                                    "batch size": "100",
+                                    "description": "",
+                                    "design_index": "3",
+                                    "migration file relative path": "region-mapping.xlsx",
+                                    "migration type": "region",
+                                    "migration type dependencies": "country",
+                                    "source entity type": "Region",
+                                    "source system": "cbt",
+                                    "target entity type": "region",
+                                    "target system": "Location Inventory",
+                                    "use": "YES"
+                                },
+                                "Index": 3
+                            },
+                            {
+                                "Columns": {
+                                    "batch mode": "built-in",
+                                    "batch size": "50",
+                                    "description": "",
+                                    "design_index": "4",
+                                    "migration file relative path": "wire-center-mapping.xlsx",
+                                    "migration type": "wire-center",
+                                    "migration type dependencies": "region",
+                                    "source entity type": "Wire Center",
+                                    "source system": "cbt",
+                                    "target entity type": "city",
+                                    "target system": "Location Inventory",
+                                    "use": "YES"
+                                },
+                                "Index": 4
+                            },
+                            {
+                                "Columns": {
+                                    "batch mode": "built-in",
+                                    "batch size": "150",
+                                    "description": "",
+                                    "design_index": "5",
+                                    "migration file relative path": "customer-location-mapping.xlsx",
+                                    "migration type": "customer-location",
+                                    "migration type dependencies": "wire-center",
+                                    "source entity type": "Customer Location",
+                                    "source system": "cbt",
+                                    "target entity type": "location",
+                                    "target system": "Location Inventory",
+                                    "use": "YES"
+                                },
+                                "Index": 5
+                            },
+                            {
+                                "Columns": {
+                                    "batch mode": "built-in",
+                                    "batch size": "200",
+                                    "description": "",
+                                    "design_index": "6",
+                                    "migration file relative path": "provider-location-mapping.xlsx",
+                                    "migration type": "provider-location",
+                                    "migration type dependencies": "wire-center",
+                                    "source entity type": "Provider Location",
+                                    "source system": "cbt",
+                                    "target entity type": "location",
+                                    "target system": "Location Inventory",
+                                    "use": "YES"
+                                },
+                                "Index": 6
+                            },
+                            {
+                                "Columns": {
+                                    "batch mode": "built-in",
+                                    "batch size": "40",
+                                    "description": "",
+                                    "design_index": "7",
+                                    "migration file relative path": "indoor-space-mapping.xlsx",
+                                    "migration type": "indoor-space",
+                                    "migration type dependencies": "provider-location",
+                                    "source entity type": "Indoor Space",
+                                    "source system": "cbt",
+                                    "target entity type": "indoor-space",
+                                    "target system": "Location Inventory",
+                                    "use": "YES"
+                                },
+                                "Index": 7
+                            }
+                        ],
+                        "RealFieldNames": {
+                            "batch mode": "Batch Mode",
+                            "batch size": "Batch Size",
+                            "description": "Description",
+                            "migration file relative path": "Migration File Relative Path",
+                            "migration type": "Migration Type",
+                            "migration type dependencies": "Migration Type Dependencies",
+                            "source entity type": "Source Entity Type",
+                            "source system": "Source System",
+                            "target entity type": "Target Entity Type",
+                            "target system": "Target System",
+                            "use": "USE"
+                        }
+                    },
+                    "Header": null
+                },
+                "Sequence": 0,
+                "SeqFrom": 0,
+                "SeqTo": 0,
+                "PrefixesForDrop": "",
+                "Index": 7,
+                "Use": true
+            },
+            "Orchestrator": {
+                "SheetName": "Orchestrator",
+                "SheetType": "Orchestrator",
+                "Description": "Orchestrator",
+                "SheetStructure": {
+                    "Table": {
+                        "Fields": [
+                            "orchestrator name",
+                            "orchestrator parameters",
+                            "design_index"
+                        ],
+                        "Rows": [
+                            {
+                                "Columns": {
+                                    "design_index": "2",
+                                    "orchestrator name": "nifi",
+                                    "orchestrator parameters": "port=21008"
+                                },
+                                "Index": 2
+                            }
+                        ],
+                        "RealFieldNames": {
+                            "orchestrator name": "Orchestrator Name",
+                            "orchestrator parameters": "Orchestrator parameters"
+                        }
+                    },
+                    "Header": null
+                },
+                "Sequence": 0,
+                "SeqFrom": 0,
+                "SeqTo": 0,
+                "PrefixesForDrop": "",
+                "Index": 10,
+                "Use": true
+            },
+            "Pre-Post Actions": {
+                "SheetName": "Pre-Post Actions",
+                "SheetType": "Pre-Post Actions",
+                "Description": "Pre-Post Actions",
+                "SheetStructure": {
+                    "Table": {
+                        "Fields": [
+                            "action",
+                            "step description",
+                            "processor",
+                            "relative path",
+                            "source system",
+                            "use",
+                            "design_index"
+                        ],
+                        "Rows": [
+                            {
+                                "Columns": {
+                                    "action": "Pre",
+                                    "design_index": "2",
+                                    "processor": "sql",
+                                    "relative path": "scripts\\create_dict_generic.sql",
+                                    "source system": "cbt",
+                                    "step description": "create a dictionary",
+                                    "use": "YES"
+                                },
+                                "Index": 2
+                            },
+                            {
+                                "Columns": {
+                                    "action": "Post",
+                                    "design_index": "4",
+                                    "processor": "sql",
+                                    "relative path": "scripts\\gather-session-statistics.sql",
+                                    "source system": "cbt",
+                                    "step description": "Gather mdc statistics",
+                                    "use": "YES"
+                                },
+                                "Index": 4
+                            },
+                            {
+                                "Columns": {
+                                    "action": "Post",
+                                    "design_index": "5",
+                                    "processor": "python",
+                                    "relative path": "scripts\\currdate.py",
+                                    "source system": "",
+                                    "step description": "Get current date and time",
+                                    "use": "YES"
+                                },
+                                "Index": 5
+                            },
+                            {
+                                "Columns": {
+                                    "action": "Pre",
+                                    "design_index": "6",
+                                    "processor": "mdc",
+                                    "relative path": "scripts\\recreate_fallout_views.sql",
+                                    "source system": "",
+                                    "step description": "Recreate MDC fallout views",
+                                    "use": "YES"
+                                },
+                                "Index": 6
+                            },
+                            {
+                                "Columns": {
+                                    "action": "Pre",
+                                    "design_index": "7",
+                                    "processor": "sql",
+                                    "relative path": "scripts\\sdb_countries.sql",
+                                    "source system": "cbt",
+                                    "step description": "create sdb table countries",
+                                    "use": "YES"
+                                },
+                                "Index": 7
+                            },
+                            {
+                                "Columns": {
+                                    "action": "Pre",
+                                    "design_index": "8",
+                                    "processor": "sql",
+                                    "relative path": "scripts\\sdb_regions.sql",
+                                    "source system": "cbt",
+                                    "step description": "create sdb table regions",
+                                    "use": "YES"
+                                },
+                                "Index": 8
+                            },
+                            {
+                                "Columns": {
+                                    "action": "Pre",
+                                    "design_index": "9",
+                                    "processor": "sql",
+                                    "relative path": "scripts\\sdb_wire_centers.sql",
+                                    "source system": "cbt",
+                                    "step description": "create sdb table wire_centers",
+                                    "use": "YES"
+                                },
+                                "Index": 9
+                            },
+                            {
+                                "Columns": {
+                                    "action": "Pre",
+                                    "design_index": "10",
+                                    "processor": "sql",
+                                    "relative path": "scripts\\sdb_indoor_spaces.sql",
+                                    "source system": "cbt",
+                                    "step description": "create sdb table indoor_spaces",
+                                    "use": "YES"
+                                },
+                                "Index": 10
+                            },
+                            {
+                                "Columns": {
+                                    "action": "Pre",
+                                    "design_index": "11",
+                                    "processor": "sql",
+                                    "relative path": "scripts\\sdb_cust_locations.sql",
+                                    "source system": "cbt",
+                                    "step description": "create sdb table cust_locations",
+                                    "use": "YES"
+                                },
+                                "Index": 11
+                            },
+                            {
+                                "Columns": {
+                                    "action": "Pre",
+                                    "design_index": "12",
+                                    "processor": "sql",
+                                    "relative path": "scripts\\sdb_provider_locations.sql",
+                                    "source system": "cbt",
+                                    "step description": "create sdb table provider_locations",
+                                    "use": "YES"
+                                },
+                                "Index": 12
+                            }
+                        ],
+                        "RealFieldNames": {
+                            "action": "Action",
+                            "processor": "Processor",
+                            "relative path": "Relative Path",
+                            "source system": "Source System",
+                            "step description": "Step Description",
+                            "use": "Use"
+                        }
+                    },
+                    "Header": null
+                },
+                "Sequence": 0,
+                "SeqFrom": 0,
+                "SeqTo": 0,
+                "PrefixesForDrop": "",
+                "Index": 12,
+                "Use": true
+            },
+            "Source Systems": {
+                "SheetName": "Source Systems",
+                "SheetType": "Source Systems",
+                "Description": "Source Systems",
+                "SheetStructure": {
+                    "Table": {
+                        "Fields": [
+                            "source system name",
+                            "source system key",
+                            "description",
+                            "source type",
+                            "design_index"
+                        ],
+                        "Rows": [
+                            {
+                                "Columns": {
+                                    "description": "",
+                                    "design_index": "2",
+                                    "source system key": "cbt",
+                                    "source system name": "CBT",
+                                    "source type": "oracle"
+                                },
+                                "Index": 2
+                            }
+                        ],
+                        "RealFieldNames": {
+                            "description": "Description",
+                            "source system key": "Source System Key",
+                            "source system name": "Source System Name",
+                            "source type": "Source Type"
+                        }
+                    },
+                    "Header": null
+                },
+                "Sequence": 0,
+                "SeqFrom": 0,
+                "SeqTo": 0,
+                "PrefixesForDrop": "",
+                "Index": 9,
+                "Use": true
+            },
+            "Source Types": {
+                "SheetName": "Source Types",
+                "SheetType": "Source Types",
+                "Description": "Source Types",
+                "SheetStructure": {
+                    "Table": {
+                        "Fields": [
+                            "source type",
+                            "source description",
+                            "parameter name",
+                            "parameter type",
+                            "parameter description",
+                            "design_index"
+                        ],
+                        "Rows": [
+                            {
+                                "Columns": {
+                                    "design_index": "2",
+                                    "parameter description": "",
+                                    "parameter name": "",
+                                    "parameter type": "",
+                                    "source description": "Oracle is a proprietary multi-model database management system",
+                                    "source type": "oracle"
+                                },
+                                "Index": 2
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "3",
+                                    "parameter description": "",
+                                    "parameter name": "",
+                                    "parameter type": "",
+                                    "source description": "PostgreSQL is a relational database management system that stores structured data following ACID (Atomicity, Consistency, Isolation, Durability) principles",
+                                    "source type": "postgreSQL"
+                                },
+                                "Index": 3
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "4",
+                                    "parameter description": "",
+                                    "parameter name": "",
+                                    "parameter type": "",
+                                    "source description": "Kafka is a distributed streaming platform that allows real-time data processing and messaging across different systems",
+                                    "source type": "kafka"
+                                },
+                                "Index": 4
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "5",
+                                    "parameter description": "",
+                                    "parameter name": "host",
+                                    "parameter type": "String",
+                                    "source description": "",
+                                    "source type": ""
+                                },
+                                "Index": 5
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "6",
+                                    "parameter description": "",
+                                    "parameter name": "port",
+                                    "parameter type": "Number",
+                                    "source description": "",
+                                    "source type": ""
+                                },
+                                "Index": 6
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "7",
+                                    "parameter description": "",
+                                    "parameter name": "username",
+                                    "parameter type": "String",
+                                    "source description": "",
+                                    "source type": ""
+                                },
+                                "Index": 7
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "8",
+                                    "parameter description": "",
+                                    "parameter name": "password",
+                                    "parameter type": "String",
+                                    "source description": "",
+                                    "source type": ""
+                                },
+                                "Index": 8
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "9",
+                                    "parameter description": "",
+                                    "parameter name": "consumer_group",
+                                    "parameter type": "String",
+                                    "source description": "",
+                                    "source type": ""
+                                },
+                                "Index": 9
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "10",
+                                    "parameter description": "",
+                                    "parameter name": "",
+                                    "parameter type": "",
+                                    "source description": "ArangoDB - native multi-model DBMS for graph, document, key/value and search. All in one engine and accessible with one query language.",
+                                    "source type": "arangoDB"
+                                },
+                                "Index": 10
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "11",
+                                    "parameter description": "",
+                                    "parameter name": "host",
+                                    "parameter type": "String",
+                                    "source description": "",
+                                    "source type": ""
+                                },
+                                "Index": 11
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "12",
+                                    "parameter description": "",
+                                    "parameter name": "port",
+                                    "parameter type": "Number",
+                                    "source description": "",
+                                    "source type": ""
+                                },
+                                "Index": 12
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "13",
+                                    "parameter description": "",
+                                    "parameter name": "username",
+                                    "parameter type": "String",
+                                    "source description": "",
+                                    "source type": ""
+                                },
+                                "Index": 13
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "14",
+                                    "parameter description": "",
+                                    "parameter name": "password",
+                                    "parameter type": "String",
+                                    "source description": "",
+                                    "source type": ""
+                                },
+                                "Index": 14
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "15",
+                                    "parameter description": "",
+                                    "parameter name": "database",
+                                    "parameter type": "String",
+                                    "source description": "",
+                                    "source type": ""
+                                },
+                                "Index": 15
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "16",
+                                    "parameter description": "",
+                                    "parameter name": "",
+                                    "parameter type": "",
+                                    "source description": "MongoDB is a single-model document database.",
+                                    "source type": "mongoDB"
+                                },
+                                "Index": 16
+                            }
+                        ],
+                        "RealFieldNames": {
+                            "parameter description": "Parameter Description",
+                            "parameter name": "Parameter Name",
+                            "parameter type": "Parameter Type",
+                            "source description": "Source Description",
+                            "source type": "Source Type"
+                        }
+                    },
+                    "Header": null
+                },
+                "Sequence": 0,
+                "SeqFrom": 0,
+                "SeqTo": 0,
+                "PrefixesForDrop": "",
+                "Index": 8,
+                "Use": true
+            },
+            "Variables": {
+                "SheetName": "Variables",
+                "SheetType": "Variables",
+                "Description": "Variables",
+                "SheetStructure": {
+                    "Table": {
+                        "Fields": [
+                            "variable name",
+                            "variable value",
+                            "note",
+                            "design_index"
+                        ],
+                        "Rows": [
+                            {
+                                "Columns": {
+                                    "design_index": "2",
+                                    "note": "true, false",
+                                    "variable name": "load-data-step",
+                                    "variable value": "true"
+                                },
+                                "Index": 2
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "3",
+                                    "note": "list if values: oss-yang-inventory, python",
+                                    "variable name": "load-data-processor",
+                                    "variable value": "oss-yang-inventory"
+                                },
+                                "Index": 3
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "4",
+                                    "note": "list of values: location-manager, consolidated-inventory",
+                                    "variable name": "oss-inventory",
+                                    "variable value": "location-manager"
+                                },
+                                "Index": 4
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "5",
+                                    "note": "frue, false",
+                                    "variable name": "generate-names",
+                                    "variable value": "true"
+                                },
+                                "Index": 5
+                            },
+                            {
+                                "Columns": {
+                                    "design_index": "6",
+                                    "note": "Use NDO Device Library",
+                                    "variable name": "dl-enrichment",
+                                    "variable value": "false"
+                                },
+                                "Index": 6
+                            }
+                        ],
+                        "RealFieldNames": {
+                            "note": "Note",
+                            "variable name": "Variable Name",
+                            "variable value": "Variable Value"
+                        }
+                    },
+                    "Header": null
+                },
+                "Sequence": 0,
+                "SeqFrom": 0,
+                "SeqTo": 0,
+                "PrefixesForDrop": "",
+                "Index": 11,
+                "Use": true
+            }
+        }
+    },
+    "ConfigHeader": {
+        "Params": {
+            "description": [
+                ""
+            ],
+            "document purpose": [
+                ""
+            ],
+            "document type": [
+                "Migration Types"
+            ],
+            "id": [
+                "oss-lm-migration-Mar12thsanity"
+            ]
+        },
+        "RealParamNames": {
+            "description": "Description",
+            "document purpose": "Document Purpose",
+            "document type": "Document Type",
+            "id": "ID"
+        }
+    }
+}

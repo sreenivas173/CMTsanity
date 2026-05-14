@@ -1,0 +1,98 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - generic [ref=e6]:
+    - img [ref=e8]
+    - generic [ref=e10]: Migration Design2Code
+    - generic [ref=e11]:
+      - img [ref=e16] [cursor=pointer]
+      - button "C" [ref=e19] [cursor=pointer]:
+        - generic [ref=e21]: C
+  - generic [ref=e22]:
+    - generic [ref=e23]:
+      - list [ref=e24]:
+        - menuitem "MM Design" [ref=e25] [cursor=pointer]:
+          - listitem [ref=e26]:
+            - generic [ref=e27]:
+              - img [ref=e29]
+              - generic [ref=e35]: MM Design
+        - menuitem "DB Level Design" [ref=e36] [cursor=pointer]:
+          - listitem [ref=e37]:
+            - generic [ref=e38]:
+              - img [ref=e40]
+              - generic [ref=e46]: DB Level Design
+        - menuitem "Settings" [ref=e47] [cursor=pointer]:
+          - listitem [ref=e48]:
+            - generic [ref=e49]:
+              - img [ref=e51]
+              - generic [ref=e57]: Settings
+        - menuitem "Templates" [ref=e58] [cursor=pointer]:
+          - listitem [ref=e59]:
+            - generic [ref=e60]:
+              - img [ref=e62]
+              - generic [ref=e68]: Templates
+      - menuitem "Collapse" [ref=e69] [cursor=pointer]:
+        - listitem [ref=e70]:
+          - generic [ref=e71]:
+            - img [ref=e73]
+            - generic [ref=e79]: Collapse
+    - generic [ref=e82]:
+      - navigation [ref=e84]:
+        - list [ref=e85]:
+          - listitem [ref=e86]:
+            - link "MM Design" [ref=e88] [cursor=pointer]:
+              - /url: /design2code/migration-management-design?step=main&designType=mm
+            - img [ref=e90]
+          - listitem [ref=e92]:
+            - generic [ref=e94]: oss-lm-migration-21005-13thaprilsanity
+      - generic [ref=e95]:
+        - generic [ref=e99]:
+          - generic [ref=e100]:
+            - generic [ref=e101]: Type
+            - text: Migration Types
+          - generic [ref=e103]:
+            - generic [ref=e104]: ID
+            - text: oss-lm-migration-21005-13thaprilsanity
+          - generic [ref=e106]:
+            - generic [ref=e107]: ZIP
+            - button "Download ZIP" [ref=e108] [cursor=pointer]:
+              - generic [ref=e109]:
+                - img [ref=e111]
+                - generic [ref=e113]: Download ZIP
+          - generic [ref=e115]:
+            - generic [ref=e116]: Date
+            - generic [ref=e117]: 2026-04-13 09:20
+          - generic [ref=e119]:
+            - generic [ref=e120]: Author
+            - text: Tenant Admin
+          - generic [ref=e122]:
+            - generic [ref=e123]: Error Severity
+            - generic "blue" [ref=e125]:
+              - generic [ref=e126]: Minor
+          - generic [ref=e128]:
+            - generic [ref=e129]: Ignore Errors
+            - text: "No"
+          - generic [ref=e131]:
+            - generic [ref=e132]: Generate Reports
+            - text: "No"
+        - generic [ref=e140]:
+          - generic [ref=e145]:
+            - textbox "Search" [ref=e146]
+            - generic [ref=e147]:
+              - img:
+                - img
+          - button "Expand All" [ref=e149] [cursor=pointer]:
+            - generic [ref=e150]:
+              - img [ref=e152]
+              - generic [ref=e154]: Expand All
+          - tree [ref=e158]:
+            - generic:
+              - textbox "for screen reader"
+            - generic [ref=e163]:
+              - img [ref=e165] [cursor=pointer]:
+                - img [ref=e166]
+              - generic [ref=e168] [cursor=pointer]:
+                - img [ref=e170]
+                - generic [ref=e175]: oss-lm-migration-21005-13thaprilsanity
+```

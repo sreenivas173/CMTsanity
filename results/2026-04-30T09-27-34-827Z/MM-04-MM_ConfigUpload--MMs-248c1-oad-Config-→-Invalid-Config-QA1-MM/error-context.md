@@ -1,0 +1,310 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e5]:
+    - generic [ref=e7]:
+      - img [ref=e9]
+      - generic [ref=e11]: MIGRATION HUB
+      - tablist [ref=e13]:
+        - generic [ref=e15]:
+          - tab [ref=e16] [cursor=pointer]: Sessions
+          - tab [selected] [ref=e17]: Configurations
+          - tab [ref=e18] [cursor=pointer]: Source Profiles
+          - tab [ref=e19] [cursor=pointer]: Monitoring
+      - generic [ref=e20]:
+        - img [ref=e26] [cursor=pointer]
+        - button [ref=e29] [cursor=pointer]:
+          - generic [ref=e31]: C
+    - generic [ref=e35]:
+      - generic [ref=e36]:
+        - generic [ref=e42]:
+          - textbox [ref=e43]:
+            - /placeholder: Search
+          - generic [ref=e44]:
+            - img:
+              - img
+        - generic [ref=e45]:
+          - button [ref=e46] [cursor=pointer]:
+            - generic [ref=e47]:
+              - img [ref=e49]
+              - generic [ref=e51]: Upload
+          - button [ref=e52] [cursor=pointer]:
+            - img [ref=e55]
+          - button [ref=e58] [cursor=pointer]:
+            - img [ref=e61]
+      - generic:
+        - table:
+          - generic:
+            - row:
+              - generic:
+                - gridcell:
+                  - generic: Configuration ID
+              - generic:
+                - gridcell:
+                  - generic: Version
+              - generic:
+                - gridcell:
+                  - generic: Status
+                  - generic:
+                    - generic:
+                      - img
+              - generic:
+                - gridcell:
+                  - generic: Created When
+                  - generic:
+                    - generic:
+                      - img
+              - generic:
+                - gridcell:
+                  - generic: Description
+          - generic:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+          - generic:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+          - generic:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+          - generic:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+          - generic:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+          - generic:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+          - generic:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+          - generic:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+          - generic:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+          - generic:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+          - generic:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+          - generic:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+          - generic:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+          - generic:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+          - generic:
+            - generic:
+              - row:
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+                - generic:
+                  - gridcell
+      - list [ref=e65]:
+        - listitem [ref=e66]: 72 items, 1-10 shown
+        - listitem [ref=e67] [cursor=pointer]:
+          - img [ref=e68]:
+            - img [ref=e69]
+        - listitem [ref=e71] [cursor=pointer]: "1"
+        - listitem [ref=e72] [cursor=pointer]: "2"
+        - listitem [ref=e73] [cursor=pointer]: "3"
+        - listitem [ref=e74] [cursor=pointer]: "4"
+        - listitem [ref=e75] [cursor=pointer]: "5"
+        - listitem: ...
+        - listitem [ref=e76] [cursor=pointer]: "8"
+        - listitem [ref=e77] [cursor=pointer]:
+          - img [ref=e78]:
+            - img [ref=e79]
+        - listitem [ref=e81]:
+          - generic [ref=e83] [cursor=pointer]:
+            - combobox [ref=e85]
+            - generic [ref=e86]: 10 per page
+  - generic [ref=e87]:
+    - img [ref=e89]
+    - generic [ref=e91]:
+      - generic [ref=e92]: Error
+      - generic [ref=e93]: "Configuration validation error occurred for configuration id: []. Details: failed to get configuration file from request. Root cause: required file runtime-parameters.yaml is not found in zip archive required file configuration.yaml is not found in zip archive"
+    - button [ref=e94] [cursor=pointer]:
+      - img [ref=e97]
+  - dialog [ref=e101]:
+    - generic [ref=e103]:
+      - generic [ref=e104]:
+        - generic [ref=e105]: Upload Configuration
+        - button "Close" [ref=e107] [cursor=pointer]:
+          - img [ref=e110]
+      - generic [ref=e115]:
+        - button "Drop files here to attach or browse" [ref=e117] [cursor=pointer]:
+          - generic [ref=e119]:
+            - img [ref=e120]:
+              - img [ref=e121]
+            - generic [ref=e124]:
+              - text: Drop files here to attach or
+              - button "browse" [ref=e125]:
+                - generic [ref=e127]: browse
+        - generic [ref=e130]:
+          - img [ref=e132]:
+            - img [ref=e133]
+          - generic "Config3_SR_AT_21009_OP" [ref=e135] [cursor=pointer]: Config3_SR_AT_21009_OP_FL.zip
+          - generic [ref=e136]: 54.2 KB
+          - button "delete" [ref=e137] [cursor=pointer]:
+            - img [ref=e140]:
+              - img [ref=e141]
+      - generic [ref=e145]:
+        - button "Upload" [active] [ref=e146] [cursor=pointer]:
+          - generic [ref=e148]: Upload
+        - button "Cancel" [ref=e149] [cursor=pointer]:
+          - generic [ref=e151]: Cancel
+```

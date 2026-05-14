@@ -1,0 +1,183 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\playwright.config.ts",
+    "rootDir": "C:/Users/sral0922/Documents/CMT_2026/26.1/D2C_Auto/tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/sral0922/Documents/CMT_2026/26.1/D2C_Auto/results/2026-05-12T11-11-51-026Z",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "QA1_D2C",
+        "name": "QA1_D2C",
+        "testDir": "C:/Users/sral0922/Documents/CMT_2026/26.1/D2C_Auto/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/sral0922/Documents/CMT_2026/26.1/D2C_Auto/results/2026-05-12T11-11-51-026Z",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "QA1_MM",
+        "name": "QA1_MM",
+        "testDir": "C:/Users/sral0922/Documents/CMT_2026/26.1/D2C_Auto/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "report.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "runAgents": "none",
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.58.2",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "MM\\05-MM_DownloadConfig.spec.ts",
+      "file": "MM/05-MM_DownloadConfig.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@MMsanity MM Download Config",
+          "file": "MM/05-MM_DownloadConfig.spec.ts",
+          "line": 22,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Download first Active configuration and save to test-results",
+              "ok": true,
+              "tags": [
+                "MMsanity"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "location": {
+                        "file": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\tests\\MM\\05-MM_DownloadConfig.spec.ts",
+                        "line": 103,
+                        "column": 14
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "QA1_MM",
+                  "projectName": "QA1_MM",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 15195,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "✅ Clicked Configurations tab\n"
+                        },
+                        {
+                          "text": "✅ Confirmed Configurations table\n"
+                        },
+                        {
+                          "text": "✅ Verified Configurations tab + Status column\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-12T11:11:52.384Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "location": {
+                            "file": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\tests\\MM\\05-MM_DownloadConfig.spec.ts",
+                            "line": 103,
+                            "column": 14
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\results\\2026-05-12T11-11-52-364Z\\MM-05-MM_DownloadConfig--M-ddb8e-on-and-save-to-test-results-QA1-MM\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\results\\2026-05-12T11-11-52-364Z\\MM-05-MM_DownloadConfig--M-ddb8e-on-and-save-to-test-results-QA1-MM\\video.webm"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ca5a582f05cbf669584a-c130e53c3080a728cb4a",
+              "file": "MM/05-MM_DownloadConfig.spec.ts",
+              "line": 54,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-05-12T11:11:51.030Z",
+    "duration": 17475.944,
+    "expected": 0,
+    "skipped": 1,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

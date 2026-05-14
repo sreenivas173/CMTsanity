@@ -1,0 +1,262 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e6]:
+      - img [ref=e8]
+      - generic [ref=e10]: Migration Design2Code
+      - generic [ref=e11]:
+        - img [ref=e16] [cursor=pointer]
+        - button [ref=e19] [cursor=pointer]:
+          - generic [ref=e21]: C
+    - generic [ref=e22]:
+      - generic [ref=e23]:
+        - list [ref=e24]:
+          - menuitem [ref=e25] [cursor=pointer]:
+            - listitem [ref=e26]:
+              - generic [ref=e27]:
+                - img [ref=e29]
+                - generic [ref=e35]: MM Design
+          - menuitem [ref=e36] [cursor=pointer]:
+            - listitem [ref=e37]:
+              - generic [ref=e38]:
+                - img [ref=e40]
+                - generic [ref=e46]: DB Level Design
+          - menuitem [ref=e47] [cursor=pointer]:
+            - listitem [ref=e48]:
+              - generic [ref=e49]:
+                - img [ref=e51]
+                - generic [ref=e57]: Settings
+          - menuitem [ref=e58] [cursor=pointer]:
+            - listitem [ref=e59]:
+              - generic [ref=e60]:
+                - img [ref=e62]
+                - generic [ref=e68]: Templates
+        - menuitem [ref=e69] [cursor=pointer]:
+          - listitem [ref=e70]:
+            - generic [ref=e71]:
+              - img [ref=e73]
+              - generic [ref=e79]: Collapse
+      - generic [ref=e86]:
+        - generic [ref=e87]:
+          - generic [ref=e93]:
+            - textbox [ref=e94]:
+              - /placeholder: Search
+            - generic [ref=e95]:
+              - img:
+                - img
+          - generic [ref=e96]:
+            - button [ref=e97] [cursor=pointer]:
+              - generic [ref=e99]: Upload File
+            - button [ref=e100] [cursor=pointer]:
+              - img [ref=e103]
+            - button [ref=e106] [cursor=pointer]:
+              - img [ref=e109]
+        - table [ref=e112]:
+          - row [ref=e114]:
+            - gridcell [ref=e116] [cursor=pointer]:
+              - generic [ref=e117]: Type
+            - gridcell [ref=e120] [cursor=pointer]:
+              - generic [ref=e121]: ID
+            - gridcell [ref=e124] [cursor=pointer]:
+              - generic [ref=e125]: Design File
+            - gridcell [ref=e128] [cursor=pointer]:
+              - generic [ref=e129]: Date
+            - gridcell [ref=e132] [cursor=pointer]:
+              - generic [ref=e133]: Author
+            - gridcell [ref=e136] [cursor=pointer]:
+              - generic [ref=e137]: Error Severity
+          - row [ref=e141] [cursor=pointer]:
+            - gridcell [ref=e143]: Migration Types
+            - gridcell [ref=e146]: oss-lm-migration-21006-21staprilsanity
+            - gridcell [ref=e149]:
+              - generic [ref=e151]:
+                - text: oss-lm-migration-types.xlsx
+                - generic [ref=e152]:
+                  - text: "+6"
+                  - img [ref=e153]
+            - gridcell [ref=e158]:
+              - generic [ref=e159]: 2026-04-21 09:41
+            - gridcell [ref=e162]: Tenant Admin
+            - gridcell [ref=e165]:
+              - generic [ref=e168]: Minor
+          - row [ref=e172] [cursor=pointer]:
+            - gridcell [ref=e174]: Migration Types
+            - gridcell [ref=e177]: nrm-drop1-d2c-21004
+            - gridcell [ref=e180]:
+              - generic [ref=e182]:
+                - text: nrm-migration-types.xlsx
+                - generic [ref=e183]:
+                  - text: "+2"
+                  - img [ref=e184]
+            - gridcell [ref=e189]:
+              - generic [ref=e190]: 2026-04-20 17:22
+            - gridcell [ref=e193]: Tenant Admin
+            - gridcell [ref=e196]:
+              - generic [ref=e199]: Minor
+          - row [ref=e203] [cursor=pointer]:
+            - gridcell [ref=e205]: Migration Types
+            - gridcell [ref=e208]: nrm-drop1-d2c-21004
+            - gridcell [ref=e211]:
+              - generic [ref=e213]:
+                - text: nrm-migration-types.xlsx
+                - generic [ref=e214]:
+                  - text: "+2"
+                  - img [ref=e215]
+            - gridcell [ref=e220]:
+              - generic [ref=e221]: 2026-04-20 16:54
+            - gridcell [ref=e224]: Tenant Admin
+            - gridcell [ref=e227]:
+              - generic [ref=e230]: Minor
+          - row [ref=e234] [cursor=pointer]:
+            - gridcell [ref=e236]: Migration Types
+            - gridcell [ref=e239]: nrm-drop1-d2c-21004
+            - gridcell [ref=e242]:
+              - generic [ref=e244]:
+                - text: nrm-migration-types.xlsx
+                - generic [ref=e245]:
+                  - text: "+2"
+                  - img [ref=e246]
+            - gridcell [ref=e251]:
+              - generic [ref=e252]: 2026-04-20 16:35
+            - gridcell [ref=e255]: Tenant Admin
+            - gridcell [ref=e258]:
+              - generic [ref=e261]: Minor
+          - row [ref=e265] [cursor=pointer]:
+            - gridcell [ref=e267]: Migration Types
+            - gridcell [ref=e270]: nrm-drop1-d2c-21004
+            - gridcell [ref=e273]:
+              - generic [ref=e275]:
+                - text: nrm-migration-types.xlsx
+                - generic [ref=e276]:
+                  - text: "+2"
+                  - img [ref=e277]
+            - gridcell [ref=e282]:
+              - generic [ref=e283]: 2026-04-20 14:17
+            - gridcell [ref=e286]: Tenant Admin
+            - gridcell [ref=e289]:
+              - generic [ref=e292]: Minor
+          - row [ref=e296] [cursor=pointer]:
+            - gridcell [ref=e298]: Migration Types
+            - gridcell [ref=e301]: oss-lm-migration-21005-20thaprilsanity
+            - gridcell [ref=e304]:
+              - generic [ref=e306]:
+                - text: oss-lm-migration-types.xlsx
+                - generic [ref=e307]:
+                  - text: "+6"
+                  - img [ref=e308]
+            - gridcell [ref=e313]:
+              - generic [ref=e314]: 2026-04-20 09:47
+            - gridcell [ref=e317]: Tenant Admin
+            - gridcell [ref=e320]:
+              - generic [ref=e323]: Minor
+          - row [ref=e327] [cursor=pointer]:
+            - gridcell [ref=e329]: Migration Types
+            - gridcell [ref=e332]: nrm-drop1-d2c-21004
+            - gridcell [ref=e335]:
+              - generic [ref=e337]:
+                - text: nrm-migration-types.xlsx
+                - generic [ref=e338]:
+                  - text: "+2"
+                  - img [ref=e339]
+            - gridcell [ref=e344]:
+              - generic [ref=e345]: 2026-04-17 18:26
+            - gridcell [ref=e348]: Tenant Admin
+            - gridcell [ref=e351]:
+              - generic [ref=e354]: Minor
+          - row [ref=e358] [cursor=pointer]:
+            - gridcell [ref=e360]: Migration Types
+            - gridcell [ref=e363]: nrm-drop1-d2c-21004
+            - gridcell [ref=e366]:
+              - generic [ref=e368]:
+                - text: nrm-migration-types.xlsx
+                - generic [ref=e369]:
+                  - text: "+2"
+                  - img [ref=e370]
+            - gridcell [ref=e375]:
+              - generic [ref=e376]: 2026-04-17 18:14
+            - gridcell [ref=e379]: Tenant Admin
+            - gridcell [ref=e382]:
+              - generic [ref=e385]: Minor
+          - row [ref=e389] [cursor=pointer]:
+            - gridcell [ref=e391]: Migration Types
+            - gridcell [ref=e394]: nrm-drop1-d2c-21004
+            - gridcell [ref=e397]:
+              - generic [ref=e399]:
+                - text: nrm-migration-types.xlsx
+                - generic [ref=e400]:
+                  - text: "+2"
+                  - img [ref=e401]
+            - gridcell [ref=e406]:
+              - generic [ref=e407]: 2026-04-17 11:13
+            - gridcell [ref=e410]: Tenant Admin
+            - gridcell [ref=e413]:
+              - generic [ref=e416]: Minor
+          - row [ref=e420] [cursor=pointer]:
+            - gridcell [ref=e422]: Migration Types
+            - gridcell [ref=e425]: nrm-drop1-d2c-21004
+            - gridcell [ref=e428]:
+              - generic [ref=e430]:
+                - text: nrm-migration-types.xlsx
+                - generic [ref=e431]:
+                  - text: "+2"
+                  - img [ref=e432]
+            - gridcell [ref=e437]:
+              - generic [ref=e438]: 2026-04-17 11:11
+            - gridcell [ref=e441]: Tenant Admin
+            - gridcell [ref=e444]:
+              - generic [ref=e447]: Minor
+        - list [ref=e451]:
+          - listitem [ref=e452]: 407 items, 1-10 shown
+          - listitem [ref=e453] [cursor=pointer]:
+            - img [ref=e454]:
+              - img [ref=e455]
+          - listitem [ref=e457] [cursor=pointer]: "1"
+          - listitem [ref=e458] [cursor=pointer]: "2"
+          - listitem [ref=e459] [cursor=pointer]: "3"
+          - listitem [ref=e460] [cursor=pointer]: "4"
+          - listitem [ref=e461] [cursor=pointer]: "5"
+          - listitem: ...
+          - listitem [ref=e462] [cursor=pointer]: "41"
+          - listitem [ref=e463] [cursor=pointer]:
+            - img [ref=e464]:
+              - img [ref=e465]
+          - listitem [ref=e467]:
+            - generic [ref=e469] [cursor=pointer]:
+              - combobox [ref=e471]
+              - generic [ref=e472]: 10 per page
+  - dialog [ref=e475]:
+    - generic [ref=e477]:
+      - generic [ref=e478]:
+        - generic [ref=e479]: Upload Design File
+        - button "Close" [active] [ref=e481] [cursor=pointer]:
+          - img [ref=e484]
+      - generic [ref=e489]:
+        - generic [ref=e490]: Documents
+        - generic [ref=e493]:
+          - button "Drag files and folders here or Select Folder" [ref=e495] [cursor=pointer]:
+            - generic [ref=e497]:
+              - img [ref=e498]:
+                - img [ref=e499]
+              - generic [ref=e503]:
+                - generic [ref=e504]: Drag files and folders here or
+                - button "Select Folder" [ref=e505]:
+                  - generic [ref=e507]: Select Folder
+          - generic [ref=e510]:
+            - img [ref=e512]:
+              - img [ref=e513]
+            - generic "oss-lm-migration-21" [ref=e515] [cursor=pointer]: oss-lm-migration-21008.zip
+            - generic [ref=e516]: 205.2 KB
+            - button "delete" [ref=e517] [cursor=pointer]:
+              - img [ref=e520]:
+                - img [ref=e521]
+        - generic [ref=e527] [cursor=pointer]:
+          - checkbox "Ignore Errors" [ref=e529]
+          - generic [ref=e531]: Ignore Errors
+      - generic [ref=e534]:
+        - button "Proceed" [ref=e535] [cursor=pointer]:
+          - generic [ref=e537]: Proceed
+        - button "Cancel" [ref=e538] [cursor=pointer]:
+          - generic [ref=e540]: Cancel
+```

@@ -1,0 +1,43 @@
+parameters:
+  - key: descriptors-skip
+    displayed-name: List of descriptors to skip all processing
+    type: string
+    default: ""
+  - key: get-first-batch
+    displayed-name: Batch Processing Limit (empty for full scope)
+    type: integer
+    default: 1
+  - key: country-batch-size
+    displayed-name: Country Batch Size
+    type: integer
+    default: 1
+    required: true
+  - key: customer-location-batch-size
+    displayed-name: Customer Location Batch Size
+    type: integer
+    default: 150
+    required: true
+  - key: indoor-space-batch-size
+    displayed-name: Indoor Space Batch Size
+    type: integer
+    default: 40
+    required: true
+  - key: provider-location-batch-size
+    displayed-name: Provider Location Batch Size
+    type: integer
+    default: 200
+    required: true
+  - key: region-batch-size
+    displayed-name: Region Batch Size
+    type: integer
+    default: 100
+    required: true
+  - key: wire-center-batch-size
+    displayed-name: Wire Center Batch Size
+    type: integer
+    default: 50
+    required: true
+  - key: cleanup-seq
+    displayed-name: Order of migration types for cleanup
+    type: string
+    default: ""
