@@ -13,7 +13,7 @@ import { MMDesignPage } from '../../pages/MMDesignPage';
 import path from 'path';
 
 
-test.describe('@Sanity MM Design Upload Validations', () => {
+test.describe('@D2Csanity MM Design Upload Validations', () => {
   /** Tests MM Design upload validations */
   test('MM Design Upload Validations', async ({ page }) => {
     const loginPage = new LoginPage(page);

@@ -88,7 +88,7 @@ test.describe('D2C Templates page validations', () => {
      * - python: Contains Python scripts
      * - queries: Contains SQL query files
      */
-    test('@Sanity Validate Templates subfolders strictly under Templates node', async ({ page }) => {
+    test('@D2Csanity Validate Templates subfolders strictly under Templates node', async ({ page }) => {
 
         // Step 1: Click Expand button in templates row to reveal subfolders
         // The Templates folder is collapsed by default, need to expand it

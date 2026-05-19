@@ -22,7 +22,7 @@ test.describe('MM Design Page Validations', () => {
   });
 
   /**1 Tests search text validation after successful login */
-  test('@Sanity search text validation after successful login', async ({ page }) => {
+  test('@D2Csanity search text validation after successful login', async ({ page }) => {
     await loginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
     await expect(page).toHaveURL(/design2code\/migration-management-design/);
     if (await mmDesignPage.isPage404()) {

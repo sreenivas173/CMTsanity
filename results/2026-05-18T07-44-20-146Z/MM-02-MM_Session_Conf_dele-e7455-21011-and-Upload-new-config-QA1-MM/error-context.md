@@ -1,0 +1,71 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e5]:
+    - generic [ref=e7]:
+      - img [ref=e9]
+      - generic [ref=e11]: MIGRATION HUB
+      - tablist [ref=e13]:
+        - generic [ref=e15]:
+          - tab [ref=e16] [cursor=pointer]: Sessions
+          - tab [selected] [ref=e17]: Configurations
+          - tab [ref=e18] [cursor=pointer]: Source Profiles
+          - tab [ref=e19] [cursor=pointer]: Monitoring
+      - generic [ref=e20]:
+        - img [ref=e25] [cursor=pointer]
+        - button [ref=e28] [cursor=pointer]:
+          - generic [ref=e30]: C
+    - generic [ref=e34]:
+      - generic [ref=e35]:
+        - generic [ref=e41]:
+          - textbox [ref=e42]:
+            - /placeholder: Search
+            - text: oss-lm-migMaySr-21011
+          - button [ref=e44] [cursor=pointer]
+        - generic [ref=e45]:
+          - button [ref=e46] [cursor=pointer]:
+            - generic [ref=e47]:
+              - img [ref=e49]
+              - generic [ref=e51]: Upload
+          - button [ref=e52] [cursor=pointer]:
+            - img [ref=e55]
+          - button [ref=e58] [cursor=pointer]:
+            - img [ref=e61]
+      - table [ref=e64]:
+        - row [ref=e66]:
+          - gridcell [ref=e68] [cursor=pointer]:
+            - generic [ref=e69]: Configuration ID
+          - gridcell [ref=e72] [cursor=pointer]:
+            - generic [ref=e73]: Version
+          - gridcell [ref=e76] [cursor=pointer]:
+            - generic [ref=e77]: Status
+            - img [ref=e80]
+          - gridcell [ref=e84] [cursor=pointer]:
+            - generic [ref=e85]: Created When
+            - img [ref=e88]
+          - gridcell [ref=e92]:
+            - generic [ref=e93]: Description
+        - generic [ref=e96]:
+          - img [ref=e97]
+          - text: No data to display
+  - dialog [ref=e101]:
+    - generic [ref=e103]:
+      - generic [ref=e104]:
+        - generic [ref=e105]: Upload Configuration
+        - button "Close" [active] [ref=e107] [cursor=pointer]:
+          - img [ref=e110]
+      - button "Drop files here to attach or browse" [ref=e117] [cursor=pointer]:
+        - generic [ref=e119]:
+          - img [ref=e120]:
+            - img [ref=e121]
+          - generic [ref=e124]:
+            - text: Drop files here to attach or
+            - button "browse" [ref=e125]:
+              - generic [ref=e127]: browse
+      - generic [ref=e129]:
+        - button "Upload" [ref=e130] [cursor=pointer]:
+          - generic [ref=e132]: Upload
+        - button "Cancel" [ref=e133] [cursor=pointer]:
+          - generic [ref=e135]: Cancel
+```

@@ -1,0 +1,61 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e5]:
+  - generic [ref=e7]:
+    - img [ref=e9]
+    - generic [ref=e11]: MIGRATION HUB
+    - tablist [ref=e13]:
+      - generic [ref=e15]:
+        - tab "Sessions" [selected] [ref=e16]
+        - tab "Configurations" [ref=e17] [cursor=pointer]
+        - tab "Source Profiles" [ref=e18] [cursor=pointer]
+        - tab "Monitoring" [ref=e19] [cursor=pointer]
+    - generic [ref=e20]:
+      - img [ref=e25] [cursor=pointer]
+      - button "C" [ref=e28] [cursor=pointer]:
+        - generic [ref=e30]: C
+  - generic [ref=e34]:
+    - generic [ref=e35]:
+      - generic [ref=e41]:
+        - textbox "Search" [ref=e42]
+        - generic [ref=e43]:
+          - img:
+            - img
+      - generic [ref=e44]:
+        - button "Create Session" [ref=e45] [cursor=pointer]:
+          - generic [ref=e46]:
+            - img [ref=e48]
+            - generic [ref=e50]: Create Session
+        - button [ref=e51] [cursor=pointer]:
+          - img [ref=e54]
+        - generic [ref=e56]:
+          - generic [ref=e57]: "1"
+          - button [ref=e58] [cursor=pointer]:
+            - img [ref=e61]
+    - table [ref=e64]:
+      - row "Session Name Configuration Configuration Version Status Start Time End Time Execution Time Created When Description" [ref=e66]:
+        - gridcell "Session Name" [ref=e68] [cursor=pointer]:
+          - generic [ref=e69]: Session Name
+        - gridcell "Configuration" [ref=e72] [cursor=pointer]:
+          - generic [ref=e73]: Configuration
+        - gridcell "Configuration Version" [ref=e76] [cursor=pointer]:
+          - generic [ref=e77]: Configuration Version
+          - img [ref=e80]
+        - gridcell "Status" [active] [ref=e84] [cursor=pointer]:
+          - generic [ref=e85]: Status
+        - gridcell "Start Time" [ref=e88] [cursor=pointer]:
+          - generic [ref=e89]: Start Time
+        - gridcell "End Time" [ref=e92] [cursor=pointer]:
+          - generic [ref=e93]: End Time
+        - gridcell "Execution Time" [ref=e96]:
+          - generic [ref=e97]: Execution Time
+        - gridcell "Created When" [ref=e100] [cursor=pointer]:
+          - generic [ref=e101]: Created When
+          - img [ref=e104]
+        - gridcell "Description" [ref=e108]:
+          - generic [ref=e109]: Description
+      - generic [ref=e112]:
+        - img [ref=e113]
+        - text: No data to display
+```

@@ -22,7 +22,7 @@ import path from 'path';
  * metadata, and scripts. The tests ensure the upload process works correctly 
  * and the file appears in the table after upload.
  */
-test.describe('@Sanity DB Level Design - Upload File Flow', () => {
+test.describe('@D2Csanity DB Level Design - Upload File Flow', () => {
 
   /**
    * Test: Upload design file with options and validate success

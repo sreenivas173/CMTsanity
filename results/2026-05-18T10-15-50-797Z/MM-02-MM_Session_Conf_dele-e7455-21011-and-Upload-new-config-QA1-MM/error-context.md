@@ -1,0 +1,49 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e5]:
+  - generic [ref=e7]:
+    - img [ref=e9]
+    - generic [ref=e11]: MIGRATION HUB
+    - tablist [ref=e13]:
+      - generic [ref=e15]:
+        - tab "Sessions" [ref=e16] [cursor=pointer]
+        - tab "Configurations" [selected] [ref=e17]
+        - tab "Source Profiles" [ref=e18] [cursor=pointer]
+        - tab "Monitoring" [ref=e19] [cursor=pointer]
+    - generic [ref=e20]:
+      - img [ref=e25] [cursor=pointer]
+      - button "C" [ref=e28] [cursor=pointer]:
+        - generic [ref=e30]: C
+  - generic [ref=e34]:
+    - generic [ref=e35]:
+      - generic [ref=e41]:
+        - textbox "Search" [active] [ref=e42]: oss-lm-migMaySr-21011
+        - button [ref=e44] [cursor=pointer]
+      - generic [ref=e45]:
+        - button "Upload" [ref=e46] [cursor=pointer]:
+          - generic [ref=e47]:
+            - img [ref=e49]
+            - generic [ref=e51]: Upload
+        - button [ref=e52] [cursor=pointer]:
+          - img [ref=e55]
+        - button [ref=e58] [cursor=pointer]:
+          - img [ref=e61]
+    - table [ref=e64]:
+      - row "Configuration ID Version Status Created When Description" [ref=e66]:
+        - gridcell "Configuration ID" [ref=e68] [cursor=pointer]:
+          - generic [ref=e69]: Configuration ID
+        - gridcell "Version" [ref=e72] [cursor=pointer]:
+          - generic [ref=e73]: Version
+        - gridcell "Status" [ref=e76] [cursor=pointer]:
+          - generic [ref=e77]: Status
+          - img [ref=e80]
+        - gridcell "Created When" [ref=e84] [cursor=pointer]:
+          - generic [ref=e85]: Created When
+          - img [ref=e88]
+        - gridcell "Description" [ref=e92]:
+          - generic [ref=e93]: Description
+      - generic [ref=e96]:
+        - img [ref=e97]
+        - text: No data to display
+```

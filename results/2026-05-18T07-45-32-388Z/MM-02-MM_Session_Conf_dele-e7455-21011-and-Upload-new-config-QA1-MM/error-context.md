@@ -1,0 +1,72 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e5]:
+  - generic [ref=e7]:
+    - img [ref=e9]
+    - generic [ref=e11]: MIGRATION HUB
+    - tablist [ref=e13]:
+      - generic [ref=e15]:
+        - tab "Sessions" [ref=e16] [cursor=pointer]
+        - tab "Configurations" [selected] [ref=e17]
+        - tab "Source Profiles" [ref=e18] [cursor=pointer]
+        - tab "Monitoring" [ref=e19] [cursor=pointer]
+    - generic [ref=e20]:
+      - img [ref=e26] [cursor=pointer]
+      - button "C" [ref=e29] [cursor=pointer]:
+        - generic [ref=e31]: C
+  - generic [ref=e35]:
+    - generic [ref=e36]:
+      - generic [ref=e42]:
+        - textbox "Search" [ref=e43]: oss-lm-migMaySr-21011
+        - button [ref=e45] [cursor=pointer]
+      - generic [ref=e46]:
+        - button "Upload" [active] [ref=e47] [cursor=pointer]:
+          - generic [ref=e48]:
+            - img [ref=e50]
+            - generic [ref=e52]: Upload
+        - button [ref=e53] [cursor=pointer]:
+          - img [ref=e56]
+        - button [ref=e59] [cursor=pointer]:
+          - img [ref=e62]
+    - table [ref=e65]:
+      - row "Configuration ID Version Status Created When Description" [ref=e67]:
+        - gridcell "Configuration ID" [ref=e69] [cursor=pointer]:
+          - generic [ref=e70]: Configuration ID
+        - gridcell "Version" [ref=e73] [cursor=pointer]:
+          - generic [ref=e74]: Version
+        - gridcell "Status" [ref=e77] [cursor=pointer]:
+          - generic [ref=e78]: Status
+          - img [ref=e81]
+        - gridcell "Created When" [ref=e85] [cursor=pointer]:
+          - generic [ref=e86]: Created When
+          - img [ref=e89]
+        - gridcell "Description" [ref=e93]:
+          - generic [ref=e94]: Description
+      - row "oss-lm-migMaySr-21011 1.0.1-1777625561 blue 2026-05-18 13:15" [ref=e98]:
+        - gridcell "oss-lm-migMaySr-21011" [ref=e100]:
+          - link "oss-lm-migMaySr-21011" [ref=e101] [cursor=pointer]:
+            - /url: /fragment/migration-ui/configuration?objectId=bd31755a-c756-4925-9d0c-5426c5fc8b0b
+            - generic [ref=e102]: oss-lm-migMaySr-21011
+        - gridcell "1.0.1-1777625561" [ref=e105]: 1.0.1-1777625561
+        - gridcell "blue" [ref=e108]:
+          - generic "blue" [ref=e110]:
+            - generic [ref=e111]: Activating
+        - gridcell "2026-05-18 13:15" [ref=e114]:
+          - generic [ref=e115]: 2026-05-18 13:15
+        - gridcell [ref=e118]
+    - list [ref=e122]:
+      - listitem [ref=e123]: 1 items, 1-1 shown
+      - listitem [ref=e124] [cursor=pointer]:
+        - img [ref=e125]:
+          - img [ref=e126]
+      - listitem [ref=e128] [cursor=pointer]: "1"
+      - listitem [ref=e129] [cursor=pointer]:
+        - img [ref=e130]:
+          - img [ref=e131]
+      - listitem [ref=e133]:
+        - generic "Page Size" [ref=e134] [cursor=pointer]:
+          - generic [ref=e135]:
+            - combobox "Page Size" [ref=e137]
+            - generic "10 per page" [ref=e138]
+```
