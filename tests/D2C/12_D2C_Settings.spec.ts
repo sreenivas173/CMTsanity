@@ -165,7 +165,7 @@ test.describe(' D2C Settings page validations', () => {
      * 
      * Expected Result: All settings should display "Default" status after reverting
      */
-    test('@Sanity Revert All resets settings to Default', async ({ page }) => {
+    test('@D2Csanity Revert All resets settings to Default', async ({ page }) => {
         // Click Revert All button
         await settingsPage.clickRevertAll();
 
@@ -309,7 +309,7 @@ test.describe(' D2C Settings page validations', () => {
      * 
      * Expected Result: All default configuration files should be present and match expected list
      */
-   test('@Sanity   Validate MM and DB Level Design config files', async ({ page }) => {
+   test('@D2Csanity   Validate MM and DB Level Design config files', async ({ page }) => {
 
   // Ensure we are on Settings page
   await settingsPage.navigateToSettings();

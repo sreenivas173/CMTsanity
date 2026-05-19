@@ -20,7 +20,7 @@ import fs from 'fs';
 import { LoginPage } from '../../pages/LoginPage';
 import { DBLPage } from '../../pages/DBLPage';
 
-test.describe('@Sanity DBL Design Download Validation', () => {
+test.describe('@D2Csanity DBL Design Download Validation', () => {
 
   test('DBL Design Download Validation', async ({ page }, testInfo) => {
 

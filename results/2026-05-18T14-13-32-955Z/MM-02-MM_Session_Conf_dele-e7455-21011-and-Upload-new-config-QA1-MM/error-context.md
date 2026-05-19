@@ -1,0 +1,84 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e5]:
+  - generic [ref=e7]:
+    - img [ref=e9]
+    - generic [ref=e11]: MIGRATION HUB
+    - tablist [ref=e13]:
+      - generic [ref=e15]:
+        - tab "Sessions" [selected] [ref=e16]
+        - tab "Configurations" [ref=e17] [cursor=pointer]
+        - tab "Source Profiles" [ref=e18] [cursor=pointer]
+        - tab "Monitoring" [ref=e19] [cursor=pointer]
+    - generic [ref=e20]:
+      - img [ref=e25] [cursor=pointer]
+      - button "C" [ref=e28] [cursor=pointer]:
+        - generic [ref=e30]: C
+  - generic [ref=e34]:
+    - generic [ref=e35]:
+      - generic [ref=e41]:
+        - textbox "Search" [active] [ref=e42]: Srini_MM_AT
+        - button [ref=e44] [cursor=pointer]
+      - generic [ref=e45]:
+        - button "Create Session" [ref=e46] [cursor=pointer]:
+          - generic [ref=e47]:
+            - img [ref=e49]
+            - generic [ref=e51]: Create Session
+        - button [ref=e52] [cursor=pointer]:
+          - img [ref=e55]
+        - button [ref=e58] [cursor=pointer]:
+          - img [ref=e61]
+    - table [ref=e64]:
+      - row "Session Name Configuration Configuration Version Status Start Time End Time Execution Time Created When Description" [ref=e66]:
+        - gridcell "Session Name" [ref=e68] [cursor=pointer]:
+          - generic [ref=e69]: Session Name
+        - gridcell "Configuration" [ref=e72] [cursor=pointer]:
+          - generic [ref=e73]: Configuration
+        - gridcell "Configuration Version" [ref=e76] [cursor=pointer]:
+          - generic [ref=e77]: Configuration Version
+        - gridcell "Status" [ref=e80] [cursor=pointer]:
+          - generic [ref=e81]: Status
+        - gridcell "Start Time" [ref=e84] [cursor=pointer]:
+          - generic [ref=e85]: Start Time
+        - gridcell "End Time" [ref=e88] [cursor=pointer]:
+          - generic [ref=e89]: End Time
+        - gridcell "Execution Time" [ref=e92]:
+          - generic [ref=e93]: Execution Time
+        - gridcell "Created When" [ref=e96] [cursor=pointer]:
+          - generic [ref=e97]: Created When
+          - img [ref=e100]
+        - gridcell "Description" [ref=e104]:
+          - generic [ref=e105]: Description
+      - row "Srini_MM_AT_Newsession_2026-05-18_12-27-10 oss-lm-migMaySr-21011 1.0.1-1777625561 gray 2026-05-18 17:57 SRINI_MM_AT_smoke_2026-05-18_12-27-10" [ref=e109]:
+        - gridcell "Srini_MM_AT_Newsession_2026-05-18_12-27-10" [ref=e111]:
+          - link "Srini_MM_AT_Newsession_2026-05-18_12-27-10" [ref=e112] [cursor=pointer]:
+            - /url: /fragment/migration-ui/session/details?objectId=d253077e-5f83-4732-984d-682888700e7f
+            - generic [ref=e113]: Srini_MM_AT_Newsession_2026-05-18_12-27-10
+        - gridcell "oss-lm-migMaySr-21011" [ref=e116]: oss-lm-migMaySr-21011
+        - gridcell "1.0.1-1777625561" [ref=e119]: 1.0.1-1777625561
+        - gridcell "gray" [ref=e122]:
+          - generic "gray" [ref=e124]:
+            - generic [ref=e125]: Not Started
+        - gridcell [ref=e128]
+        - gridcell [ref=e131]
+        - gridcell [ref=e134]
+        - gridcell "2026-05-18 17:57" [ref=e137]:
+          - generic [ref=e138]: 2026-05-18 17:57
+        - gridcell "SRINI_MM_AT_smoke_2026-05-18_12-27-10" [ref=e141]:
+          - generic [ref=e143]: SRINI_MM_AT_smoke_2026-05-18_12-27-10
+    - list [ref=e147]:
+      - listitem [ref=e148]: 1 items, 1-1 shown
+      - listitem [ref=e149] [cursor=pointer]:
+        - img [ref=e150]:
+          - img [ref=e151]
+      - listitem [ref=e153] [cursor=pointer]: "1"
+      - listitem [ref=e154] [cursor=pointer]:
+        - img [ref=e155]:
+          - img [ref=e156]
+      - listitem [ref=e158]:
+        - generic "Page Size" [ref=e159] [cursor=pointer]:
+          - generic [ref=e160]:
+            - combobox "Page Size" [ref=e162]
+            - generic "10 per page" [ref=e163]
+```

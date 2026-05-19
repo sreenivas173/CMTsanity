@@ -21,7 +21,7 @@ import fs from 'fs';
  * Users can download their design files as ZIP archives for offline use.
  * The tests ensure the download process works correctly and files are saved properly.
  */
-test.describe('@Sanity MM Design Download Validation', () => {
+test.describe('@D2Csanity MM Design Download Validation', () => {
   
   /**
    * Test: MM Design Download Validation

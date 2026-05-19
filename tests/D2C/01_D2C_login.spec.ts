@@ -40,7 +40,7 @@ test.describe('Login Page Validations', () => {
   });
 
   /** Tests successful login and validates the success message */
-  test('@Sanity successful login and validate message', async ({ page }, testInfo) => {
+  test('@D2Csanity successful login and validate message', async ({ page }, testInfo) => {
     await loginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
     const isVisible = await loginPage.isSuccessMessageVisible();
     expect(isVisible).toBe(true);

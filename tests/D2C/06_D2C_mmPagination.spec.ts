@@ -158,7 +158,7 @@ test.describe('Pagination Validation on MM Design Page', () => {
   /**
    * Tests page-size dropdown validation
    */
-  test('@Sanity Page-size dropdown validation', async ({ page }) => {
+  test('@D2Csanity Page-size dropdown validation', async ({ page }) => {
     const table = mmDesignPage.table;
     await expect(table).toBeVisible();
 

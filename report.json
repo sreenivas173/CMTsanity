@@ -16,7 +16,7 @@
     "preserveOutput": "always",
     "projects": [
       {
-        "outputDir": "C:/Users/sral0922/Documents/CMT_2026/26.1/D2C_Auto/results/2026-05-12T11-11-51-026Z",
+        "outputDir": "C:/Users/sral0922/Documents/CMT_2026/26.1/D2C_Auto/results/2026-05-19T07-52-45-178Z",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -32,7 +32,7 @@
         "timeout": 30000
       },
       {
-        "outputDir": "C:/Users/sral0922/Documents/CMT_2026/26.1/D2C_Auto/results/2026-05-12T11-11-51-026Z",
+        "outputDir": "C:/Users/sral0922/Documents/CMT_2026/26.1/D2C_Auto/results/2026-05-19T07-52-45-178Z",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -79,92 +79,111 @@
   },
   "suites": [
     {
-      "title": "MM\\05-MM_DownloadConfig.spec.ts",
-      "file": "MM/05-MM_DownloadConfig.spec.ts",
+      "title": "D2C\\12_D2C_Settings.spec.ts",
+      "file": "D2C/12_D2C_Settings.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "@MMsanity MM Download Config",
-          "file": "MM/05-MM_DownloadConfig.spec.ts",
-          "line": 22,
+          "title": " D2C Settings page validations",
+          "file": "D2C/12_D2C_Settings.spec.ts",
+          "line": 41,
           "column": 6,
           "specs": [
             {
-              "title": "Download first Active configuration and save to test-results",
+              "title": "@D2Csanity Revert All resets settings to Default",
               "ok": true,
               "tags": [
-                "MMsanity"
+                "D2Csanity"
               ],
               "tests": [
                 {
-                  "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "location": {
-                        "file": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\tests\\MM\\05-MM_DownloadConfig.spec.ts",
-                        "line": 103,
-                        "column": 14
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
-                  "projectId": "QA1_MM",
-                  "projectName": "QA1_MM",
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "QA1_D2C",
+                  "projectName": "QA1_D2C",
                   "results": [
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 15195,
+                      "status": "passed",
+                      "duration": 8030,
                       "errors": [],
-                      "stdout": [
-                        {
-                          "text": "✅ Clicked Configurations tab\n"
-                        },
-                        {
-                          "text": "✅ Confirmed Configurations table\n"
-                        },
-                        {
-                          "text": "✅ Verified Configurations tab + Status column\n"
-                        }
-                      ],
+                      "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-12T11:11:52.384Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "location": {
-                            "file": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\tests\\MM\\05-MM_DownloadConfig.spec.ts",
-                            "line": 103,
-                            "column": 14
-                          }
-                        }
-                      ],
+                      "startTime": "2026-05-19T07:52:46.344Z",
+                      "annotations": [],
                       "attachments": [
                         {
                           "name": "screenshot",
                           "contentType": "image/png",
-                          "path": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\results\\2026-05-12T11-11-52-364Z\\MM-05-MM_DownloadConfig--M-ddb8e-on-and-save-to-test-results-QA1-MM\\test-finished-1.png"
+                          "path": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\results\\2026-05-19T07-52-46-326Z\\D2C-12_D2C_Settings--D2C-S-a8a0c--resets-settings-to-Default-QA1-D2C\\test-finished-1.png"
                         },
                         {
                           "name": "video",
                           "contentType": "video/webm",
-                          "path": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\results\\2026-05-12T11-11-52-364Z\\MM-05-MM_DownloadConfig--M-ddb8e-on-and-save-to-test-results-QA1-MM\\video.webm"
+                          "path": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\results\\2026-05-19T07-52-46-326Z\\D2C-12_D2C_Settings--D2C-S-a8a0c--resets-settings-to-Default-QA1-D2C\\video.webm"
                         }
                       ]
                     }
                   ],
-                  "status": "skipped"
+                  "status": "expected"
                 }
               ],
-              "id": "ca5a582f05cbf669584a-c130e53c3080a728cb4a",
-              "file": "MM/05-MM_DownloadConfig.spec.ts",
-              "line": 54,
+              "id": "e81b4d2d61f68ccdc8d0-d56da65b264bf816507c",
+              "file": "D2C/12_D2C_Settings.spec.ts",
+              "line": 168,
               "column": 9
+            },
+            {
+              "title": "@D2Csanity   Validate MM and DB Level Design config files",
+              "ok": true,
+              "tags": [
+                "D2Csanity"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "QA1_D2C",
+                  "projectName": "QA1_D2C",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7832,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-19T07:52:54.606Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\results\\2026-05-19T07-52-46-326Z\\D2C-12_D2C_Settings--D2C-S-2e839-B-Level-Design-config-files-QA1-D2C\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\results\\2026-05-19T07-52-46-326Z\\D2C-12_D2C_Settings--D2C-S-2e839-B-Level-Design-config-files-QA1-D2C\\video.webm"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "e81b4d2d61f68ccdc8d0-d22041ed8b699b19f330",
+              "file": "D2C/12_D2C_Settings.spec.ts",
+              "line": 312,
+              "column": 8
             }
           ]
         }
@@ -173,10 +192,10 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-05-12T11:11:51.030Z",
-    "duration": 17475.944,
-    "expected": 0,
-    "skipped": 1,
+    "startTime": "2026-05-19T07:52:45.182Z",
+    "duration": 17403.859,
+    "expected": 2,
+    "skipped": 0,
     "unexpected": 0,
     "flaky": 0
   }
