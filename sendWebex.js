@@ -104,6 +104,10 @@ function getSummary() {
 
   });
 
+  if (summary.total === 0) {
+  console.error("❌ No tests found in JSON. Check Playwright run.");
+  process.exit(1);
+
   return {
     total,
     passed,
