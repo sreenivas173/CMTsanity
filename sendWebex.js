@@ -2,7 +2,7 @@ const fs = require("fs");
 const https = require("https");
 
 const d2cReportUrl = `https://sreenivas173.github.io/CMTsanity/d2c/`;
-const mmReportUrl  = `https://sreenivas173.github.io/CMTsanity/mm/`;
+const mmReportUrl = `https://sreenivas173.github.io/CMTsanity/mm/`;
 
 // 🔍 Parse Playwright JSON report
 function getSummary() {
@@ -74,16 +74,23 @@ function getSummary() {
 
   reports.forEach(file => {
 
-    if (
-      !fs.existsSync(file)
-    ) {
+    console.log(
+      `Checking:
+   ${file}`
+    );
+
+    if (!fs.existsSync(file)) {
 
       console.log(
-        `${file} not found`
+        `${file} NOT FOUND`
       );
 
       return;
     }
+
+    console.log(
+      `${file} FOUND`
+    );
 
     const data =
       JSON.parse(

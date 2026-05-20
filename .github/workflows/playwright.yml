@@ -43,27 +43,46 @@ jobs:
     #   env:
     #     PLAYWRIGHT_HTML_OUTPUT_DIR: mm-report
 
-    # Run D2C Sanity Tests
+    # # Run D2C Sanity Tests
+    # - name: Run D2C Sanity Tests
+    #   run: |
+    #     npx playwright test tests/D2C/ -g "@D2Csanity" \
+    #       --project=QA1_D2C \
+    #       --workers=1 \
+    #       --reporter=html,json
+    #   env:
+    #     PLAYWRIGHT_HTML_OUTPUT_DIR: d2c-report
+    #     PLAYWRIGHT_JSON_OUTPUT_NAME: d2c-report.json
+
+    # # Run MM Sanity Tests
+    # - name: Run MM Sanity Tests
+    #   run: |
+    #     npx playwright test tests/MM/ -g "@MMsanity" \
+    #       --project=QA1_MM \
+    #       --workers=1 \
+    #       --reporter=html,json
+    #   env:
+    #     PLAYWRIGHT_HTML_OUTPUT_DIR: mm-report
+    #     PLAYWRIGHT_JSON_OUTPUT_NAME: mm-report.json
+
+
+        # Run D2C Sanity Tests
     - name: Run D2C Sanity Tests
       run: |
-        npx playwright test tests/D2C/ -g "@D2Csanity" \
-          --project=QA1_D2C \
-          --workers=1 \
-          --reporter=html,json
+        npx playwright test tests/D2C/ -g "@D2Csanity" --project=QA1_D2C --workers=1 --reporter=html,json
+        copy test-results.json d2c-report.json
+      shell: cmd
       env:
         PLAYWRIGHT_HTML_OUTPUT_DIR: d2c-report
-        PLAYWRIGHT_JSON_OUTPUT_NAME: d2c-report.json
 
     # Run MM Sanity Tests
     - name: Run MM Sanity Tests
       run: |
-        npx playwright test tests/MM/ -g "@MMsanity" \
-          --project=QA1_MM \
-          --workers=1 \
-          --reporter=html,json
+        npx playwright test tests/MM/ -g "@MMsanity" --project=QA1_MM --workers=1 --reporter=html,json
+        copy test-results.json mm-report.json
+      shell: cmd
       env:
         PLAYWRIGHT_HTML_OUTPUT_DIR: mm-report
-        PLAYWRIGHT_JSON_OUTPUT_NAME: mm-report.json
     
     - name: Upload D2C Report
       if: always()
