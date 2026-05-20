@@ -13,6 +13,7 @@ jobs:
     runs-on: self-hosted
 
     steps:
+
     - name: Checkout code
       uses: actions/checkout@v4
 
@@ -27,34 +28,140 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
+    # Run D2C
     - name: Run D2C Sanity Tests
-      run: npx playwright test --project=QA1_D2C -g "@D2Csanity"
-
-    - name: Run MM Sanity Tests
-      run: npx playwright test --project=QA1_MM -g "@MMsanity"
-
-    - name: Deploy HTML Report to GitHub Pages
       shell: powershell
       run: |
+
+        npx playwright test tests/D2C/ `
+          -g "@D2Csanity" `
+          --project=QA1_D2C `
+          --workers=1 `
+          --reporter=html,json
+
+        if (Test-Path "playwright-report") {
+          Rename-Item `
+            playwright-report `
+            d2c-report `
+            -Force
+        }
+
+        if (Test-Path "test-results.json") {
+          Copy-Item `
+            test-results.json `
+            d2c-report.json `
+            -Force
+        }
+
+    # Run MM
+    - name: Run MM Sanity Tests
+      shell: powershell
+      run: |
+
+        npx playwright test tests/MM/ `
+          -g "@MMsanity" `
+          --project=QA1_MM `
+          --workers=1 `
+          --reporter=html,json
+
+        if (Test-Path "playwright-report") {
+          Rename-Item `
+            playwright-report `
+            mm-report `
+            -Force
+        }
+
+        if (Test-Path "test-results.json") {
+          Copy-Item `
+            test-results.json `
+            mm-report.json `
+            -Force
+        }
+
+    # Debug
+    - name: Debug generated files
+      shell: powershell
+      run: |
+
+        Write-Host "Workspace"
+
+        Get-ChildItem
+
+        Write-Host "JSON"
+
+        Get-ChildItem *.json
+
+    # Upload artifacts
+    - name: Upload D2C Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: d2c-report
+        path: d2c-report/
+
+    - name: Upload MM Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: mm-report
+        path: mm-report/
+
+    # Deploy GitHub pages
+    - name: Deploy HTML Report
+      if: always()
+      shell: powershell
+      run: |
+
         git config --global user.name "github-actions"
-        git config --global user.email "github-actions@github.com"
 
-        New-Item -ItemType Directory -Force -Path deploy\d2c
-        New-Item -ItemType Directory -Force -Path deploy\mm
+        git config --global user.email `
+          "github-actions@github.com"
 
-        Copy-Item -Path "d2c-report/*" -Destination "deploy/d2c/" -Recurse -Force
-        Copy-Item -Path "d2c-report.json" -Destination "deploy/d2c/" -Force
+        New-Item `
+          -ItemType Directory `
+          -Force `
+          -Path deploy\d2c
 
-        Copy-Item -Path "mm-report/*" -Destination "deploy/mm/" -Recurse -Force
-        Copy-Item -Path "mm-report.json" -Destination "deploy/mm/" -Force
+        New-Item `
+          -ItemType Directory `
+          -Force `
+          -Path deploy\mm
+
+        if (Test-Path "d2c-report") {
+
+          Copy-Item `
+            "d2c-report\*" `
+            "deploy\d2c\" `
+            -Recurse `
+            -Force
+        }
+
+        if (Test-Path "mm-report") {
+
+          Copy-Item `
+            "mm-report\*" `
+            "deploy\mm\" `
+            -Recurse `
+            -Force
+        }
 
         Set-Location deploy
-        git init
-        git checkout -b gh-pages
-        git add .
-        git commit -m "Deploy D2C & MM Reports"
-        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git gh-pages --force
 
+        git init
+
+        git checkout -b gh-pages
+
+        git add .
+
+        git commit `
+          -m "Deploy reports"
+
+        git push `
+          https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git `
+          gh-pages `
+          --force
+
+    # Webex
     - name: Send Webex Notification
       if: always()
       run: node sendWebex.js
