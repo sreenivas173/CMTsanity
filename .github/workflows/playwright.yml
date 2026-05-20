@@ -27,40 +27,17 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-    # Run D2C Sanity Tests
     - name: Run D2C Sanity Tests
       run: npx playwright test --project=QA1_D2C -g "@D2Csanity"
 
-    # Run MM Sanity Tests
     - name: Run MM Sanity Tests
       run: npx playwright test --project=QA1_MM -g "@MMsanity"
 
-    - name: Upload D2C Report
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: d2c-report
-        path: |
-          d2c-report/
-          d2c-report.json
-
-    - name: Upload MM Report
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: mm-report
-        path: |
-          mm-report/
-          mm-report.json
-
     - name: Deploy HTML Report to GitHub Pages
-      if: always()
       shell: powershell
       run: |
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
-
-        Write-Host "Preparing clean gh-pages folder..."
 
         New-Item -ItemType Directory -Force -Path deploy\d2c
         New-Item -ItemType Directory -Force -Path deploy\mm
