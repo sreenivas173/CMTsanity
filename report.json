@@ -16,7 +16,7 @@
     "preserveOutput": "always",
     "projects": [
       {
-        "outputDir": "C:/Users/sral0922/Documents/CMT_2026/26.1/D2C_Auto/results/2026-05-19T07-52-45-178Z",
+        "outputDir": "C:/Users/sral0922/Documents/CMT_2026/26.1/D2C_Auto/results/2026-05-20T06-52-36-374Z",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -32,7 +32,7 @@
         "timeout": 30000
       },
       {
-        "outputDir": "C:/Users/sral0922/Documents/CMT_2026/26.1/D2C_Auto/results/2026-05-19T07-52-45-178Z",
+        "outputDir": "C:/Users/sral0922/Documents/CMT_2026/26.1/D2C_Auto/results/2026-05-20T06-52-36-374Z",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -79,53 +79,198 @@
   },
   "suites": [
     {
-      "title": "D2C\\12_D2C_Settings.spec.ts",
-      "file": "D2C/12_D2C_Settings.spec.ts",
+      "title": "MM\\02-MM_Session_Conf_delete-confg_UploadConf.spec.ts",
+      "file": "MM/02-MM_Session_Conf_delete-confg_UploadConf.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": " D2C Settings page validations",
-          "file": "D2C/12_D2C_Settings.spec.ts",
-          "line": 41,
+          "title": "@MMsanity MM Configuration Delete and Upload",
+          "file": "MM/02-MM_Session_Conf_delete-confg_UploadConf.spec.ts",
+          "line": 22,
           "column": 6,
           "specs": [
             {
-              "title": "@D2Csanity Revert All resets settings to Default",
+              "title": "Delete: oss-lm-migMaySr-21011 and Upload new config",
               "ok": true,
               "tags": [
-                "D2Csanity"
+                "MMsanity"
               ],
               "tests": [
                 {
-                  "timeout": 30000,
+                  "timeout": 180000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "QA1_D2C",
-                  "projectName": "QA1_D2C",
+                  "projectId": "QA1_MM",
+                  "projectName": "QA1_MM",
                   "results": [
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 8030,
+                      "duration": 57524,
                       "errors": [],
-                      "stdout": [],
+                      "stdout": [
+                        {
+                          "text": "Step 1: Logging in...\n"
+                        },
+                        {
+                          "text": "Step 2: Navigating to Configurations...\n"
+                        },
+                        {
+                          "text": "Configurations page loaded successfully\n"
+                        },
+                        {
+                          "text": "Step 3: Deleting sessions matching configuration version: 1.0.1-1777625561\n"
+                        },
+                        {
+                          "text": "Applying session filter: Srini_MM_AT\n"
+                        },
+                        {
+                          "text": "Found 1 matching session(s)\n"
+                        },
+                        {
+                          "text": "Found 1 matching session(s)\n"
+                        },
+                        {
+                          "text": "Deleting session: Srini_MM_AT_Newsession_2026-05-20_06-31-35\n"
+                        },
+                        {
+                          "text": "Session details page opened\n"
+                        },
+                        {
+                          "text": "Session status: Not Started\n"
+                        },
+                        {
+                          "text": "Deleting session with status: Not Started\n"
+                        },
+                        {
+                          "text": "Deleting session: Srini_MM_AT_Newsession_2026-05-20_06-31-35\n"
+                        },
+                        {
+                          "text": "Deleting session:\n   Srini_MM_AT_Newsession_2026-05-20_06-31-35\n"
+                        },
+                        {
+                          "text": "Deleting session:\n   Srini_MM_AT_Newsession_2026-05-20_06-31-35\n"
+                        },
+                        {
+                          "text": "Not Started → overflow delete\n"
+                        },
+                        {
+                          "text": "Confirming popup delete\n"
+                        },
+                        {
+                          "text": "Delete popup closed\n"
+                        },
+                        {
+                          "text": "Re-validating sessions\n"
+                        },
+                        {
+                          "text": "Remaining sessions:\n   0\n"
+                        },
+                        {
+                          "text": "Session deletion verified\n"
+                        },
+                        {
+                          "text": "Remaining sessions:\n   0\n"
+                        },
+                        {
+                          "text": "All sessions deleted\n"
+                        },
+                        {
+                          "text": "Remaining sessions:\n   0\n"
+                        },
+                        {
+                          "text": "All sessions deleted\n"
+                        },
+                        {
+                          "text": "Final remaining sessions:\n   0\n"
+                        },
+                        {
+                          "text": "All sessions removed successfully\n"
+                        },
+                        {
+                          "text": "Returning to Configurations...\n"
+                        },
+                        {
+                          "text": "Configurations page loaded successfully\n"
+                        },
+                        {
+                          "text": "Searching configuration: oss-lm-migMaySr-21011\n"
+                        },
+                        {
+                          "text": "Config found after search: true\n"
+                        },
+                        {
+                          "text": "Configuration found: oss-lm-migMaySr-21011\n"
+                        },
+                        {
+                          "text": "Opening configuration details\n"
+                        },
+                        {
+                          "text": "Configuration details page loaded\n"
+                        },
+                        {
+                          "text": "Active configuration found → deactivating\n"
+                        },
+                        {
+                          "text": "Configuration deactivated\n"
+                        },
+                        {
+                          "text": "Re-search config after deactivate\n"
+                        },
+                        {
+                          "text": "Opening config again for delete\n"
+                        },
+                        {
+                          "text": "Delete clicked - validating deletion\n"
+                        },
+                        {
+                          "text": "Configuration deletion verified\n"
+                        },
+                        {
+                          "text": "No active config remaining → upload allowed\n"
+                        },
+                        {
+                          "text": "Uploading new config: test-data/oss-lm-mmip_d2c_may_OP.zip\n"
+                        },
+                        {
+                          "text": "Upload success for file: oss-lm-mmip_d2c_may_OP.zip\n"
+                        },
+                        {
+                          "text": "✅ Clicked Configurations tab\n"
+                        },
+                        {
+                          "text": "✅ Confirmed Configurations table\n"
+                        },
+                        {
+                          "text": "Validating uploaded configuration...\n"
+                        },
+                        {
+                          "text": "Upload verified for version: 1.0.1-1777625561\n"
+                        },
+                        {
+                          "text": "Upload validation completed. Total count: 0\n"
+                        },
+                        {
+                          "text": "✅ Test PASS: Delete Config and Upload New\n"
+                        }
+                      ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-19T07:52:46.344Z",
+                      "startTime": "2026-05-20T06:52:37.539Z",
                       "annotations": [],
                       "attachments": [
                         {
                           "name": "screenshot",
                           "contentType": "image/png",
-                          "path": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\results\\2026-05-19T07-52-46-326Z\\D2C-12_D2C_Settings--D2C-S-a8a0c--resets-settings-to-Default-QA1-D2C\\test-finished-1.png"
+                          "path": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\results\\2026-05-20T06-52-37-514Z\\MM-02-MM_Session_Conf_dele-e7455-21011-and-Upload-new-config-QA1-MM\\test-finished-1.png"
                         },
                         {
                           "name": "video",
                           "contentType": "video/webm",
-                          "path": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\results\\2026-05-19T07-52-46-326Z\\D2C-12_D2C_Settings--D2C-S-a8a0c--resets-settings-to-Default-QA1-D2C\\video.webm"
+                          "path": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\results\\2026-05-20T06-52-37-514Z\\MM-02-MM_Session_Conf_dele-e7455-21011-and-Upload-new-config-QA1-MM\\video.webm"
                         }
                       ]
                     }
@@ -133,57 +278,10 @@
                   "status": "expected"
                 }
               ],
-              "id": "e81b4d2d61f68ccdc8d0-d56da65b264bf816507c",
-              "file": "D2C/12_D2C_Settings.spec.ts",
-              "line": 168,
+              "id": "153c5591b2dba21b4632-5dc13bf77a4db065a4fd",
+              "file": "MM/02-MM_Session_Conf_delete-confg_UploadConf.spec.ts",
+              "line": 32,
               "column": 9
-            },
-            {
-              "title": "@D2Csanity   Validate MM and DB Level Design config files",
-              "ok": true,
-              "tags": [
-                "D2Csanity"
-              ],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "QA1_D2C",
-                  "projectName": "QA1_D2C",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 7832,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-05-19T07:52:54.606Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\results\\2026-05-19T07-52-46-326Z\\D2C-12_D2C_Settings--D2C-S-2e839-B-Level-Design-config-files-QA1-D2C\\test-finished-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "C:\\Users\\sral0922\\Documents\\CMT_2026\\26.1\\D2C_Auto\\results\\2026-05-19T07-52-46-326Z\\D2C-12_D2C_Settings--D2C-S-2e839-B-Level-Design-config-files-QA1-D2C\\video.webm"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "e81b4d2d61f68ccdc8d0-d22041ed8b699b19f330",
-              "file": "D2C/12_D2C_Settings.spec.ts",
-              "line": 312,
-              "column": 8
             }
           ]
         }
@@ -192,9 +290,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-05-19T07:52:45.182Z",
-    "duration": 17403.859,
-    "expected": 2,
+    "startTime": "2026-05-20T06:52:36.378Z",
+    "duration": 59592.111,
+    "expected": 1,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

@@ -1,0 +1,87 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e5]:
+  - generic [ref=e7]:
+    - img [ref=e9]
+    - generic [ref=e11]: MIGRATION HUB
+    - tablist [ref=e13]:
+      - generic [ref=e15]:
+        - tab "Sessions" [selected] [ref=e16]
+        - tab "Configurations" [ref=e17] [cursor=pointer]
+        - tab "Source Profiles" [ref=e18] [cursor=pointer]
+        - tab "Monitoring" [ref=e19] [cursor=pointer]
+    - generic [ref=e20]:
+      - img [ref=e25] [cursor=pointer]
+      - button "C" [ref=e28] [cursor=pointer]:
+        - generic [ref=e30]: C
+  - generic [ref=e34]:
+    - generic [ref=e35]:
+      - generic [ref=e41]:
+        - textbox "Search" [active] [ref=e42]: Srini_MM_AT
+        - button [ref=e44] [cursor=pointer]
+      - generic [ref=e45]:
+        - button "Create Session" [ref=e46] [cursor=pointer]:
+          - generic [ref=e47]:
+            - img [ref=e49]
+            - generic [ref=e51]: Create Session
+        - button [ref=e52] [cursor=pointer]:
+          - img [ref=e55]
+        - button [ref=e58] [cursor=pointer]:
+          - img [ref=e61]
+    - table [ref=e64]:
+      - row "Session Name Configuration Configuration Version Status Start Time End Time Execution Time Created When Description" [ref=e66]:
+        - gridcell "Session Name" [ref=e68] [cursor=pointer]:
+          - generic [ref=e69]: Session Name
+        - gridcell "Configuration" [ref=e72] [cursor=pointer]:
+          - generic [ref=e73]: Configuration
+        - gridcell "Configuration Version" [ref=e76] [cursor=pointer]:
+          - generic [ref=e77]: Configuration Version
+        - gridcell "Status" [ref=e80] [cursor=pointer]:
+          - generic [ref=e81]: Status
+        - gridcell "Start Time" [ref=e84] [cursor=pointer]:
+          - generic [ref=e85]: Start Time
+        - gridcell "End Time" [ref=e88] [cursor=pointer]:
+          - generic [ref=e89]: End Time
+        - gridcell "Execution Time" [ref=e92]:
+          - generic [ref=e93]: Execution Time
+        - gridcell "Created When" [ref=e96] [cursor=pointer]:
+          - generic [ref=e97]: Created When
+          - img [ref=e100]
+        - gridcell "Description" [ref=e104]:
+          - generic [ref=e105]: Description
+      - row "Srini_MM_AT_Newsession_2026-05-19_09-48-28 oss-lm-migMaySr-21011 1.0.1-1777625561 green 2026-05-19 15:18 2026-05-19 15:22 4 minutes 2026-05-19 15:18 SRINI_MM_AT_smoke_2026-05-19_09-48-28" [ref=e109]:
+        - gridcell "Srini_MM_AT_Newsession_2026-05-19_09-48-28" [ref=e111]:
+          - link "Srini_MM_AT_Newsession_2026-05-19_09-48-28" [ref=e112] [cursor=pointer]:
+            - /url: /fragment/migration-ui/session/summary?objectId=ae7f5ef9-7f09-4f20-951a-fe699f687e7a
+            - generic [ref=e113]: Srini_MM_AT_Newsession_2026-05-19_09-48-28
+        - gridcell "oss-lm-migMaySr-21011" [ref=e116]: oss-lm-migMaySr-21011
+        - gridcell "1.0.1-1777625561" [ref=e119]: 1.0.1-1777625561
+        - gridcell "green" [ref=e122]:
+          - generic "green" [ref=e124]:
+            - generic [ref=e125]: Completed
+        - gridcell "2026-05-19 15:18" [ref=e128]:
+          - generic [ref=e129]: 2026-05-19 15:18
+        - gridcell "2026-05-19 15:22" [ref=e132]:
+          - generic [ref=e133]: 2026-05-19 15:22
+        - gridcell "4 minutes" [ref=e136]:
+          - generic [ref=e137]: 4 minutes
+        - gridcell "2026-05-19 15:18" [ref=e140]:
+          - generic [ref=e141]: 2026-05-19 15:18
+        - gridcell "SRINI_MM_AT_smoke_2026-05-19_09-48-28" [ref=e144]:
+          - generic [ref=e146]: SRINI_MM_AT_smoke_2026-05-19_09-48-28
+    - list [ref=e150]:
+      - listitem [ref=e151]: 1 items, 1-1 shown
+      - listitem [ref=e152] [cursor=pointer]:
+        - img [ref=e153]:
+          - img [ref=e154]
+      - listitem [ref=e156] [cursor=pointer]: "1"
+      - listitem [ref=e157] [cursor=pointer]:
+        - img [ref=e158]:
+          - img [ref=e159]
+      - listitem [ref=e161]:
+        - generic "Page Size" [ref=e162] [cursor=pointer]:
+          - generic [ref=e163]:
+            - combobox "Page Size" [ref=e165]
+            - generic "10 per page" [ref=e166]
+```

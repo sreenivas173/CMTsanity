@@ -33,8 +33,9 @@ test.describe('@MMsanity MM Configuration Delete and Upload', () => {
       `Delete: ${configToDelete} and Upload new config`,
       async ({ page }) => {
 
-        test.setTimeout(300000);
-
+        test.setTimeout(180000);
+        page.setDefaultTimeout(10000);
+        page.setDefaultNavigationTimeout(30000);
         const mmLoginPage = new MM_LoginPage(page);
         const mmConfigPage = new MM_ConfigPage(page);
 
@@ -143,12 +144,12 @@ test.describe('@MMsanity MM Configuration Delete and Upload', () => {
         // Field dropdown
         await controls.nth(0).click();
 
-       const fieldOption = page
-  .locator('[role="listbox"]:visible')
-  .getByRole('option', {
-    name: /name/i
-  })
-  .first();
+        const fieldOption = page
+          .locator('[role="listbox"]:visible')
+          .getByRole('option', {
+            name: /name/i
+          })
+          .first();
 
         await expect(fieldOption).toBeVisible({
           timeout: 10000
@@ -192,20 +193,43 @@ test.describe('@MMsanity MM Configuration Delete and Upload', () => {
           timeout: 30000
         });
 
-        // Matching session rows
-        const getMatchingSessionRows = () =>
-          page
-            .getByRole('row')
-            .filter({
-              hasText: sessionSearchText
-            });
+        // Use search box instead of filter persistence
+        const sessionSearchBox =
+          page.getByRole(
+            'textbox',
+            {
+              name: 'Search'
+            }
+          );
 
-        const getMatchingSessionLinks = () =>
-          getMatchingSessionRows()
-            .locator('a');
+        await sessionSearchBox.clear();
+
+        await sessionSearchBox.fill(
+          sessionSearchText
+        );
+
+        await page.waitForTimeout(
+          2000
+        );
+
+        const getMatchingSessionLinks =
+          () =>
+            page
+              .getByRole(
+                'link'
+              )
+              .filter({
+                hasText:
+                  sessionSearchText
+              });
 
         let matchingCount =
-          await getMatchingSessionLinks().count();
+          await getMatchingSessionLinks()
+            .count();
+
+        console.log(
+          `Found ${matchingCount} matching session(s)`
+        );
 
         console.log(
           `Found ${matchingCount} matching session(s)`
@@ -289,17 +313,46 @@ test.describe('@MMsanity MM Configuration Delete and Upload', () => {
             `Session status: ${status}`
           );
 
-         console.log(`Deleting session with status: ${status}`);
+          console.log(`Deleting session with status: ${status}`);
 
-          // Completed / Cancelled
+          //--------------------------May 20 -------------------------
+          console.log(
+            `Deleting session: ${sessionName}`
+          );
+
+          // PRODUCTION STRATEGY:
+          // Prefer visible Delete button.
+          // Only use overflow path when Delete absent.
+
+          console.log(
+            `Deleting session:
+   ${sessionName}`
+          );
+
+          console.log(
+            `Deleting session:
+   ${sessionName}`
+          );
+
+          // Completed page:
           const directDelete =
             page.getByRole(
               'button',
               {
                 name: /^Delete$/i
               }
+            ).first();
+
+          // Not Started page:
+          const editButton =
+            page.getByRole(
+              'button',
+              {
+                name: /^Edit$/i
+              }
             );
 
+          // CASE 1
           if (
             await directDelete
               .isVisible()
@@ -307,207 +360,125 @@ test.describe('@MMsanity MM Configuration Delete and Upload', () => {
           ) {
 
             console.log(
-              'Direct delete found'
+              'Completed → direct delete'
             );
 
-            await directDelete.click();
-
-          } else {
-
-            // Not Started → use 3 dots
-            console.log(
-              'Using 3-dot delete'
-            );
-
-            
-          // Find Edit button first
-const editButton = page
-  .getByRole(
-    'button',
-    {
-      name: 'Edit'
-    }
-  );
-
-await expect(
-  editButton
-).toBeVisible({
-  timeout: 10000
-});
-
-// 3-dots button = next sibling after Edit
-const moreActions =
-  editButton
-    .locator(
-      'xpath=following-sibling::button[1]'
-    );
-
-await expect(
-  moreActions
-).toBeVisible({
-  timeout: 5000
-});
-
-console.log(
-  'Opening 3-dot menu'
-);
-
-await moreActions.click({
-  force: true
-});
-
-await page.waitForTimeout(
-  1000
-);
-
-            // Reduce wait
-            await page.waitForTimeout(
-              1000
-            );
-
-            const deleteMenu =
-              page
-                .getByText(
-                  'Delete',
-                  {
-                    exact: true
-                  }
-                );
-
-            await expect(
-              deleteMenu
-            ).toBeVisible({
-              timeout: 5000
+            await directDelete.click({
+              force: true
             });
 
-            await deleteMenu.click();
           }
 
-        // Confirm popup delete
-const confirmDialog =
-  page.getByRole(
-    'dialog'
-  );
+          // CASE 2
+          else if (
+            await editButton
+              .isVisible()
+              .catch(() => false)
+          ) {
 
-await expect(
-  confirmDialog
-).toBeVisible({
-  timeout: 10000
-});
+            console.log(
+              'Not Started → overflow delete'
+            );
 
-// Actual popup Delete button
-const confirmDeleteButton =
-  confirmDialog
-    .getByRole(
-      'button',
-      {
-        name: /^Delete$/i
-      }
-    );
+            const moreActions =
+              editButton.locator(
+                'xpath=following-sibling::button[1]'
+              );
 
-await expect(
-  confirmDeleteButton
-).toBeVisible({
-  timeout: 10000
-});
+            await moreActions.click({
+              force: true
+            });
 
-console.log(
-  'Confirming popup delete'
-);
+            const deleteMenu =
+              page.getByText(
+                'Delete',
+                {
+                  exact: true
+                }
+              );
 
-await confirmDeleteButton.click({
-  force: true
-});
+            await deleteMenu.click();
 
-// Wait dialog closed
-await expect(
-  confirmDialog
-).toBeHidden({
-  timeout: 15000
-});
+          }
 
-console.log(
-  'Delete popup closed'
-);
+          // UNKNOWN
+          else {
 
+            console.log(
+              'Buttons missing'
+            );
 
-          console.log(
-            'Delete confirmed'
-          );
+            await page.screenshot({
+              path:
+                `unknown_ui_${Date.now()}.png`
+            });
 
-          console.log(
-            'Validating session deletion'
-          );
-
-          // Return to sessions page
-          await page.goto(
-            sessionsUrl
-          );
+            throw new Error(
+              'Delete UI not found'
+            );
+          }
+          //------------------------------may 20---------------------
+          // Confirm popup delete
+          const confirmDialog =
+            page.getByRole(
+              'dialog'
+            );
 
           await expect(
-            page.getByRole('table')
+            confirmDialog
           ).toBeVisible({
+            timeout: 10000
+          });
+
+          // Actual popup Delete button
+          const confirmDeleteButton =
+            confirmDialog
+              .getByRole(
+                'button',
+                {
+                  name: /^Delete$/i
+                }
+              );
+
+          await expect(
+            confirmDeleteButton
+          ).toBeVisible({
+            timeout: 10000
+          });
+
+          console.log(
+            'Confirming popup delete'
+          );
+
+          await confirmDeleteButton.click({
+            force: true
+          });
+
+          // Wait dialog closed
+          await expect(
+            confirmDialog
+          ).toBeHidden({
             timeout: 15000
           });
 
-          // Reapply search filter
-          const searchBox = page
-            .getByRole(
-              'textbox',
-              {
-                name: 'Search'
-              }
-            );
-
-          await searchBox.clear();
-
-          await searchBox.fill(
-            sessionSearchText
+          console.log(
+            'Delete popup closed'
           );
-
-       // Wait search refresh
-await expect.poll(
-  async () => {
-
-    const tableText =
-      await page
-        .locator('table')
-        .textContent();
-
-    return tableText;
-
-  },
-  {
-    timeout: 15000,
-    intervals: [1000]
-  }
-).toContain(
-  'No data to display'
-);
-          // Verify deleted session removed
-          await expect.poll(
-            async () => {
-
-              return await page
-                .getByRole('link', {
-                  name:
-                    sessionName || ''
-                })
-                .count();
-
-            },
-            {
-              timeout: 60000,
-              intervals: [2000]
-            }
-          ).toBe(0);
+          ///--------------------------------------
 
           console.log(
-            'Session deletion verified'
+            'Re-validating sessions'
           );
 
-          // Refresh matching count
-          matchingCount =
+          await page.goto(
+            sessionsUrl,
+            {
+              waitUntil:
+                'domcontentloaded'
+            }
+          );
+
+          const remaining =
             await page
               .getByRole('row')
               .filter({
@@ -518,25 +489,70 @@ await expect.poll(
 
           console.log(
             `Remaining sessions:
+   ${remaining}`
+          );
+          //==================may20-1==s========================
+
+          await page.goto(
+            sessionsUrl
+          );
+
+          await page.waitForLoadState(
+            'domcontentloaded'
+          );
+
+          await expect.poll(
+            async () => {
+
+              const rows =
+                page
+                  .getByRole('row')
+                  .filter({
+                    hasText:
+                      sessionSearchText
+                  });
+
+              return await rows.count();
+
+            },
+            {
+              timeout: 20000,
+              intervals: [1000]
+            }
+          ).toBeLessThan(
+            matchingCount
+          );
+
+          console.log(
+            'Session deletion verified'
+          );
+          // Refresh count after delete
+          matchingCount =
+            await getMatchingSessionLinks()
+              .count();
+
+          console.log(
+            `Remaining sessions:
    ${matchingCount}`
           );
 
-          // HARD BLOCK
+          // Continue deleting
           if (
             matchingCount > 0
           ) {
 
             console.log(
-              'More sessions exist'
+              'More sessions remain'
             );
 
             continue;
           }
 
-          // Refresh count
-          matchingCount =
-            await getMatchingSessionLinks()
-              .count();
+          console.log(
+            'All sessions deleted'
+          );
+          //==================may20-1=e=========================
+
 
           console.log(
             `Remaining sessions:
@@ -562,40 +578,45 @@ await expect.poll(
 
         }
 
-// FINAL SESSION VALIDATION
+        // FINAL SESSION VALIDATION
 
-await page.goto(
-  sessionsUrl
-);
+        await page.goto(
+          sessionsUrl
+        );
 
-await expect(
-  page.getByRole('table')
-).toBeVisible({
-  timeout: 15000
-});
+        await expect(
+          page.getByRole('table')
+        ).toBeVisible({
+          timeout: 15000
+        });
 
-const finalSessionCount =
-  await page
-    .getByRole('row')
-    .filter({
-      hasText:
-        sessionSearchText
-    })
-    .count();
+        await sessionSearchBox.clear();
 
-console.log(
-  `Final remaining sessions:
+        await sessionSearchBox.fill(
+          sessionSearchText
+        );
+
+        await page.waitForTimeout(
+          2000
+        );
+
+        const finalSessionCount =
+          await getMatchingSessionLinks()
+            .count();
+
+        console.log(
+          `Final remaining sessions:
    ${finalSessionCount}`
-);
+        );
 
-// BLOCK CONFIG DELETE
-expect(
-  finalSessionCount
-).toBe(0);
+        // BLOCK CONFIG DELETE
+        expect(
+          finalSessionCount
+        ).toBe(0);
 
-console.log(
-  'All sessions removed successfully'
-);
+        console.log(
+          'All sessions removed successfully'
+        );
 
 
 
