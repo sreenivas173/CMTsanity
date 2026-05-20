@@ -33,7 +33,7 @@ jobs:
         npx playwright test tests/D2C/ -g "@D2Csanity" \
           --project=QA1_D2C \
           --workers=1 \
-          --reporter=html,json=d2c-report.json
+          --reporter=html,json=./d2c-report.json
       env:
         PLAYWRIGHT_HTML_OUTPUT_DIR: d2c-report
 
@@ -43,7 +43,7 @@ jobs:
         npx playwright test tests/MM/ -g "@MMsanity" \
           --project=QA1_MM \
           --workers=1 \
-          --reporter=html,json=mm-report.json
+          --reporter=html,json=./mm-report.json
       env:
         PLAYWRIGHT_HTML_OUTPUT_DIR: mm-report
 
@@ -79,6 +79,8 @@ jobs:
 
         Copy-Item -Path "d2c-report\*" -Destination "deploy\d2c\" -Recurse -Force
         Copy-Item -Path "mm-report\*" -Destination "deploy\mm\" -Recurse -Force
+        Copy-Item -Path "d2c-report.json" -Destination "deploy\d2c\" -Force
+        Copy-Item -Path "mm-report.json" -Destination "deploy\mm\" -Force
 
         Set-Location deploy
         git init
@@ -95,3 +97,6 @@ jobs:
         WEBEX_ROOM_ID: ${{ secrets.WEBEX_ROOM_ID }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+        #//----updated playwright report URLs to point to GitHub Pages--------
+
