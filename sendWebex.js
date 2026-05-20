@@ -6,41 +6,105 @@ const mmReportUrl  = `https://sreenivas173.github.io/CMTsanity/mm/`;
 
 // 🔍 Parse Playwright JSON report
 function getSummary() {
-  let total = 0, passed = 0, failed = 0, skipped = 0;
+
+  let total = 0;
+  let passed = 0;
+  let failed = 0;
+  let skipped = 0;
+
   let passedTests = [];
   let failedTests = [];
 
-  try {
-    const data = JSON.parse(fs.readFileSync("report.json", "utf-8"));
+  const reports = [
+    "d2c-report.json",
+    "mm-report.json"
+  ];
 
-    function parseSuite(suite) {
-      suite.specs?.forEach(spec => {
-        spec.tests.forEach(test => {
-          total++;
-          const result = test.results[0];
+  function parseSuite(suite) {
 
-          if (result.status === "passed") {
-            passed++;
-            passedTests.push(spec.title);
-          } else if (result.status === "failed") {
-            failed++;
-            failedTests.push(spec.title);
-          } else if (result.status === "skipped") {
-            skipped++;
-          }
-        });
+    suite.specs?.forEach(spec => {
+
+      spec.tests.forEach(test => {
+
+        total++;
+
+        const result =
+          test.results?.[0];
+
+        if (!result) return;
+
+        if (
+          result.status ===
+          "passed"
+        ) {
+
+          passed++;
+
+          passedTests.push(
+            spec.title
+          );
+
+        } else if (
+          result.status ===
+          "failed"
+        ) {
+
+          failed++;
+
+          failedTests.push(
+            spec.title
+          );
+
+        } else if (
+          result.status ===
+          "skipped"
+        ) {
+
+          skipped++;
+        }
+
       });
 
-      suite.suites?.forEach(parseSuite);
+    });
+
+    suite.suites?.forEach(
+      parseSuite
+    );
+  }
+
+  reports.forEach(file => {
+
+    if (
+      !fs.existsSync(file)
+    ) {
+
+      console.log(
+        `${file} not found`
+      );
+
+      return;
     }
+
+    const data =
+      JSON.parse(
+        fs.readFileSync(
+          file,
+          "utf8"
+        )
+      );
 
     parseSuite(data);
 
-  } catch (err) {
-    console.error("❌ Error reading report:", err.message);
-  }
+  });
 
-  return { total, passed, failed, skipped, passedTests, failedTests };
+  return {
+    total,
+    passed,
+    failed,
+    skipped,
+    passedTests,
+    failedTests
+  };
 }
 
 // 📩 Send message to Webex
