@@ -14,7 +14,10 @@ function getSummary() {
   let passedTests = [];
   let failedTests = [];
 
-  const reports = ["d2c-report.json", "mm-report.json"];
+  const reports = [
+  "./d2c-report.json",
+  "./mm-report.json"
+];
 
   function parseSuite(suite) {
     suite.specs?.forEach(spec => {

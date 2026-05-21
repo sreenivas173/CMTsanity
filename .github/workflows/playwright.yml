@@ -28,7 +28,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-    # Run D2C
+    # RUN D2C
     - name: Run D2C Sanity Tests
       shell: powershell
       run: |
@@ -36,9 +36,9 @@ jobs:
         npx playwright test tests/D2C/ `
           -g "@D2Csanity" `
           --project=QA1_D2C `
-          --workers=1 `
-          --reporter=html,json
+          --workers=1
 
+        # Rename generated HTML report
         if (Test-Path "playwright-report") {
           Rename-Item `
             playwright-report `
@@ -46,14 +46,18 @@ jobs:
             -Force
         }
 
-        if (Test-Path "test-results.json") {
+        # Copy JSON report
+        if (Test-Path "report.json") {
           Copy-Item `
-            test-results.json `
+            report.json `
             d2c-report.json `
             -Force
         }
 
-    # Run MM
+        Write-Host "D2C files:"
+        Get-ChildItem
+
+    # RUN MM
     - name: Run MM Sanity Tests
       shell: powershell
       run: |
@@ -61,9 +65,9 @@ jobs:
         npx playwright test tests/MM/ `
           -g "@MMsanity" `
           --project=QA1_MM `
-          --workers=1 `
-          --reporter=html,json
+          --workers=1
 
+        # Rename HTML report
         if (Test-Path "playwright-report") {
           Rename-Item `
             playwright-report `
@@ -71,24 +75,26 @@ jobs:
             -Force
         }
 
-        if (Test-Path "test-results.json") {
+        # Copy JSON report
+        if (Test-Path "report.json") {
           Copy-Item `
-            test-results.json `
+            report.json `
             mm-report.json `
             -Force
         }
 
-    # Debug
+        Write-Host "MM files:"
+        Get-ChildItem
+
+    # DEBUG
     - name: Debug generated files
       shell: powershell
       run: |
 
-        Write-Host "Workspace"
-
+        Write-Host "Workspace Files"
         Get-ChildItem
 
-        Write-Host "JSON"
-
+        Write-Host "JSON Files"
         Get-ChildItem *.json
 
     # Upload artifacts
@@ -106,7 +112,7 @@ jobs:
         name: mm-report
         path: mm-report/
 
-    # Deploy GitHub pages
+    # Deploy GitHub Pages
     - name: Deploy HTML Report
       if: always()
       shell: powershell
@@ -161,7 +167,7 @@ jobs:
           gh-pages `
           --force
 
-    # Webex
+    # Webex notification
     - name: Send Webex Notification
       if: always()
       run: node sendWebex.js
