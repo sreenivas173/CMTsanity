@@ -15,9 +15,9 @@ function getSummary() {
   let failedTests = [];
 
   const reports = [
-  "./d2c-report.json",
-  "./mm-report.json"
-];
+    "./d2c-report.json",
+    "./mm-report.json"
+  ];
 
   function parseSuite(suite) {
     suite.specs?.forEach(spec => {
@@ -56,44 +56,182 @@ function getSummary() {
 }
 
 // 📩 Send message to Webex
+
 function sendMessage(message) {
-  return new Promise((resolve, reject) => {
-    const data = JSON.stringify({
-      roomId: process.env.WEBEX_ROOM_ID,
-      markdown: message
-    });
 
-    const options = {
-      hostname: "webexapis.com",
-      path: "/v1/messages",
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${process.env.WEBEX_TOKEN}`,
-        "Content-Type": "application/json",
-        "Content-Length": Buffer.byteLength(data)
-      }
-    };
+  return new Promise(
+    (resolve, reject) => {
 
-    const req = https.request(options, res => {
-      let body = "";
-      res.on("data", chunk => (body += chunk));
-      res.on("end", () => {
-        console.log(`📡 Webex Status: ${res.statusCode}`);
-        if (res.statusCode === 200) resolve();
-        else {
-          console.error("❌ Webex Error:", body);
-          reject(body);
+      // DEBUG
+      console.log(
+        "WEBEX_TOKEN exists:",
+        !!process.env.WEBEX_TOKEN
+      );
+
+      console.log(
+        "WEBEX_ROOM_ID exists:",
+        !!process.env.WEBEX_ROOM_ID
+      );
+
+      console.log(
+        "Token preview:",
+        process.env.WEBEX_TOKEN
+          ? process.env.WEBEX_TOKEN.substring(
+            0,
+            15
+          )
+          : "MISSING"
+      );
+
+      console.log(
+        "Room preview:",
+        process.env.WEBEX_ROOM_ID
+          ? process.env.WEBEX_ROOM_ID.substring(
+            0,
+            20
+          )
+          : "MISSING"
+      );
+
+      const data =
+        JSON.stringify({
+
+          roomId:
+            process.env
+              .WEBEX_ROOM_ID,
+
+          markdown:
+            message
+
+        });
+
+      const options = {
+
+        hostname:
+          "webexapis.com",
+
+        path:
+          "/v1/messages",
+
+        method:
+          "POST",
+
+        headers: {
+
+          Authorization:
+            `Bearer ${process.env.WEBEX_TOKEN}`,
+
+          "Content-Type":
+            "application/json",
+
+          "Content-Length":
+            Buffer.byteLength(
+              data
+            )
+
         }
-      });
-    });
 
-    req.on("error", err => {
-      console.error("❌ Request Error:", err.message);
-      reject(err);
-    });
+      };
 
-    req.write(data);
-    req.end();
+      const req =
+        https.request(
+          options,
+          res => {
+
+            let body = "";
+
+            res.on(
+              "data",
+              chunk =>
+                body += chunk
+            );
+
+            res.on(
+              "end",
+              () => {
+
+                console.log(
+                  `📡 Webex Status:
+                   ${res.statusCode}`
+                );
+
+                if (
+                  res.statusCode === 200
+                ) {
+
+                  resolve();
+
+                } else {
+
+                  console.error(
+                    "❌ Webex Error:",
+                    body
+                  );
+
+                  reject(body);
+
+                }
+
+              }
+            );
+
+          }
+        );
+
+      req.on(
+        "error",
+        err => {
+
+          console.error(
+            "❌ Request Error:",
+            err.message
+          );
+
+          reject(err);
+
+        }
+      );
+
+      req.write(data);
+
+      req.end();
+
+    }
+  );
+
+}
+
+const options = {
+  hostname: "webexapis.com",
+  path: "/v1/messages",
+  method: "POST",
+  headers: {
+    "Authorization": `Bearer ${process.env.WEBEX_TOKEN}`,
+    "Content-Type": "application/json",
+    "Content-Length": Buffer.byteLength(data)
+  }
+};
+
+const req = https.request(options, res => {
+  let body = "";
+  res.on("data", chunk => (body += chunk));
+  res.on("end", () => {
+    console.log(`📡 Webex Status: ${res.statusCode}`);
+    if (res.statusCode === 200) resolve();
+    else {
+      console.error("❌ Webex Error:", body);
+      reject(body);
+    }
+  });
+});
+
+req.on("error", err => {
+  console.error("❌ Request Error:", err.message);
+  reject(err);
+});
+
+req.write(data);
+req.end();
   });
 }
 
