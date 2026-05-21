@@ -45,7 +45,7 @@ function getSummary() {
     console.log(`Checking: ${file}`);
     if (!fs.existsSync(file)) {
       console.log(`${file} NOT FOUND`);
-      continue;
+      return;
     }
     console.log(`${file} FOUND`);
     const data = JSON.parse(fs.readFileSync(file, "utf8"));
