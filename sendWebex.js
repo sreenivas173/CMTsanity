@@ -45,7 +45,7 @@ function getSummary() {
     console.log(`Checking: ${file}`);
     if (!fs.existsSync(file)) {
       console.log(`${file} NOT FOUND`);
-      return;
+      continue;
     }
     console.log(`${file} FOUND`);
     const data = JSON.parse(fs.readFileSync(file, "utf8"));
@@ -162,3 +162,4 @@ ${artifactUrl || "Check artifacts in run page"}
     process.exit(1);
   }
 })();
+// Note: Ensure WEBEX_TOKEN, WEBEX_ROOM_ID, and GITHUB_RUN_URL are set in environment variables before running this script.

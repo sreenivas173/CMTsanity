@@ -23,7 +23,7 @@ test.describe('@MMsanity MM Session Delete Validations', () => {
     await page.waitForTimeout(3000);
   });
 
-  test('@MMsanity MM Session Delete - Verify Successful Deletion by Reduced Session Count', async ({ page }) => {
+  test('MM Session Delete - Verify Successful Deletion by Reduced Session Count', async ({ page }) => {
     // Full URL as in 07-MM_SessionStart.spec.ts
     const fullUrl = 'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/fragment/migration-ui/sessions';
     
@@ -196,3 +196,5 @@ console.log(
     console.log(`Delete successful: count reduced from ${initialCount} to ${newCount}`);
   });
 });
+
+// 
