@@ -1,1 +1,13 @@
+# Temporary execution results
+results/
 test-results/
+blob-report/
+
+# Runtime json
+report.json
+
+# Playwright artifacts
+*.zip
+*.webm
+*.png
+*.trace
