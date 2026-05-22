@@ -1,11 +1,15 @@
 const fs = require("fs");
 const https = require("https");
 
-const d2cReportUrl = `https://sreenivas173.github.io/CMTsanity/d2c/`;
-const mmReportUrl = `https://sreenivas173.github.io/CMTsanity/mm/`;
+const d2cReportUrl =
+  "https://sreenivas173.github.io/CMTsanity/d2c/";
 
-// 🔍 Parse Playwright JSON report
+const mmReportUrl =
+  "https://sreenivas173.github.io/CMTsanity/mm/";
+
+// Parse reports
 function getSummary() {
+
   let total = 0;
   let passed = 0;
   let failed = 0;
@@ -20,77 +24,149 @@ function getSummary() {
   ];
 
   function parseSuite(suite) {
-    suite.specs?.forEach(spec => {
-      spec.tests.forEach(test => {
-        total++;
-        const result = test.results?.[0];
-        if (!result) return;
 
-        if (result.status === "passed") {
-          passed++;
-          passedTests.push(spec.title);
-        } else if (result.status === "failed") {
-          failed++;
-          failedTests.push(spec.title);
-        } else if (result.status === "skipped") {
-          skipped++;
-        }
-      });
-    });
+    suite.specs?.forEach(
+      spec => {
 
-    suite.suites?.forEach(parseSuite);
+        spec.tests?.forEach(
+          test => {
+
+            total++;
+
+            const result =
+              test.results?.[0];
+
+            if (!result)
+              return;
+
+            if (
+              result.status ===
+              "passed"
+            ) {
+
+              passed++;
+
+              passedTests.push(
+                spec.title
+              );
+
+            } else if (
+              result.status ===
+              "failed"
+            ) {
+
+              failed++;
+
+              failedTests.push(
+                spec.title
+              );
+
+            } else if (
+              result.status ===
+              "skipped"
+            ) {
+
+              skipped++;
+
+            }
+
+          }
+        );
+
+      }
+    );
+
+    suite.suites?.forEach(
+      parseSuite
+    );
+
   }
 
-  reports.forEach(file => {
-    console.log(`Checking: ${file}`);
-    if (!fs.existsSync(file)) {
-      console.log(`${file} NOT FOUND`);
-      return;
-    }
-    console.log(`${file} FOUND`);
-    const data = JSON.parse(fs.readFileSync(file, "utf8"));
-    parseSuite(data);
-  });
+  reports.forEach(
+    file => {
 
-  return { total, passed, failed, skipped, passedTests, failedTests };
+      console.log(
+        `Checking:
+         ${file}`
+      );
+
+      if (
+        !fs.existsSync(
+          file
+        )
+      ) {
+
+        console.log(
+          `${file}
+           NOT FOUND`
+        );
+
+        return;
+
+      }
+
+      console.log(
+        `${file}
+         FOUND`
+      );
+
+      const data =
+        JSON.parse(
+          fs.readFileSync(
+            file,
+            "utf8"
+          )
+        );
+
+      parseSuite(
+        data
+      );
+
+    }
+  );
+
+  return {
+    total,
+    passed,
+    failed,
+    skipped,
+    passedTests,
+    failedTests
+  };
+
 }
 
-// 📩 Send message to Webex
-
-function sendMessage(message) {
+// Send Webex
+function sendMessage(
+  message
+) {
 
   return new Promise(
-    (resolve, reject) => {
+    (
+      resolve,
+      reject
+    ) => {
 
-      // DEBUG
       console.log(
         "WEBEX_TOKEN exists:",
-        !!process.env.WEBEX_TOKEN
+        !!process.env
+          .WEBEX_TOKEN
       );
 
       console.log(
         "WEBEX_ROOM_ID exists:",
-        !!process.env.WEBEX_ROOM_ID
+        !!process.env
+          .WEBEX_ROOM_ID
       );
 
       console.log(
         "Token preview:",
-        process.env.WEBEX_TOKEN
-          ? process.env.WEBEX_TOKEN.substring(
+        process.env
+          .WEBEX_TOKEN
+          ?.substring(
             0,
             15
           )
-          : "MISSING"
-      );
-
-      console.log(
-        "Room preview:",
-        process.env.WEBEX_ROOM_ID
-          ? process.env.WEBEX_ROOM_ID.substring(
-            0,
-            20
-          )
-          : "MISSING"
       );
 
       const data =
@@ -143,7 +219,8 @@ function sendMessage(message) {
             res.on(
               "data",
               chunk =>
-                body += chunk
+                body +=
+                chunk
             );
 
             res.on(
@@ -156,7 +233,8 @@ function sendMessage(message) {
                 );
 
                 if (
-                  res.statusCode === 200
+                  res.statusCode ===
+                  200
                 ) {
 
                   resolve();
@@ -164,11 +242,12 @@ function sendMessage(message) {
                 } else {
 
                   console.error(
-                    "❌ Webex Error:",
                     body
                   );
 
-                  reject(body);
+                  reject(
+                    body
+                  );
 
                 }
 
@@ -180,19 +259,12 @@ function sendMessage(message) {
 
       req.on(
         "error",
-        err => {
-
-          console.error(
-            "❌ Request Error:",
-            err.message
-          );
-
-          reject(err);
-
-        }
+        reject
       );
 
-      req.write(data);
+      req.write(
+        data
+      );
 
       req.end();
 
@@ -201,103 +273,55 @@ function sendMessage(message) {
 
 }
 
-const options = {
-  hostname: "webexapis.com",
-  path: "/v1/messages",
-  method: "POST",
-  headers: {
-    "Authorization": `Bearer ${process.env.WEBEX_TOKEN}`,
-    "Content-Type": "application/json",
-    "Content-Length": Buffer.byteLength(data)
-  }
-};
-
-const req = https.request(options, res => {
-  let body = "";
-  res.on("data", chunk => (body += chunk));
-  res.on("end", () => {
-    console.log(`📡 Webex Status: ${res.statusCode}`);
-    if (res.statusCode === 200) resolve();
-    else {
-      console.error("❌ Webex Error:", body);
-      reject(body);
-    }
-  });
-});
-
-req.on("error", err => {
-  console.error("❌ Request Error:", err.message);
-  reject(err);
-});
-
-req.write(data);
-req.end();
-  });
-}
-
-// 🚀 Main execution
+// Main
 (async () => {
+
   try {
-    const summary = getSummary();
 
-    if (summary.total === 0) {
-      console.error("❌ No tests found in JSON. Check Playwright run.");
-      process.exit(1);
-    }
+    const summary =
+      getSummary();
 
-    const runUrl = process.env.GITHUB_RUN_URL || "";
-    const artifactUrl = runUrl ? `${runUrl}#artifacts` : "";
-    const maxItems = 5;
-
-    const failedList = summary.failedTests.slice(0, maxItems)
-      .map(t => `- ❌ ${t}`).join("\n");
-    const passedList = summary.passedTests.slice(0, maxItems)
-      .map(t => `- ✅ ${t}`).join("\n");
-
-    const moreFailed = summary.failedTests.length > maxItems
-      ? `\n...and ${summary.failedTests.length - maxItems} more`
-      : "";
-    const morePassed = summary.passedTests.length > maxItems
-      ? `\n...and ${summary.passedTests.length - maxItems} more`
-      : "";
+    const runUrl =
+      process.env
+        .GITHUB_RUN_URL
+      || "";
 
     const message = `
-🚀 **Playwright Sanity Report**
+🚀 Playwright Sanity
 
-📊 **Summary**
-- Total: ${summary.total}
-- Passed: ${summary.passed} ✅
-- Failed: ${summary.failed} ❌
-- Skipped: ${summary.skipped}
+Total:
+${summary.total}
 
-${summary.failed > 0 ? `
-❌ **Failed Tests**
-${failedList}${moreFailed}
-` : "🎉 **All tests passed successfully!**"}
+Passed:
+${summary.passed}
 
-${summary.passed > 0 ? `
-✅ **Sample Passed Tests**
-${passedList}${morePassed}
-` : ""}
+Failed:
+${summary.failed}
 
-🌐 **View HTML Report (Recommended):**
-- 🔹 **D2C Report:**  
+D2C:
 ${d2cReportUrl}
 
-- 🔹 **MM Report:**  
+MM:
 ${mmReportUrl}
 
-🔗 **View Run:**
+Run:
 ${runUrl}
-
-📦 **Download Report ZIP:**
-${artifactUrl || "Check artifacts in run page"}
 `;
 
-    await sendMessage(message);
+    await sendMessage(
+      message
+    );
+
   } catch (err) {
-    console.error("❌ Script failed:", err);
-    process.exit(1);
+
+    console.error(
+      err
+    );
+
+    process.exit(
+      1
+    );
+
   }
+
 })();
-// Note: Ensure WEBEX_TOKEN, WEBEX_ROOM_ID, and GITHUB_RUN_URL are set in environment variables before running this script.
