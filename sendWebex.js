@@ -7,23 +7,59 @@ const d2cReportUrl =
 const mmReportUrl =
   "https://sreenivas173.github.io/CMTsanity/mm/";
 
-// Parse reports
+// Parse Playwright reports
 function getSummary() {
 
-  let total = 0;
-  let passed = 0;
-  let failed = 0;
-  let skipped = 0;
+  const summary = {
 
-  let passedTests = [];
-  let failedTests = [];
+    total: 0,
+    passed: 0,
+    failed: 0,
+    skipped: 0,
+
+    d2c: {
+      total: 0,
+      passed: 0,
+      failed: 0,
+      tests: []
+    },
+
+    mm: {
+      total: 0,
+      passed: 0,
+      failed: 0,
+      tests: []
+    },
+
+    passedTests: [],
+    failedTests: []
+
+  };
 
   const reports = [
-    "./d2c-report.json",
-    "./mm-report.json"
+
+    {
+      file:
+        "./d2c-report.json",
+
+      module:
+        "d2c"
+    },
+
+    {
+      file:
+        "./mm-report.json",
+
+      module:
+        "mm"
+    }
+
   ];
 
-  function parseSuite(suite) {
+  function parseSuite(
+    suite,
+    moduleName
+  ) {
 
     suite.specs?.forEach(
       spec => {
@@ -31,7 +67,11 @@ function getSummary() {
         spec.tests?.forEach(
           test => {
 
-            total++;
+            summary.total++;
+
+            summary[
+              moduleName
+            ].total++;
 
             const result =
               test.results?.[0];
@@ -39,34 +79,59 @@ function getSummary() {
             if (!result)
               return;
 
+            const tcName =
+              spec.title;
+
+            summary[
+              moduleName
+            ].tests.push(
+              tcName
+            );
+
             if (
               result.status ===
               "passed"
             ) {
 
-              passed++;
+              summary.passed++;
 
-              passedTests.push(
-                spec.title
-              );
+              summary[
+                moduleName
+              ].passed++;
 
-            } else if (
+              summary
+                .passedTests
+                .push(
+                  tcName
+                );
+
+            }
+
+            else if (
               result.status ===
               "failed"
             ) {
 
-              failed++;
+              summary.failed++;
 
-              failedTests.push(
-                spec.title
-              );
+              summary[
+                moduleName
+              ].failed++;
 
-            } else if (
+              summary
+                .failedTests
+                .push(
+                  tcName
+                );
+
+            }
+
+            else if (
               result.status ===
               "skipped"
             ) {
 
-              skipped++;
+              summary.skipped++;
 
             }
 
@@ -77,27 +142,31 @@ function getSummary() {
     );
 
     suite.suites?.forEach(
-      parseSuite
+      s =>
+        parseSuite(
+          s,
+          moduleName
+        )
     );
 
   }
 
   reports.forEach(
-    file => {
+    r => {
 
       console.log(
         `Checking:
-         ${file}`
+         ${r.file}`
       );
 
       if (
         !fs.existsSync(
-          file
+          r.file
         )
       ) {
 
         console.log(
-          `${file}
+          `${r.file}
            NOT FOUND`
         );
 
@@ -106,37 +175,31 @@ function getSummary() {
       }
 
       console.log(
-        `${file}
+        `${r.file}
          FOUND`
       );
 
       const data =
         JSON.parse(
           fs.readFileSync(
-            file,
+            r.file,
             "utf8"
           )
         );
 
       parseSuite(
-        data
+        data,
+        r.module
       );
 
     }
   );
 
-  return {
-    total,
-    passed,
-    failed,
-    skipped,
-    passedTests,
-    failedTests
-  };
+  return summary;
 
 }
 
-// Send Webex
+// Send Webex notification
 function sendMessage(
   message
 ) {
@@ -166,6 +229,16 @@ function sendMessage(
           ?.substring(
             0,
             15
+          )
+      );
+
+      console.log(
+        "Room preview:",
+        process.env
+          .WEBEX_ROOM_ID
+          ?.substring(
+            0,
+            20
           )
       );
 
@@ -214,13 +287,13 @@ function sendMessage(
           options,
           res => {
 
-            let body = "";
+            let body =
+              "";
 
             res.on(
               "data",
               chunk =>
-                body +=
-                chunk
+                body += chunk
             );
 
             res.on(
@@ -239,9 +312,12 @@ function sendMessage(
 
                   resolve();
 
-                } else {
+                }
+
+                else {
 
                   console.error(
+                    "❌ Webex Error:",
                     body
                   );
 
@@ -259,7 +335,17 @@ function sendMessage(
 
       req.on(
         "error",
-        reject
+        err => {
+
+          console.error(
+            err
+          );
+
+          reject(
+            err
+          );
+
+        }
       );
 
       req.write(
@@ -273,7 +359,7 @@ function sendMessage(
 
 }
 
-// Main
+// Main execution
 (async () => {
 
   try {
@@ -287,24 +373,49 @@ function sendMessage(
       || "";
 
     const message = `
-🚀 Playwright Sanity
+🚀 **Playwright Sanity Report**
 
-Total:
-${summary.total}
+📊 **Overall Summary**
+• Total: ${summary.total}
+• Passed: ${summary.passed} ✅
+• Failed: ${summary.failed} ❌
+• Skipped: ${summary.skipped}
 
-Passed:
-${summary.passed}
+📁 **D2C Summary**
+• Total: ${summary.d2c.total}
+• Passed: ${summary.d2c.passed}
+• Failed: ${summary.d2c.failed}
 
-Failed:
-${summary.failed}
+📁 **MM Summary**
+• Total: ${summary.mm.total}
+• Passed: ${summary.mm.passed}
+• Failed: ${summary.mm.failed}
 
-D2C:
+✅ **D2C Test Cases**
+${summary.d2c.tests
+  .slice(0,10)
+  .map(
+    t =>
+      `• ${t}`
+  )
+  .join("\n")}
+
+✅ **MM Test Cases**
+${summary.mm.tests
+  .slice(0,10)
+  .map(
+    t =>
+      `• ${t}`
+  )
+  .join("\n")}
+
+🌐 D2C Report:
 ${d2cReportUrl}
 
-MM:
+🌐 MM Report:
 ${mmReportUrl}
 
-Run:
+🔗 Run:
 ${runUrl}
 `;
 
@@ -312,9 +423,12 @@ ${runUrl}
       message
     );
 
-  } catch (err) {
+  }
+
+  catch (err) {
 
     console.error(
+      "❌ Script failed:",
       err
     );
 
