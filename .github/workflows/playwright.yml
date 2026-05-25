@@ -180,6 +180,14 @@ jobs:
         WEBEX_ROOM_ID: ${{ secrets.WEBEX_ROOM_ID }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        
+    - name: Print Time
+      run: |
+        echo "UTC:"
+        date -u
+
+        echo "IST:"
+          TZ=Asia/Kolkata date    
 
         # updated with actual report URLs after deployment 
         # Final - May 21 -version 01 
