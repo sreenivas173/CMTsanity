@@ -1,13 +1,14 @@
 name: CMT Sanity Tests
-
 on:
-  push:
-    branches: [main]
+  # Remove push completely if not needed
+  # push:
+  #   branches: [main]
+
   workflow_dispatch:
 
   schedule:
-     # Monday–Friday 9:00 AM IST
-  - cron: '30 3 * * 1-5'  
+    # Monday–Friday 9:00 AM IST
+    - cron: '30 3 * * 1-5' 
 
 permissions:
   contents: write
@@ -182,12 +183,17 @@ jobs:
         GITHUB_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
         
     - name: Print Time
+      shell: powershell
       run: |
-        echo "UTC:"
-        date -u
 
-        echo "IST:"
-          TZ=Asia/Kolkata date    
+        Write-Host "UTC:"
+        Get-Date -Format "yyyy-MM-dd HH:mm:ss UTC"
+
+        Write-Host "IST:"
+        [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId(
+          (Get-Date),
+          "India Standard Time"
+        ).ToString("yyyy-MM-dd HH:mm:ss")    
 
         # updated with actual report URLs after deployment 
         # Final - May 21 -version 01 
