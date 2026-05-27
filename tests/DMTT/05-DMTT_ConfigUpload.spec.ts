@@ -8,16 +8,19 @@
  */
 
 import { test, expect } from '@playwright/test';
-import { MM_LoginPage } from '../../pages/MM_LoginPage';
-import { MM_ConfigPage } from '../../pages/MM_ConfigPage';  
+import { DMTT_LoginPage } from '../../pages/DMTT_LoginPage';
+
+import { MM_ConfigPage } from '../../pages/MM_ConfigPage';
+
 
 const path = require('path');
+
 
 test.describe('DMTT CONFIGURATION Upload Validations', () => {
   test('DMTT - Upload CONFIGURATION ZIP file to configurations and validate success', async ({ page }) => {
     test.setTimeout(300000);
     
-    const loginPage = new MM_LoginPage(page);
+    const loginPage = new DMTT_LoginPage(page);
     const mmConfigPage = new MM_ConfigPage(page);
     
     // Step 1: Navigate and login (targets QA1 /fragment/migration-ui)

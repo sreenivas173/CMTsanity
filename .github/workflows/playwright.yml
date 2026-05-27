@@ -186,14 +186,33 @@ jobs:
       shell: powershell
       run: |
 
+        Write-Host "Runner Timezone:"
+        Get-TimeZone
+
+        $utc = Get-Date
+
         Write-Host "UTC:"
-        Get-Date -Format "yyyy-MM-dd HH:mm:ss UTC"
+        Write-Host (
+          $utc.ToUniversalTime().ToString(
+            "yyyy-MM-dd HH:mm:ss UTC"
+          )
+        )
+
+        $istZone = [System.TimeZoneInfo]::FindSystemTimeZoneById(
+          "India Standard Time"
+        )
+
+        $ist = [System.TimeZoneInfo]::ConvertTimeFromUtc(
+          $utc.ToUniversalTime(),
+          $istZone
+        )
 
         Write-Host "IST:"
-        [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId(
-          (Get-Date),
-          "India Standard Time"
-        ).ToString("yyyy-MM-dd HH:mm:ss")    
+        Write-Host (
+          $ist.ToString(
+            "yyyy-MM-dd HH:mm:ss IST"
+          )
+        )
 
         # updated with actual report URLs after deployment 
         # Final - May 21 -version 01 

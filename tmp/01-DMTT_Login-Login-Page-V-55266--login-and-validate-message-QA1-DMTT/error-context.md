@@ -1,0 +1,220 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - generic [ref=e6]:
+    - img [ref=e8]
+    - generic [ref=e10]: Data Migration Testing Tool
+    - generic [ref=e11]:
+      - img [ref=e16] [cursor=pointer]
+      - button [ref=e19] [cursor=pointer]
+  - generic [ref=e20]:
+    - generic [ref=e21]:
+      - list [ref=e22]:
+        - menuitem "Environment Configurations" [ref=e23] [cursor=pointer]:
+          - listitem [ref=e24]:
+            - generic [ref=e25]:
+              - img [ref=e27]
+              - generic [ref=e33]: Environment Configurations
+        - menuitem "Global Comparison Reports" [ref=e34] [cursor=pointer]:
+          - listitem [ref=e35]:
+            - generic [ref=e36]:
+              - img [ref=e38]
+              - generic [ref=e44]: Global Comparison Reports
+        - menuitem "Global Settings" [ref=e45] [cursor=pointer]:
+          - listitem [ref=e46]:
+            - generic [ref=e47]:
+              - img [ref=e49]
+              - generic [ref=e55]: Global Settings
+      - menuitem "Collapse" [ref=e56] [cursor=pointer]:
+        - listitem [ref=e57]:
+          - generic [ref=e58]:
+            - img [ref=e60]
+            - generic [ref=e66]: Collapse
+    - generic [ref=e69]:
+      - generic [ref=e70]:
+        - generic [ref=e73]:
+          - generic [ref=e76]: Environment Configurations
+          - generic [ref=e79]:
+            - button "Import" [ref=e80] [cursor=pointer]:
+              - generic [ref=e81]:
+                - img [ref=e83]
+                - generic [ref=e85]: Import
+            - button "Export All Configurations" [ref=e86] [cursor=pointer]:
+              - generic [ref=e87]:
+                - img [ref=e89]
+                - generic [ref=e91]: Export All Configurations
+            - button "Validate All Configurations" [ref=e92] [cursor=pointer]:
+              - generic [ref=e93]:
+                - img [ref=e95]
+                - generic [ref=e98]: Validate All Configurations
+        - generic [ref=e100]:
+          - tablist [ref=e101]:
+            - generic [ref=e103]:
+              - tab "Environment Configurations" [selected] [ref=e104] [cursor=pointer]
+              - tab "Kubernetes Configurations" [ref=e105] [cursor=pointer]
+              - tab "Custom Configurations" [ref=e106] [cursor=pointer]
+          - generic:
+            - generic:
+              - tabpanel
+      - generic [ref=e114]:
+        - generic [ref=e115]:
+          - generic [ref=e121]:
+            - textbox "Search" [ref=e122]
+            - generic [ref=e123]:
+              - img:
+                - img
+          - generic [ref=e124]:
+            - button "Create Configuration" [ref=e125] [cursor=pointer]:
+              - generic [ref=e126]:
+                - img [ref=e128]
+                - generic [ref=e130]: Create Configuration
+            - button [ref=e131] [cursor=pointer]:
+              - img [ref=e134]
+            - button [ref=e137] [cursor=pointer]:
+              - img [ref=e140]
+        - table [ref=e143]:
+          - row "Is Valid Configuration Name Cloud Name Namespaces Components Snapshots" [ref=e145]:
+            - gridcell "Is Valid" [ref=e147] [cursor=pointer]:
+              - generic [ref=e148]: Is Valid
+            - gridcell "Configuration Name" [ref=e151] [cursor=pointer]:
+              - generic [ref=e152]: Configuration Name
+            - gridcell "Cloud Name" [ref=e155] [cursor=pointer]:
+              - generic [ref=e156]: Cloud Name
+            - gridcell "Namespaces" [ref=e159] [cursor=pointer]:
+              - generic [ref=e160]: Namespaces
+            - gridcell "Components" [ref=e163] [cursor=pointer]:
+              - generic [ref=e164]: Components
+            - gridcell "Snapshots" [ref=e167] [cursor=pointer]:
+              - generic [ref=e168]: Snapshots
+          - row "PSUPCLDM-266 etbss env-2-bss 2 1" [ref=e172]:
+            - gridcell [ref=e174]
+            - gridcell "PSUPCLDM-266" [ref=e177]:
+              - link "PSUPCLDM-266" [ref=e178] [cursor=pointer]:
+                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=09e6c7ea-c81a-4289-a2b3-236fedc9d8e4&objectName=PSUPCLDM-266&step=env
+                - generic [ref=e179]: PSUPCLDM-266
+            - gridcell "etbss" [ref=e182]: etbss
+            - gridcell "env-2-bss" [ref=e185]:
+              - generic [ref=e186]: env-2-bss
+            - gridcell "2" [ref=e189]: "2"
+            - gridcell "1" [ref=e192]: "1"
+          - row "swathi_May12thSanity etbss env-2-bss 1" [ref=e196]:
+            - gridcell [ref=e198]
+            - gridcell "swathi_May12thSanity" [ref=e201]:
+              - link "swathi_May12thSanity" [ref=e202] [cursor=pointer]:
+                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=bb6c3079-8d1f-49aa-a007-d12676acdf5e&objectName=swathi_May12thSanity&step=env
+                - generic [ref=e203]: swathi_May12thSanity
+            - gridcell "etbss" [ref=e206]: etbss
+            - gridcell "env-2-bss" [ref=e209]:
+              - generic [ref=e210]: env-2-bss
+            - gridcell [ref=e213]
+            - gridcell "1" [ref=e216]: "1"
+          - row "comparision report etbss env-1-bss 1" [ref=e220]:
+            - gridcell [ref=e222]
+            - gridcell "comparision report" [ref=e225]:
+              - link "comparision report" [ref=e226] [cursor=pointer]:
+                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=f353a83c-7657-47ad-9c43-553c040fedbd&objectName=comparision+report&step=env
+                - generic [ref=e227]: comparision report
+            - gridcell "etbss" [ref=e230]: etbss
+            - gridcell "env-1-bss" [ref=e233]:
+              - generic [ref=e234]: env-1-bss
+            - gridcell [ref=e237]
+            - gridcell "1" [ref=e240]: "1"
+          - generic [ref=e243]:
+            - row "comparision report-2 etbss env-2-bss 1" [ref=e244]:
+              - gridcell [ref=e246]
+              - gridcell "comparision report-2" [ref=e249]:
+                - link "comparision report-2" [ref=e250] [cursor=pointer]:
+                  - /url: /fragment/migration-testing-ui/environment-configuration?objectId=e8147c00-6737-4b38-90de-8c80f2e73a32&objectName=comparision+report-2&step=env
+                  - generic [ref=e251]: comparision report-2
+              - gridcell "etbss" [ref=e254]: etbss
+              - gridcell "env-2-bss" [ref=e257]:
+                - generic [ref=e258]: env-2-bss
+              - gridcell [ref=e261]
+              - gridcell "1" [ref=e264]: "1"
+            - button [ref=e267] [cursor=pointer]:
+              - button [ref=e270]:
+                - img [ref=e273]
+          - row "Swathi_May13thSanity etbss env-2-bss 1" [ref=e277]:
+            - gridcell [ref=e279]
+            - gridcell "Swathi_May13thSanity" [ref=e282]:
+              - link "Swathi_May13thSanity" [ref=e283] [cursor=pointer]:
+                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=857815fa-5c3d-4df1-ab1d-ad44b11b3d39&objectName=Swathi_May13thSanity&step=env
+                - generic [ref=e284]: Swathi_May13thSanity
+            - gridcell "etbss" [ref=e287]: etbss
+            - gridcell "env-2-bss" [ref=e290]:
+              - generic [ref=e291]: env-2-bss
+            - gridcell [ref=e294]
+            - gridcell "1" [ref=e297]: "1"
+          - row "BSS Runtimecatalog etbss env-2-bss 1" [ref=e301]:
+            - gridcell [ref=e303]
+            - gridcell "BSS Runtimecatalog" [ref=e306]:
+              - link "BSS Runtimecatalog" [ref=e307] [cursor=pointer]:
+                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=ea2d1974-6945-4c9e-9280-ad1878a4caee&objectName=BSS+Runtimecatalog&step=env
+                - generic [ref=e308]: BSS Runtimecatalog
+            - gridcell "etbss" [ref=e311]: etbss
+            - gridcell "env-2-bss" [ref=e314]:
+              - generic [ref=e315]: env-2-bss
+            - gridcell [ref=e318]
+            - gridcell "1" [ref=e321]: "1"
+          - row "Swathi_May14thSanity etbss env-2-bss 1" [ref=e325]:
+            - gridcell [ref=e327]
+            - gridcell "Swathi_May14thSanity" [ref=e330]:
+              - link "Swathi_May14thSanity" [ref=e331] [cursor=pointer]:
+                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=7b00b917-0561-4335-94cc-abfc3c0605ff&objectName=Swathi_May14thSanity&step=env
+                - generic [ref=e332]: Swathi_May14thSanity
+            - gridcell "etbss" [ref=e335]: etbss
+            - gridcell "env-2-bss" [ref=e338]:
+              - generic [ref=e339]: env-2-bss
+            - gridcell [ref=e342]
+            - gridcell "1" [ref=e345]: "1"
+          - row "Test_BSSRuntimeCatalog etbss env-2-bss 1" [ref=e349]:
+            - gridcell [ref=e351]:
+              - img [ref=e352]
+            - gridcell "Test_BSSRuntimeCatalog" [ref=e356]:
+              - link "Test_BSSRuntimeCatalog" [ref=e357] [cursor=pointer]:
+                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=ce346dff-bc48-4574-83a6-69f71f183b85&objectName=Test_BSSRuntimeCatalog&step=env
+                - generic [ref=e358]: Test_BSSRuntimeCatalog
+            - gridcell "etbss" [ref=e361]: etbss
+            - gridcell "env-2-bss" [ref=e364]:
+              - generic [ref=e365]: env-2-bss
+            - gridcell [ref=e368]
+            - gridcell "1" [ref=e371]: "1"
+          - row "swathi_15thsanity etbss env-2-bss 1" [ref=e375]:
+            - gridcell [ref=e377]
+            - gridcell "swathi_15thsanity" [ref=e380]:
+              - link "swathi_15thsanity" [ref=e381] [cursor=pointer]:
+                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=c62d7738-7777-40d9-be2c-8732589e0aaf&objectName=swathi_15thsanity&step=env
+                - generic [ref=e382]: swathi_15thsanity
+            - gridcell "etbss" [ref=e385]: etbss
+            - gridcell "env-2-bss" [ref=e388]:
+              - generic [ref=e389]: env-2-bss
+            - gridcell [ref=e392]
+            - gridcell "1" [ref=e395]: "1"
+          - row "swathi_May18th etbss env-2-bss 1" [ref=e399]:
+            - gridcell [ref=e401]
+            - gridcell "swathi_May18th" [ref=e404]:
+              - link "swathi_May18th" [ref=e405] [cursor=pointer]:
+                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=1cb741f3-2403-40dd-b0e0-41c4b22e0416&objectName=swathi_May18th&step=env
+                - generic [ref=e406]: swathi_May18th
+            - gridcell "etbss" [ref=e409]: etbss
+            - gridcell "env-2-bss" [ref=e412]:
+              - generic [ref=e413]: env-2-bss
+            - gridcell [ref=e416]
+            - gridcell "1" [ref=e419]: "1"
+        - list [ref=e423]:
+          - listitem [ref=e424]: 20 items, 1-10 shown
+          - listitem [ref=e425] [cursor=pointer]:
+            - img [ref=e426]:
+              - img [ref=e427]
+          - listitem [ref=e429] [cursor=pointer]: "1"
+          - listitem [ref=e430] [cursor=pointer]: "2"
+          - listitem [ref=e431] [cursor=pointer]:
+            - img [ref=e432]:
+              - img [ref=e433]
+          - listitem [ref=e435]:
+            - generic "Page Size" [ref=e436] [cursor=pointer]:
+              - generic [ref=e437]:
+                - combobox "Page Size" [ref=e439]
+                - generic "10 per page" [ref=e440]
+```

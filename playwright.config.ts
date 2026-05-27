@@ -93,7 +93,29 @@ export default defineConfig({
 
       }
 
+    },
+    
+    {
+      name:
+        'QA1_DMTT',
+
+      testDir:
+        './tests/DMTT',
+
+      use: {
+
+        ...devices[
+          'Desktop Chrome'
+        ],
+
+        baseURL:
+          'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/'
+
+      }
+
     }
+
+
 
   ]
 

@@ -1,13 +1,13 @@
 /** @author Srinivasa Rao Allamsetti */
 
 import { test, expect } from '@playwright/test';
-import { MM_LoginPage } from '../../pages/MM_LoginPage';
+import { DMTT_LoginPage } from '../../pages/DMTT_LoginPage';
 
 test.describe('Login Page Validations', () => {
-  let loginPage: MM_LoginPage;
+  let loginPage: DMTT_LoginPage;
 
   test.beforeEach(async ({ page }) => {
-    loginPage = new MM_LoginPage(page);
+    loginPage = new DMTT_LoginPage(page);
     await loginPage.goto();
   });
 
@@ -38,7 +38,7 @@ test.describe('Login Page Validations', () => {
   });
 
   /** Tests successful login and validates the success message */
-  test('successful login and validate message', async ({ page }, testInfo) => {
+  test('@DMTTsanity successful login and validate message', async ({ page }, testInfo) => {
     await loginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
     const isVisible = await loginPage.isSuccessMessageVisible();
     expect(isVisible).toBe(true);
