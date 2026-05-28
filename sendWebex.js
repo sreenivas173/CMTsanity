@@ -373,7 +373,7 @@ function sendMessage(
       || "";
 
     const message = `
-🚀 **Playwright Sanity Report**
+🚀 **CMT QA1_Env Sanity Report**
 
 📊 **Overall Summary**
 • Total: ${summary.total}

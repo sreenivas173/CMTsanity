@@ -8,16 +8,23 @@ export class DMTT_LoginPage {
   }
 
   async goto() {
-    await this.page.goto(
-      'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/fragment/migration-testing-ui/configurations/environments'
-    );
-    await this.page.waitForLoadState('networkidle');
-  }
 
+  await this.page.goto(
+    'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/fragment/migration-testing-ui/configurations/environments',
+    {
+      waitUntil: 'domcontentloaded',
+      timeout: 120000
+    }
+  );
+
+  await this.page.waitForTimeout(5000);
+
+}
   async fillEmail(email: string) {
     await this.page.waitForSelector('#username', { timeout: 10000 });
     await this.page.fill('#username', email);
   }
+
 
   async fillPassword(password: string) {
     await this.page.fill('#password', password);
