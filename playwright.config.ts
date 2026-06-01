@@ -42,6 +42,20 @@ export default defineConfig({
 
   use: {
 
+// Global settings for all tests; individual projects can override these.-----------
+    channel: 'chrome',
+    headless: false,
+    ignoreHTTPSErrors: true,
+    launchOptions: {
+        args: [
+            '--start-maximized',
+            '--disable-web-security',
+            '--disable-features=IsolateOrigins,site-per-process'
+        ]
+    },
+    viewport: null,
+//==================================================================================
+
     trace:
       'on-first-retry',
 

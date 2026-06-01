@@ -30,9 +30,9 @@ test(
     await createPage.createConfiguration({
       configName: `Srini_${Date.now()}`,
       cloud: 'etbss',
-      namespace: 'env-1-bss',
-      source: 'Api Hub',
-      username: 'cpq-admin@netcracker.com',
+      namespace: 'env-2-bss',
+      source: 'BSS Runtime Catalog',
+      username: 'cpq@netcracker.com',
       password: 'MARket1234!',
       dns: 'cpq',
     });

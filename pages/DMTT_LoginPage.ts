@@ -10,7 +10,7 @@ export class DMTT_LoginPage {
   async goto() {
 
   await this.page.goto(
-    'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/fragment/migration-testing-ui/configurations/environments',
+    'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/fragment/migration-testing-ui/configurations/',
     {
       waitUntil: 'domcontentloaded',
       timeout: 120000
@@ -34,18 +34,51 @@ export class DMTT_LoginPage {
     await this.page.click('#kc-login');
   }
 
-  async login(email: string, password: string) {
-    await this.fillEmail(email);
-    await this.fillPassword(password);
-    await this.clickLogin();
+async login(
+  email: string,
+  password: string
+) {
+
+  await this.fillEmail(email);
+
+  await this.fillPassword(password);
+
+  await this.clickLogin();
+
+  // Wait initial redirect
+  await this.page.waitForTimeout(10000);
+
+  // Detect DMTT UI load
+  const loaded =
+    await this.page.locator(
+      'text=Environment Configurations'
+    ).first().isVisible()
+    .catch(() => false);
+
+  // If UI not loaded, refresh once
+  if (!loaded) {
+
+    console.log(
+      '⚠️ DMTT UI not loaded after login. Refreshing page...'
+    );
+
+    await this.page.reload({
+      waitUntil: 'domcontentloaded'
+    });
+
+    await this.page.waitForTimeout(10000);
+
   }
 
+}
+
   async getErrorMessage() {
-    // Wait for error message to appear - robust approach
+    // Wait for error message to appear - robust approach.
+    // Some builds only show the text under kc validation, so broaden wait slightly.
     try {
       await this.page.waitForSelector(
-        '#error-message, .error-message, [class*="error"], [id*="error"]',
-        { state: 'visible', timeout: 5000 }
+        '#error-message, .error-message, [class*="error"], [id*="error"], .pf-v5-c-form__helper-text',
+        { state: 'visible', timeout: 8000 } 
       );
 
       const errorLocator = this.page.locator(
@@ -70,34 +103,21 @@ export class DMTT_LoginPage {
     return '';
   }
 
-  async isSuccessMessageVisible() {
-    // DMTT post-login may take longer than MM and label might differ.
+  /**
+   * DMTT success indicator is not consistent across builds.
+   * Use "Environment Configurations" heading/text as the stable signal.
+   */
+  async isSuccessMessageVisible(): Promise<boolean> {
+    // Give the UI time to fully load after redirect.
     await this.page.waitForTimeout(8000);
 
-    const dashboardLocators = [
-      'text=MIGRATION HUB',
-      'text=Migration Hub',
-      'text=MIGRATION',
-      'text=HUB',
-      'text=Configurations',
-      'text=Sessions',
-      'text=Environment'
-    ];
+    const envHeading = this.page.locator('text=Environment Configurations').first();
+    if (await envHeading.isVisible().catch(() => false)) return true;
 
-    for (const loc of dashboardLocators) {
-      if (await this.page.locator(loc).first().isVisible({ timeout: 8000 }).catch(() => false)) {
-        return true;
-      }
-    }
-
-    // Last resort: ensure page is no longer on login form.
-    // (kc-login stays on auth page; if we navigate away, success is likely.)
+    // Fallback: verify we are no longer on login form.
     const usernameStillVisible = await this.page.locator('#username').isVisible().catch(() => false);
-    if (!usernameStillVisible) return true;
-
-    return false;
+    return !usernameStillVisible;
   }
-
 
 }
 

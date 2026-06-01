@@ -6,9 +6,9 @@ on:
 
   workflow_dispatch:
 
-  schedule:
-    # Monday–Friday 9:00 AM IST
-    - cron: '30 3 * * 1-5' 
+  #schedule:
+   # # Monday–Friday 9:00 AM IST
+   # - cron: '30 3 * * 1-5' 
 
 permissions:
   contents: write
