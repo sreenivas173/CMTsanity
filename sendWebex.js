@@ -7,6 +7,9 @@ const d2cReportUrl =
 const mmReportUrl =
   "https://sreenivas173.github.io/CMTsanity/mm/";
 
+const dmttReportUrl =
+  `https://sreenivas173.github.io/CMTsanity/dmtt/`;  
+
 // Parse Playwright reports
 function getSummary() {
 
@@ -25,6 +28,13 @@ function getSummary() {
     },
 
     mm: {
+      total: 0,
+      passed: 0,
+      failed: 0,
+      tests: []
+    },
+
+    dmtt: {
       total: 0,
       passed: 0,
       failed: 0,
@@ -52,6 +62,14 @@ function getSummary() {
 
       module:
         "mm"
+    },
+
+    {
+      file:
+        "./dmtt-report.json",
+
+      module:
+        "dmtt"
     }
 
   ];
@@ -391,6 +409,11 @@ function sendMessage(
 • Passed: ${summary.mm.passed}
 • Failed: ${summary.mm.failed}
 
+📁 **DMTT Summary**
+• Total: ${summary.dmtt.total}
+• Passed: ${summary.dmtt.passed}
+• Failed: ${summary.dmtt.failed}
+
 ✅ **D2C Test Cases**
 ${summary.d2c.tests
   .slice(0,10)
@@ -409,11 +432,24 @@ ${summary.mm.tests
   )
   .join("\n")}
 
+
+✅ **DMTT Test Cases**
+${summary.dmtt.tests
+  .slice(0,10)
+  .map(
+    t =>
+      `• ${t}`
+  )
+  .join("\n")}
+
 🌐 D2C Report:
 ${d2cReportUrl}
 
 🌐 MM Report:
 ${mmReportUrl}
+  
+🌐 DMTT Report:
+${dmttReportUrl}
 
 🔗 Run:
 ${runUrl}

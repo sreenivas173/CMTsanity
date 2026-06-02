@@ -45,10 +45,12 @@ async login(
 
   await this.clickLogin();
 
-  // Wait initial redirect
-  await this.page.waitForTimeout(10000);
+    // Wait initial redirect
+    // Reduce wait to avoid test timeout in slower environments.
+    await this.page.waitForTimeout(3000);
 
-  // Detect DMTT UI load
+    // Detect DMTT UI load
+
   const loaded =
     await this.page.locator(
       'text=Environment Configurations'

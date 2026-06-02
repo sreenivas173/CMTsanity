@@ -91,6 +91,35 @@ jobs:
         Write-Host "MM files:"
         Get-ChildItem
 
+            # RUN DMTT
+    - name: Run DMTT Sanity Tests
+      shell: powershell
+      run: |
+
+        npx playwright test tests/DMTT/ `
+          -g "@DMTTsanity" `
+          --project=QA1_DMTT `
+          --workers=1
+
+        # Rename HTML report
+        if (Test-Path "playwright-report") {
+          Rename-Item `
+            playwright-report `
+            dmtt-report `
+            -Force
+        }
+
+        # Copy JSON report
+        if (Test-Path "report.json") {
+          Copy-Item `
+            report.json `
+            dmtt-report.json `
+            -Force
+        }
+
+        Write-Host "DMTT files:"
+        Get-ChildItem
+
     # DEBUG
     - name: Debug generated files
       shell: powershell
@@ -117,6 +146,15 @@ jobs:
         name: mm-report
         path: mm-report/
 
+    - name: Upload DMTT Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: dmtt-report
+        path: dmtt-report/    
+
+
+
     # Deploy GitHub Pages
     - name: Deploy HTML Report
       if: always()
@@ -138,6 +176,11 @@ jobs:
           -Force `
           -Path deploy\mm
 
+        New-Item `
+          -ItemType Directory `
+          -Force `
+          -Path deploy\dmtt
+
         if (Test-Path "d2c-report") {
 
           Copy-Item `
@@ -152,6 +195,15 @@ jobs:
           Copy-Item `
             "mm-report\*" `
             "deploy\mm\" `
+            -Recurse `
+            -Force
+        }
+
+        if (Test-Path "dmtt-report") {
+
+          Copy-Item `
+            "dmtt-report\*" `
+            "deploy\dmtt\" `
             -Recurse `
             -Force
         }

@@ -124,6 +124,7 @@ export default defineConfig({
 
         baseURL:
           'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/'
+          
 
       }
 
