@@ -9,8 +9,7 @@ import { DMTTEnvironmentPage } from '../../pages/DMTTEnvironmentPage';
 
 import { DMTTCreateConfigPage } from '../../pages/DMTTCreateConfigPage';
 
-test(@DMTTsanity
-  'DMTT Create Configuration',
+test( '@DMTTsanity DMTT Create Configuration',
   async ({ page }) => {
     const login = new DMTT_LoginPage(page);
     const envPage = new DMTTEnvironmentPage(page);
