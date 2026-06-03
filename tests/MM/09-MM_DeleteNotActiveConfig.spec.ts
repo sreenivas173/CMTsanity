@@ -39,7 +39,7 @@
 import { test, expect } from '@playwright/test';
 import { MM_LoginPage } from '../../pages/MM_LoginPage';
 import { MM_ConfigPage } from '../../pages/MM_ConfigPage';
-
+import 'dotenv/config';  // Load environment variables from .env file
 /**
  * @group MM-Configuration-Management
  * @suite Delete-NotActive-Config
@@ -65,7 +65,7 @@ test.describe('MM Delete Not Active Configuration', () => {
 
     // Standard QA login credentials
     await mmLoginPage.goto();
-    await mmLoginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
+    await mmLoginPage.login(process.env.MM_USERNAME!, process.env.MM_PASSWORD!);
 
     // Navigate to Configurations page (Sessions page also works as per snapshot)
     await mmConfigPage.navigateToMMConfig();

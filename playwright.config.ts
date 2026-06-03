@@ -1,5 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
-
+import 'dotenv/config';
 function getTimestamp() {
   const now = new Date();
   return now

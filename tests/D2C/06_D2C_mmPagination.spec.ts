@@ -3,7 +3,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 import { MMDesignPage } from '../../pages/MMDesignPage';
-
+import 'dotenv/config';
 test.describe('Pagination Validation on MM Design Page', () => {
   let loginPage: LoginPage;
   let mmDesignPage: MMDesignPage;
@@ -12,7 +12,10 @@ test.describe('Pagination Validation on MM Design Page', () => {
     loginPage = new LoginPage(page);
     mmDesignPage = new MMDesignPage(page);
     await loginPage.goto();
-    await loginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
+        await loginPage.login(
+  process.env.D2C_USERNAME!,
+  process.env.D2C_PASSWORD!
+);
     await expect(page).toHaveURL(/design2code\/migration-management-design/);
     if (await mmDesignPage.isPage404()) {
       test.skip(true, 'Page is showing 404 error');

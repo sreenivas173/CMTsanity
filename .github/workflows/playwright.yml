@@ -94,6 +94,9 @@ jobs:
             # RUN DMTT
     - name: Run DMTT Sanity Tests
       shell: powershell
+      env:
+        DMTT_USERNAME: ${{ secrets.DMTT_USERNAME }}
+        DMTT_PASSWORD: ${{ secrets.DMTT_PASSWORD }}
       run: |
 
         npx playwright test tests/DMTT/ `

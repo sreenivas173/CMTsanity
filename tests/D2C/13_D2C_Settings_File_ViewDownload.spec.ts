@@ -16,6 +16,7 @@ import { LoginPage } from '../../pages/LoginPage';
 import { SettingsPage } from '../../pages/SettingsPage';
 import path from 'path';
 import fs from 'fs';
+import 'dotenv/config';
 
 test.describe('D2C Settings page validations', () => {
     let loginPage: LoginPage;
@@ -29,7 +30,10 @@ test.describe('D2C Settings page validations', () => {
         settingsPage = new SettingsPage(page);
         
         await loginPage.goto();
-        await loginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
+            await loginPage.login(
+  process.env.D2C_USERNAME!,
+  process.env.D2C_PASSWORD!
+);
         await expect(page).toHaveURL(/design2code\/migration-management-design/);
         
         // Skip test if page shows 404 error

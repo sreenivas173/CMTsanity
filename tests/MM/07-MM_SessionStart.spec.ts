@@ -8,6 +8,7 @@
 import { test, expect } from '@playwright/test';
 import { MM_LoginPage } from '../../pages/MM_LoginPage';
 import { MM_SessionsPage } from '../../pages/MM_SessionsPage';
+import 'dotenv/config';
 
 test.describe('MM Session Start Validations', () => {
   let loginPage: MM_LoginPage;
@@ -19,7 +20,7 @@ test.describe('MM Session Start Validations', () => {
 
     await loginPage.goto();
     // Login with credentials (matching 05-MM_SessionCreate.spec.ts)
-    await loginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
+    await loginPage.login(process.env.MM_USERNAME!, process.env.MM_PASSWORD!);
     // Wait for login to complete
     await page.waitForTimeout(3000);
   });

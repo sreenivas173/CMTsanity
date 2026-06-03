@@ -17,10 +17,8 @@ test( '@DMTTsanity DMTT Create Configuration',
 
     await login.goto();
 
-    await login.login(
-      'cpq-admin@netcracker.com',
-      'MARket1234!'
-    );
+   await login.login(process.env.DMTT_USERNAME!,
+  process.env.DMTT_PASSWORD!);
 
     await envPage.navigate();
 

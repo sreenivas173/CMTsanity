@@ -20,7 +20,7 @@
 import { test, expect } from '@playwright/test';
 import { MM_LoginPage } from '../../pages/MM_LoginPage';
 import { MM_ConfigPage } from '../../pages/MM_ConfigPage';
-
+import 'dotenv/config';  // Load environment variables from .env file
 // Test data configuration
 const testCases = [
   {
@@ -46,7 +46,7 @@ test.describe('MM session delete,Config Delete and Config Upload', () => {
       // ===== STEP 1: Login =====
       console.log('Step 1: Logging in...');
       await mmLoginPage.goto();
-      await mmLoginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
+      await mmLoginPage.login(process.env.MM_USERNAME!, process.env.MM_PASSWORD!);
 
       // ===== STEP 2: Navigate to Configurations =====
       console.log('Step 2: Navigating to Configurations...');

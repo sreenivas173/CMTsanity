@@ -2,6 +2,7 @@
 
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
+import 'dotenv/config';
 
 test.describe('Login Page Validations', () => {
   //test.use({ video: 'on' });
@@ -41,7 +42,11 @@ test.describe('Login Page Validations', () => {
 
   /** Tests successful login and validates the success message */
   test('@D2Csanity successful login and validate message', async ({ page }, testInfo) => {
-    await loginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
+    
+    await loginPage.login(
+  process.env.D2C_USERNAME!,
+  process.env.D2C_PASSWORD!
+);
     const isVisible = await loginPage.isSuccessMessageVisible();
     expect(isVisible).toBe(true);
     await page.screenshot({ path: `screenshots/${testInfo.title.replace(/[^a-zA-Z0-9]/g, '_')}.png` });

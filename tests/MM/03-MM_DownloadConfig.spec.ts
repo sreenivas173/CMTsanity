@@ -20,6 +20,8 @@ import * as path from 'path';
 
 import { MM_LoginPage } from '../../pages/MM_LoginPage';
 import { MM_ConfigPage } from '../../pages/MM_ConfigPage';
+import 'dotenv/config';
+
 
 test.describe('@MMSanity MM Download Config', () => {
 
@@ -34,10 +36,7 @@ test.describe('@MMSanity MM Download Config', () => {
     // Login
     await mmLoginPage.goto();
 
-    await mmLoginPage.login(
-      'cpq-admin@netcracker.com',
-      'MARket1234!'
-    );
+    await mmLoginPage.login(  process.env.MM_USERNAME!,process.env.MM_PASSWORD!);
 
     // Validate app shell
     await expect(

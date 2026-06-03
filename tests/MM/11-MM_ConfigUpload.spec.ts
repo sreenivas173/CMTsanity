@@ -14,6 +14,7 @@
 import { test, expect } from '@playwright/test';
 import { MM_LoginPage } from '../../pages/MM_LoginPage';
 import { MM_ConfigPage } from '../../pages/MM_ConfigPage';  
+import 'dotenv/config';  // Load environment variables from .env file
 
 // Test data configuration - currently testing Invalid Config (direct CWD-relative path)
 const uploadFiles = [
@@ -41,7 +42,7 @@ test.describe('MM CONFIGURATION Upload Validations', () => {
 
     // Step 1: Login
     await mmLoginPage.goto();
-    await mmLoginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
+    await mmLoginPage.login(process.env.MM_USERNAME!, process.env.MM_PASSWORD!);
 
 // Step 2: Navigate to Configurations - Click tab explicitly if not already there
     await mmConfigPage.navigateToMMConfig();

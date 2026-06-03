@@ -19,6 +19,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 import { TemplatesPage } from '../../pages/TemplatesPage';
+import 'dotenv/config';
 
 /**
  * Test Suite: D2C Templates Page Validations
@@ -52,7 +53,10 @@ test.describe('D2C Templates page validations', () => {
 
         // Navigate to login page and perform login
         await loginPage.goto();
-        await loginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
+            await loginPage.login(
+  process.env.D2C_USERNAME!,
+  process.env.D2C_PASSWORD!
+);
         
         // Validate successful login by checking URL contains 'design2code'
         // This ensures we are redirected to the main application page

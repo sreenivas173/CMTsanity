@@ -2,7 +2,7 @@
 results/
 test-results/
 blob-report/
-
+.env
 # Runtime json
 report.json
 

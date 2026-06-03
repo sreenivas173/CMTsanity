@@ -19,6 +19,8 @@ import path from 'path';
 import fs from 'fs';
 import { LoginPage } from '../../pages/LoginPage';
 import { DBLPage } from '../../pages/DBLPage';
+import 'dotenv/config';
+
 
 test.describe('@D2Csanity DBL Design Download Validation', () => {
 
@@ -29,7 +31,10 @@ test.describe('@D2Csanity DBL Design Download Validation', () => {
 
     // Step 1: Login
     await loginPage.goto();
-    await loginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
+        await loginPage.login(
+  process.env.D2C_USERNAME!,
+  process.env.D2C_PASSWORD!
+);
     await expect(page).toHaveURL(/design2code\/migration-management-design/);
 
     // Skip if 404 page appears

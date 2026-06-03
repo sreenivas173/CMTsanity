@@ -1,6 +1,4 @@
 import { test, expect } from '@playwright/test';
-
-
 import { DMTT_LoginPage } from '../../pages/DMTT_LoginPage';
 import { DMTTEnvironmentPage } from '../../pages/DMTTEnvironmentPage';
 import { DMTTEnvironmentSearchPaginationPage } from '../../pages/DMTTEnvironmentSearchPaginationPage';
@@ -12,7 +10,7 @@ test.describe('DMTT Configuration Export', () => {
     const list = new DMTTEnvironmentSearchPaginationPage(page);
 
     await login.goto();
-    await login.login('cpq-admin@netcracker.com', 'MARket1234!');
+    await login.login(process.env.DMTT_USERNAME!,process.env.DMTT_PASSWORD!);
 
     await envNav.navigate();
     await list.waitForPageReady();

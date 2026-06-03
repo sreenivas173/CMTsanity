@@ -39,7 +39,8 @@ test.describe('Login Page Validations', () => {
 
   /** Tests successful login and validates the success message */
   test('@DMTTsanity successful login and validate message', async ({ page }, testInfo) => {
-    await loginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
+    await loginPage.login(process.env.DMTT_USERNAME!,
+  process.env.DMTT_PASSWORD!);
     const isVisible = await loginPage.isSuccessMessageVisible();
     expect(isVisible).toBe(true);
     await page.screenshot({ path: `screenshots/${testInfo.title.replace(/[^a-zA-Z0-9]/g, '_')}.png` });

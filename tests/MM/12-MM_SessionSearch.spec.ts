@@ -11,7 +11,7 @@
 import { test, expect } from '@playwright/test';
 import { MM_LoginPage } from '../../pages/MM_LoginPage';
 import { MM_SessionsPage } from '../../pages/MM_SessionsPage';
-
+import 'dotenv/config';  // Load environment variables from .env file
 /**
  * Test Suite: MM Sessions Page Post-Login Validations
  * Verifies navigation to sessions page and search functionality after successful authentication
@@ -33,7 +33,7 @@ test.describe('MM Sessions Page Validations', () => {
 
     await loginPage.goto();
     // Login with credentials
-    await loginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
+    await loginPage.login(process.env.MM_USERNAME!, process.env.MM_PASSWORD!);
     // Wait for login to complete
     await page.waitForTimeout(3000);
   });

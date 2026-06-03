@@ -11,7 +11,7 @@
 
 import { test, expect } from '@playwright/test';
 import { MM_LoginPage } from '../../pages/MM_LoginPage';
-
+import 'dotenv/config';
 /**
  * Test Suite: MM Login Page Complete Validation
  * Validates all login scenarios including negative and positive test cases

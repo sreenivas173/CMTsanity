@@ -13,7 +13,7 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 import { MMDesignPage } from '../../pages/MMDesignPage';
 import fs from 'fs';
-
+import 'dotenv/config';
 /**
  * Test Suite: MM Design Download Validation
  * 
@@ -46,7 +46,10 @@ test('MM Design Download Validation', async ({ page }) => {
 
     // Navigate to the login page and perform login with admin credentials
     await loginPage.goto();
-    await loginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
+        await loginPage.login(
+  process.env.D2C_USERNAME!,
+  process.env.D2C_PASSWORD!
+);
 
     // Verify that the user is redirected to the migration management design page
     await expect(page).toHaveURL(/design2code\/migration-management-design/);
