@@ -1,0 +1,370 @@
+# Page snapshot
+
+```yaml
+- generic [active]:
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - img
+            - generic: Data Migration Testing Tool
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+              - generic:
+                - button "C":
+                  - generic:
+                    - generic: C
+        - generic:
+          - generic:
+            - list:
+              - menuitem "Environment Configurations":
+                - listitem:
+                  - generic:
+                    - generic:
+                      - img
+                    - generic [ref=e1] [cursor=pointer]: Environment Configurations
+              - menuitem "Global Comparison Reports":
+                - listitem:
+                  - generic:
+                    - generic:
+                      - img
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic: Global Comparison Reports
+              - menuitem "Global Settings":
+                - listitem:
+                  - generic:
+                    - generic:
+                      - img
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic: Global Settings
+            - menuitem "Collapse":
+              - listitem:
+                - generic:
+                  - generic:
+                    - img
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic: Collapse
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic: Environment Configurations
+                        - generic:
+                          - generic:
+                            - generic:
+                              - button "Import":
+                                - generic:
+                                  - generic:
+                                    - img
+                                  - generic: Import
+                              - button "Export All Configurations":
+                                - generic:
+                                  - generic:
+                                    - img
+                                  - generic: Export All Configurations
+                              - button "Validate All Configurations":
+                                - generic:
+                                  - generic:
+                                    - img
+                                  - generic: Validate All Configurations
+                  - generic:
+                    - generic:
+                      - tablist:
+                        - generic:
+                          - generic:
+                            - tab "Environment Configurations" [selected]
+                            - tab "Kubernetes Configurations"
+                            - tab "Custom Configurations"
+                      - generic:
+                        - generic:
+                          - tabpanel
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - textbox "Search"
+                                              - generic:
+                                                - img:
+                                                  - img
+                                  - generic:
+                                    - button "Create Configuration":
+                                      - generic:
+                                        - generic:
+                                          - img
+                                        - generic: Create Configuration
+                                    - button:
+                                      - generic:
+                                        - generic:
+                                          - img
+                                    - generic:
+                                      - button:
+                                        - generic:
+                                          - generic:
+                                            - img
+                                - generic:
+                                  - table:
+                                    - generic:
+                                      - row "Is Valid Configuration Name Cloud Name Namespaces Components Snapshots":
+                                        - generic:
+                                          - gridcell "Is Valid":
+                                            - generic: Is Valid
+                                        - generic:
+                                          - gridcell "Configuration Name":
+                                            - generic: Configuration Name
+                                        - generic:
+                                          - gridcell "Cloud Name":
+                                            - generic: Cloud Name
+                                        - generic:
+                                          - gridcell "Namespaces":
+                                            - generic: Namespaces
+                                        - generic:
+                                          - gridcell "Components":
+                                            - generic: Components
+                                        - generic:
+                                          - gridcell "Snapshots":
+                                            - generic: Snapshots
+                                    - generic:
+                                      - generic:
+                                        - row "PSUPCLDM-266 etbss env-2-bss 2 2":
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "PSUPCLDM-266":
+                                              - link "PSUPCLDM-266":
+                                                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=09e6c7ea-c81a-4289-a2b3-236fedc9d8e4&objectName=PSUPCLDM-266&step=env
+                                                - generic: PSUPCLDM-266
+                                          - generic:
+                                            - gridcell "etbss": etbss
+                                          - generic:
+                                            - gridcell "env-2-bss":
+                                              - generic: env-2-bss
+                                          - generic:
+                                            - gridcell "2": "2"
+                                          - generic:
+                                            - gridcell "2": "2"
+                                    - generic:
+                                      - generic:
+                                        - row "comparision report etbss env-1-bss 1":
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "comparision report":
+                                              - link "comparision report":
+                                                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=f353a83c-7657-47ad-9c43-553c040fedbd&objectName=comparision+report&step=env
+                                                - generic: comparision report
+                                          - generic:
+                                            - gridcell "etbss": etbss
+                                          - generic:
+                                            - gridcell "env-1-bss":
+                                              - generic: env-1-bss
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "1": "1"
+                                    - generic:
+                                      - generic:
+                                        - row "comparision report-2 etbss env-2-bss 1":
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "comparision report-2":
+                                              - link "comparision report-2":
+                                                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=e8147c00-6737-4b38-90de-8c80f2e73a32&objectName=comparision+report-2&step=env
+                                                - generic: comparision report-2
+                                          - generic:
+                                            - gridcell "etbss": etbss
+                                          - generic:
+                                            - gridcell "env-2-bss":
+                                              - generic: env-2-bss
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "1": "1"
+                                    - generic:
+                                      - generic:
+                                        - row "Swathi_May13thSanity etbss env-2-bss 4":
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "Swathi_May13thSanity":
+                                              - link "Swathi_May13thSanity":
+                                                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=857815fa-5c3d-4df1-ab1d-ad44b11b3d39&objectName=Swathi_May13thSanity&step=env
+                                                - generic: Swathi_May13thSanity
+                                          - generic:
+                                            - gridcell "etbss": etbss
+                                          - generic:
+                                            - gridcell "env-2-bss":
+                                              - generic: env-2-bss
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "4": "4"
+                                    - generic:
+                                      - generic:
+                                        - row "BSS Runtimecatalog etbss env-2-bss 1":
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "BSS Runtimecatalog":
+                                              - link "BSS Runtimecatalog":
+                                                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=ea2d1974-6945-4c9e-9280-ad1878a4caee&objectName=BSS+Runtimecatalog&step=env
+                                                - generic: BSS Runtimecatalog
+                                          - generic:
+                                            - gridcell "etbss": etbss
+                                          - generic:
+                                            - gridcell "env-2-bss":
+                                              - generic: env-2-bss
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "1": "1"
+                                    - generic:
+                                      - generic:
+                                        - row "Swathi_May14thSanity etbss env-2-bss 1":
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "Swathi_May14thSanity":
+                                              - link "Swathi_May14thSanity":
+                                                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=7b00b917-0561-4335-94cc-abfc3c0605ff&objectName=Swathi_May14thSanity&step=env
+                                                - generic: Swathi_May14thSanity
+                                          - generic:
+                                            - gridcell "etbss": etbss
+                                          - generic:
+                                            - gridcell "env-2-bss":
+                                              - generic: env-2-bss
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "1": "1"
+                                    - generic:
+                                      - generic:
+                                        - row "Test_BSSRuntimeCatalog etbss env-2-bss 1":
+                                          - generic:
+                                            - gridcell:
+                                              - img
+                                          - generic:
+                                            - gridcell "Test_BSSRuntimeCatalog":
+                                              - link "Test_BSSRuntimeCatalog":
+                                                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=ce346dff-bc48-4574-83a6-69f71f183b85&objectName=Test_BSSRuntimeCatalog&step=env
+                                                - generic: Test_BSSRuntimeCatalog
+                                          - generic:
+                                            - gridcell "etbss": etbss
+                                          - generic:
+                                            - gridcell "env-2-bss":
+                                              - generic: env-2-bss
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "1": "1"
+                                    - generic:
+                                      - generic:
+                                        - row "swathi_15thsanity etbss env-2-bss 1":
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "swathi_15thsanity":
+                                              - link "swathi_15thsanity":
+                                                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=c62d7738-7777-40d9-be2c-8732589e0aaf&objectName=swathi_15thsanity&step=env
+                                                - generic: swathi_15thsanity
+                                          - generic:
+                                            - gridcell "etbss": etbss
+                                          - generic:
+                                            - gridcell "env-2-bss":
+                                              - generic: env-2-bss
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "1": "1"
+                                    - generic:
+                                      - generic:
+                                        - row "swathi_May18th etbss env-2-bss 1":
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "swathi_May18th":
+                                              - link "swathi_May18th":
+                                                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=1cb741f3-2403-40dd-b0e0-41c4b22e0416&objectName=swathi_May18th&step=env
+                                                - generic: swathi_May18th
+                                          - generic:
+                                            - gridcell "etbss": etbss
+                                          - generic:
+                                            - gridcell "env-2-bss":
+                                              - generic: env-2-bss
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "1": "1"
+                                    - generic:
+                                      - generic:
+                                        - row "namespace_test etbss env-1-bss 1":
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "namespace_test":
+                                              - link "namespace_test":
+                                                - /url: /fragment/migration-testing-ui/environment-configuration?objectId=d3b308b9-075d-4318-839c-7ceb3cba727f&objectName=namespace_test&step=env
+                                                - generic: namespace_test
+                                          - generic:
+                                            - gridcell "etbss": etbss
+                                          - generic:
+                                            - gridcell "env-1-bss":
+                                              - generic: env-1-bss
+                                          - generic:
+                                            - gridcell
+                                          - generic:
+                                            - gridcell "1": "1"
+                                - generic:
+                                  - generic:
+                                    - list:
+                                      - listitem: 36 items, 1-10 shown
+                                      - listitem:
+                                        - img:
+                                          - img
+                                      - listitem: "1"
+                                      - listitem: "2"
+                                      - listitem: "3"
+                                      - listitem: "4"
+                                      - listitem:
+                                        - img:
+                                          - img
+                                      - listitem:
+                                        - generic "Page Size":
+                                          - generic:
+                                            - generic:
+                                              - combobox "Page Size"
+                                            - generic "10 per page"
+  - tooltip "Environment Configurations" [ref=e2]:
+    - generic [ref=e5]: Environment Configurations
+```

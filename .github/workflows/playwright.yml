@@ -36,6 +36,9 @@ jobs:
     # RUN D2C
     - name: Run D2C Sanity Tests
       shell: powershell
+      env:
+        D2C_USERNAME: ${{ secrets.D2C_USERNAME }}
+        D2C_PASSWORD: ${{ secrets.D2C_PASSWORD }}
       run: |
 
         npx playwright test tests/D2C/ `
@@ -65,6 +68,9 @@ jobs:
     # RUN MM
     - name: Run MM Sanity Tests
       shell: powershell
+      env:
+        MM_USERNAME: ${{ secrets.MM_USERNAME }}
+        MM_PASSWORD: ${{ secrets.MM_PASSWORD }}
       run: |
 
         npx playwright test tests/MM/ `
