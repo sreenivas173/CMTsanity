@@ -5,7 +5,23 @@ import { DMTTEnvironmentPage } from '../../pages/DMTTEnvironmentPage';
 import { DMTTEnvironmentSearchPaginationPage } from '../../pages/DMTTEnvironmentSearchPaginationPage';
 import { DMTTEnvironmentConfigValidatePage } from '../../pages/DMTTEnvironmentConfigValidatePage';
 
-test.describe('DMTT Environment Configuration - Create Snapshot', () => {
+/**
+ * DMTT Environment Configuration - Create Snapshot (sanity).
+ *
+ * What it validates:
+ * - Search for “sanity” configs.
+ * - Open the first config details.
+ * - Trigger “Create Snapshot” from the configuration details page.
+ * - Wait for snapshot operation to reach completed state.
+ * - Validate snapshot count increases (when a count can be parsed).
+ * - Validate a success toast/message is visible.
+ *
+ * Notes/assumptions:
+ * - Uses body text parsing to extract numeric “items” count.
+ * - Operation completion is detected via polling for “completed/complete” text.
+ */
+
+test.describe('@DMTTsanity Env Configuration - Create Snapshot', () => {
   test('Create Snapshot from first sanity config', async ({ page }) => {
     const login = new DMTT_LoginPage(page);
     const envNav = new DMTTEnvironmentPage(page);

@@ -83,7 +83,7 @@ test.describe('MM Login Page Validations', () => {
    * - Takes screenshot for visual verification
    */
   test('@MMsanity successful login and validate message', async ({ page }, testInfo) => {
-    await loginPage.login('cpq-admin@netcracker.com', 'MARket1234!');
+    await loginPage.login(process.env.MM_USERNAME!,process.env.MM_PASSWORD!);
     const isVisible = await loginPage.isSuccessMessageVisible();
     expect(isVisible).toBe(true);
     await page.screenshot({ path: `screenshots/${testInfo.title.replace(/[^a-zA-Z0-9]/g, '_')}.png` });

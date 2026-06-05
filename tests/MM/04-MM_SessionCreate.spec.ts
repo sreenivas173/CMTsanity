@@ -13,7 +13,7 @@ import { test, expect } from '@playwright/test';
 import { MM_LoginPage } from '../../pages/MM_LoginPage';
 import { MM_SessionsPage } from '../../pages/MM_SessionsPage';
 import 'dotenv/config';
-import path from 'path';  
+import path from 'path';
 
 /**
  * Test Suite: MM Session Creation Validation
@@ -33,7 +33,7 @@ test.describe('@MMsanity SMM Session Creation Validations', () => {
 
     await loginPage.goto();
     // Login with credentials
-    await loginPage.login(process.env.MM_USERNAME!,process.env.MM_PASSWORD!);
+    await loginPage.login(process.env.MM_USERNAME!, process.env.MM_PASSWORD!);
     // Wait for login to complete
     await page.waitForTimeout(3000);
   });
@@ -45,108 +45,108 @@ test.describe('@MMsanity SMM Session Creation Validations', () => {
    * - Create session using POM method
    * - Verify total items count increases
    */
-//   test('MM Session Create - Verify Pagination Count Increases', async ({ page }) => {
+  //   test('MM Session Create - Verify Pagination Count Increases', async ({ page }) => {
 
-//     // Navigate to QA Sessions page using full URL
-//     const fullUrl = 'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/fragment/migration-ui/sessions';
-//     await mmSessionsPage.navigateToMMSession(fullUrl);
-//     await expect(page).toHaveURL(/sessions$/);
+  //     // Navigate to QA Sessions page using full URL
+  //     const fullUrl = 'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/fragment/migration-ui/sessions';
+  //     await mmSessionsPage.navigateToMMSession(fullUrl);
+  //     await expect(page).toHaveURL(/sessions$/);
 
-//     // Verify pagination controls visible (indicates page fully loaded)
-//     await expect(mmSessionsPage.paginationInfo).toBeVisible({ timeout: 10000 });
+  //     // Verify pagination controls visible (indicates page fully loaded)
+  //     await expect(mmSessionsPage.paginationInfo).toBeVisible({ timeout: 10000 });
 
-//     // Generate dynamic test data
-//     const today = new Date().toISOString().split('T')[0].replace(/-/g, '');
-//     const datetime = new Date().toISOString().slice(0,19).replace(/[:]/g, '-').replace('T', '_');
-//     const sessionName = `Srini_MM_AT_Newsession_${today}`;
-//     const sessionDesc = `SRINI_MM_AT_${datetime}`;
+  //     // Generate dynamic test data
+  //     const today = new Date().toISOString().split('T')[0].replace(/-/g, '');
+  //     const datetime = new Date().toISOString().slice(0,19).replace(/[:]/g, '-').replace('T', '_');
+  //     const sessionName = `Srini_MM_AT_Newsession_${today}`;
+  //     const sessionDesc = `SRINI_MM_AT_${datetime}`;
 
-//     // Record baseline count
-//     //const initialCount = await mmSessionsPage.getTotalItems();
-//     //console.log('Initial count:', `${initialCount}`);
+  //     // Record baseline count
+  //     //const initialCount = await mmSessionsPage.getTotalItems();
+  //     //console.log('Initial count:', `${initialCount}`);
 
-//       // ✅ BEFORE creation
-
-
-//     // Execute session creation via Page Object
-//     await mmSessionsPage.createNewSession(
-//       sessionName, 
-//       'oss-lm-migMaySr-21011', 
-//       sessionDesc, 
-//       'cbt'
-//     );
-
-//   //  const initialCount = await mmSessionsPage.getTotalItems();
-//     //console.log(`Initial count: ${initialCount}`);
-
-// // Create
-// await createButton.click();
-
-// // Wait for dialog close
-// await expect(dialog).toBeHidden();
-
-// // ✅ Wait for actual UI update (NOT timeout)
-// await expect(
-//   mmSessionsPage.page.getByRole('link', { name })
-// ).toBeVisible({ timeout: 15000 });
-
-// // ✅ AFTER creation
-// const finalCount = await mmSessionsPage.getTotalItems();
-// console.log(`Final count: ${finalCount}`);
-
-// expect(finalCount).toBeGreaterThan(initialCount);
-
-// });   
+  //       // ✅ BEFORE creation
 
 
-test('MM Session Create - Verify Pagination Count Increases', async ({ page }) => {
+  //     // Execute session creation via Page Object
+  //     await mmSessionsPage.createNewSession(
+  //       sessionName, 
+  //       'oss-lm-migMaySr-21011', 
+  //       sessionDesc, 
+  //       'cbt'
+  //     );
 
-  const fullUrl = 'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/fragment/migration-ui/sessions';
-  await mmSessionsPage.navigateToMMSession(fullUrl);
-  await expect(page).toHaveURL(/sessions$/);
+  //   //  const initialCount = await mmSessionsPage.getTotalItems();
+  //     //console.log(`Initial count: ${initialCount}`);
 
-  await expect(mmSessionsPage.paginationInfo).toBeVisible();
+  // // Create
+  // await createButton.click();
 
-  const today = new Date().toISOString().split('T')[0].replace(/-/g, '');
-  const datetime = new Date().toISOString().slice(0,19).replace(/[:]/g, '-').replace('T', '_');
+  // // Wait for dialog close
+  // await expect(dialog).toBeHidden();
 
-  //const sessionName = `Srini_MM_AT_Newsession_${today}`;
-  const sessionName = `Srini_MM_AT_Newsession_${datetime}`;
-  const sessionDesc = `SRINI_MM_AT_smoke_${datetime}`;
+  // // ✅ Wait for actual UI update (NOT timeout)
+  // await expect(
+  //   mmSessionsPage.page.getByRole('link', { name })
+  // ).toBeVisible({ timeout: 15000 });
 
-  // ✅ BEFORE creation
-  const initialCount = await mmSessionsPage.getTotalItems();
-  console.log(`Initial count: ${initialCount}`);
+  // // ✅ AFTER creation
+  // const finalCount = await mmSessionsPage.getTotalItems();
+  // console.log(`Final count: ${finalCount}`);
 
-  // Create session
-  await mmSessionsPage.createNewSession(
-    sessionName,
-    'oss-lm-migMaySr-21011',
-    sessionDesc,
-    'cbt'
-  );
+  // expect(finalCount).toBeGreaterThan(initialCount);
 
-  // ✅ Step 1: Wait for success notification (VERY IMPORTANT)
-await expect(
-  page.getByText('has been created')
-).toBeVisible({ timeout: 15000 });
+  // });   
 
-// (optional but helps stabilize UI)
-await page.waitForTimeout(1000);
 
-// Wait until new session appears in FIRST row
-await expect
-  .poll(async () => {
-    const text = await page.getByRole('row').nth(1).textContent();
-    return text;
-  }, { timeout: 20000 })
-  .toContain(sessionName);
+  test('MM Session Create - Verify Pagination Count Increases', async ({ page }) => {
 
-  // ✅ AFTER creation
-  const finalCount = await mmSessionsPage.getTotalItems();
-  console.log(`Final count: ${finalCount}`);
+    const fullUrl = 'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/fragment/migration-ui/sessions';
+    await mmSessionsPage.navigateToMMSession(fullUrl);
+    await expect(page).toHaveURL(/sessions$/);
 
-  expect(finalCount).toBeGreaterThan(initialCount);
-});
+    await expect(mmSessionsPage.paginationInfo).toBeVisible();
+
+    const today = new Date().toISOString().split('T')[0].replace(/-/g, '');
+    const datetime = new Date().toISOString().slice(0, 19).replace(/[:]/g, '-').replace('T', '_');
+
+    //const sessionName = `Srini_MM_AT_Newsession_${today}`;
+    const sessionName = `Srini_MM_AT_Newsession_${datetime}`;
+    const sessionDesc = `SRINI_MM_AT_smoke_${datetime}`;
+
+    // ✅ BEFORE creation
+    const initialCount = await mmSessionsPage.getTotalItems();
+    console.log(`Initial count: ${initialCount}`);
+
+    // Create session
+    await mmSessionsPage.createNewSession(
+      sessionName,
+      'oss-lm-migMaySr-21011',
+      sessionDesc,
+      'cbt'
+    );
+
+    // ✅ Step 1: Wait for success notification (VERY IMPORTANT)
+    await expect(
+      page.getByText('has been created')
+    ).toBeVisible({ timeout: 15000 });
+
+    // (optional but helps stabilize UI)
+    await page.waitForTimeout(1000);
+
+    // Wait until new session appears in FIRST row
+    await expect
+      .poll(async () => {
+        const text = await page.getByRole('row').nth(1).textContent();
+        return text;
+      }, { timeout: 20000 })
+      .toContain(sessionName);
+
+    // ✅ AFTER creation
+    const finalCount = await mmSessionsPage.getTotalItems();
+    console.log(`Final count: ${finalCount}`);
+
+    expect(finalCount).toBeGreaterThan(initialCount);
+  });
 });
 

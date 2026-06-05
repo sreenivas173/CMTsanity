@@ -5,6 +5,19 @@ import { DMTTEnvironmentPage } from '../../pages/DMTTEnvironmentPage';
 import { DMTTEnvironmentSearchPaginationPage } from '../../pages/DMTTEnvironmentSearchPaginationPage';
 import { DMTTEnvironmentConfigValidatePage } from '../../pages/DMTTEnvironmentConfigValidatePage';
 
+/**
+ * DMTT Environment Configuration - Validate Environment (sanity).
+ *
+ * What it validates:
+ * - Search for “sanity” configs in the Environment configuration list.
+ * - Open the first config's “Validate Environment” action.
+ * - Validate that the UI reports successful environment validation.
+ *
+ * Notes/assumptions:
+ * - Assumes validate action is available from the first config row after search.
+ * - Uses page object helpers for navigation + assertion of success messaging.
+ */
+
 test.describe('DMTT Environment Configuration - Validate Environment', () => {
   test('@DMTTsanity Validate Environment from first sanity config', async ({ page }, testInfo) => {
     const login = new DMTT_LoginPage(page);
