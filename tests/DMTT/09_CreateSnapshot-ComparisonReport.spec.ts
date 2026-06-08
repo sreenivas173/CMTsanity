@@ -21,7 +21,7 @@ import { DMTTEnvironmentConfigValidatePage } from '../../pages/DMTTEnvironmentCo
  * 10) Ensure success notification OR snapshot comparison report items count increment is PASS
  */
 
-test.describe(' Env Snapshot - Comparison Report', () => {
+test.describe('@DMTTsanity Env Snapshot - Comparison Report', () => {
   test('Create Comparison Report from first snapshot (create snapshot if needed)', async ({ page }, testInfo) => {
     const login = new DMTT_LoginPage(page);
     const envNav = new DMTTEnvironmentPage(page);
@@ -65,39 +65,40 @@ test.describe(' Env Snapshot - Comparison Report', () => {
     };
 
     const clickFirstSnapshotInList = async (): Promise<void> => {
-      // Snapshot list item may be:
-      // - a row/accordion header with accessible name
-      // - a button labeled snapshot name
-      // - a link in a grid
-      // Best-effort: click first element that contains "snapshot" near snapshot section.
 
-      // Prefer a dedicated snapshot list container.
-      const snapshotSection = page
-        .locator('section, [role="region"], [role="tabpanel"], div')
-        .filter({ hasText: /snapshot/i })
+      // Wait until snapshot table is visible
+      await expect(
+        page.getByText('Snapshots')
+      ).toBeVisible({
+        timeout: 30000
+      });
+
+      // First snapshot link in table
+      const firstSnapshotLink = page
+        .locator('table a')
         .first();
 
-      // Candidate clickable entries.
-      const candidate = snapshotSection
-        .locator('[role="row"], [role="listitem"], a, button')
-        .filter({ hasText: /snapshot/i })
-        .first();
+      await expect(firstSnapshotLink)
+        .toBeVisible({
+          timeout: 30000
+        });
 
-      if (await candidate.isVisible().catch(() => false)) {
-        await candidate.click({ force: true });
-        return;
-      }
+      const snapshotName =
+        await firstSnapshotLink.textContent();
 
-      // Fallback: search for any "snapshot" link/button globally.
-      const globalCandidate = page
-        .getByRole('button')
-        .filter({ hasText: /snapshot/i })
-        .first()
-        .or(page.getByRole('link').filter({ hasText: /snapshot/i }).first())
-        .first();
+      console.log(
+        `Opening snapshot: ${snapshotName}`
+      );
 
-      await expect(globalCandidate).toBeVisible({ timeout: 30000 });
-      await globalCandidate.click({ force: true });
+      await firstSnapshotLink.click();
+
+      // Snapshot details page
+      await expect(page).toHaveURL(
+        /step=snapshot/,
+        {
+          timeout: 30000
+        }
+      );
     };
 
     const createSnapshotIfNeeded = async (snapshotCount: number | null): Promise<void> => {

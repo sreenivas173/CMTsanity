@@ -48,18 +48,17 @@ test.describe('@DMTTsanity DMTT Configuration Edit', () => {
       page.getByRole('button', { name: /create\s+snapshot/i }).first()
     ).toBeVisible({ timeout: 30000 }).catch(() => null);
 
-    const editedName = `Edited_Config_${new Date().toISOString().slice(0, 10)}`;
+    const editedName = `Edited_Config_${new Date().toISOString().replace(/[:.]/g, '-')}`;
 
     // Click Exact/Edit button from details page
-    const editButton = page
-      .getByRole('button', { name: /^Edit$/i })
-      .or(page.getByRole('button', { name: /edit/i }).first());
+    const editButton = page.getByRole('button', { name: /^Edit$/i });
 
-    await expect(editButton).toBeVisible({ timeout: 30000 });
-    await expect(editButton).toBeEnabled();
+    await editButton.waitFor({
+  state: 'visible',
+  timeout: 30000
+});
 
-    await editButton.click();
-
+await editButton.click();
     // Popup/dialog should appear
     const dialog = page
       .locator('[role="dialog"], .ux-react-popup__wrapper')
@@ -109,6 +108,18 @@ test.describe('@DMTTsanity DMTT Configuration Edit', () => {
 
     await saveButton.click();
 
+    const spinner = dialog.getByRole('button', {
+      name: /loading icon/i
+    });
+
+    await expect(spinner).toBeHidden({
+      timeout: 60000
+    });
+
+    await expect(dialog).toBeHidden({
+      timeout: 60000
+    });
+
     // Wait for save/update to complete (toast/alert or dialog close)
     await expect
       .poll(async () => {
@@ -124,7 +135,7 @@ test.describe('@DMTTsanity DMTT Configuration Edit', () => {
       .toBe(true);
 
     // Ensure the updated name is visible on the details page
-    await expect(page.getByText(editedName, { exact: true })).toBeVisible({ timeout: 60000 });
+    await expect(page.getByText(editedName, { exact: true }).first()).toBeVisible({ timeout: 60000 });
 
 
     // Optional artifact for trace/debug

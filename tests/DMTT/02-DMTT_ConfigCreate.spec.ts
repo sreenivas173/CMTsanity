@@ -35,7 +35,7 @@ test('@DMTTsanity DMTT Create Configuration', async ({ page }) => {
 
   // 4) Fill configuration fields and submit
   await createPage.createConfiguration({
-    configName: `Srini_${Date.now()}`,
+    configName: `Srini_sanity_${Date.now()}`,
     cloud: 'etbss',
     namespace: 'env-2-bss',
     source: 'BSS Runtime Catalog',
