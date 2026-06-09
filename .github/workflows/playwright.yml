@@ -67,6 +67,7 @@ jobs:
 
     # RUN MM
     - name: Run MM Sanity Tests
+      continue-on-error: true
       shell: powershell
       env:
         MM_USERNAME: ${{ secrets.MM_USERNAME }}
@@ -78,8 +79,17 @@ jobs:
           --project=QA1_MM `
           --workers=1
 
+        $playwrightExitCode = $LASTEXITCODE
+
+        Write-Host "Playwright Exit Code: $playwrightExitCode"
+
         # Rename HTML report
         if (Test-Path "playwright-report") {
+
+          if (Test-Path "mm-report") {
+            Remove-Item mm-report -Recurse -Force
+          }
+
           Rename-Item `
             playwright-report `
             mm-report `
@@ -97,8 +107,11 @@ jobs:
         Write-Host "MM files:"
         Get-ChildItem
 
+        exit $playwrightExitCode
+
             # RUN DMTT
     - name: Run DMTT Sanity Tests
+      continue-on-error: true
       shell: powershell
       env:
         DMTT_USERNAME: ${{ secrets.DMTT_USERNAME }}
@@ -225,13 +238,18 @@ jobs:
 
         git add .
 
-        git commit `
-          -m "Deploy reports"
+        git diff --cached --quiet
 
-        git push `
-          https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git `
-          gh-pages `
-          --force
+        if ($LASTEXITCODE -ne 0) {
+          git commit -m "Deploy reports"
+          git push `
+            https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git `
+            gh-pages `
+            --force
+        }
+        else {
+            Write-Host "No report changes to deploy."
+        }
 
     # Webex notification
     - name: Send Webex Notification

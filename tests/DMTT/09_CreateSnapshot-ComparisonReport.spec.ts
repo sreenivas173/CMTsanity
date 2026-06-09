@@ -293,6 +293,15 @@ test.describe('@DMTTsanity Env Snapshot - Comparison Report', () => {
       timeout: 60000
     });
 
+    await expect.poll(
+      async () =>
+        await createComparisonReportButton.isEnabled(),
+      {
+        timeout: 180000,
+        intervals: [5000]
+      }
+    ).toBe(true);
+
     await createComparisonReportButton.click();
 
     const dialog = page
@@ -325,11 +334,17 @@ test.describe('@DMTTsanity Env Snapshot - Comparison Report', () => {
     });
 
     await pickSnapshotControl.click();
+    console.log(
+      await page.locator('[role="dialog"]').innerHTML()
+    );
 
+    console.log(
+      await page.locator('[role="dialog"]').innerText()
+    );
     // Step 8: dropdown select first snapshot name
     // Look for first option in the open dropdown.
 
-    // Select first parent item
+    // First parent item
     const firstParentItem = page
       .getByRole('menuitem')
       .first();
@@ -345,18 +360,29 @@ test.describe('@DMTTsanity Env Snapshot - Comparison Report', () => {
       `Selecting parent item: ${parentText}`
     );
 
-    await firstParentItem.click();
+    // Hover instead of click so submenu opens
+    await firstParentItem.hover();
 
     // Wait for submenu to appear
-    const menus = page.getByRole('menu');
+    await expect.poll(
+      async () => await page.getByRole('menu').count(),
+      {
+        timeout: 10000,
+        intervals: [500]
+      }
+    ).toBeGreaterThan(1);
 
-    await expect(menus.nth(1)).toBeVisible({
+    // Second menu is the submenu
+    const submenu = page
+      .getByRole('menu')
+      .nth(1);
+
+    await expect(submenu).toBeVisible({
       timeout: 30000
     });
 
-    // First child snapshot from submenu
-    const firstChildSnapshot = menus
-      .nth(1)
+    // First child snapshot
+    const firstChildSnapshot = submenu
       .getByRole('menuitem')
       .first();
 
@@ -371,6 +397,11 @@ test.describe('@DMTTsanity Env Snapshot - Comparison Report', () => {
       `Selecting child snapshot: ${childText}`
     );
 
+    // Trial click first (helps avoid detached DOM issues)
+    await firstChildSnapshot.click({
+      trial: true
+    });
+
     await firstChildSnapshot.click();
     // Step 9: ensure Create button enabled and click Create button
     const createButton = dialog
@@ -379,6 +410,10 @@ test.describe('@DMTTsanity Env Snapshot - Comparison Report', () => {
       .first();
 
     await expect(createButton).toBeVisible({ timeout: 30000 });
+    console.log(
+  'Create enabled:',
+  await createButton.isEnabled()
+);
     await expect(createButton).toBeEnabled({ timeout: 30000 });
 
     await createButton.click({ force: true });
