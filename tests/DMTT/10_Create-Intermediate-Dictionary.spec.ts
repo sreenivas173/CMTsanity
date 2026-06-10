@@ -94,7 +94,7 @@ test.describe('Env - Intermediate Dictionary (Persist Success)', () => {
       await firstSnapshotLink.click();
 
       // Optional: wait for URL change or snapshot details to mount
-      await expect(page).toHaveURL(/step=snapshot|snapshot/i, { timeout: 30000 }).catch(() => null);
+      await expect(page).toHaveURL(/snapshot/i, { timeout: 60000 });
     };
 
     const createSnapshotIfNeeded = async (snapshotCount: number): Promise<void> => {
@@ -156,35 +156,57 @@ test.describe('Env - Intermediate Dictionary (Persist Success)', () => {
     await pocRtc.click();
 
     // Step 7: In the first search box type 'code'
-    const searchBox = page
-      .getByRole('textbox')
-      .filter({ has: page.getByText(/search/i).first() })
-      .first();
+    // const searchBox = page
+    //   .getByRole('textbox')
+    //   .filter({ has: page.getByText(/search/i).first() })
+    //   .first();
 
-    // If above is not found reliably, fallback to first textbox after dictionaries click
-    const searchBoxFallback = await page.locator('input[type="search"], input[placeholder*="Search" i], textarea').first().isVisible().catch(() => false);
+    // // If above is not found reliably, fallback to first textbox after dictionaries click
+    // const searchBoxFallback = await page.locator('input[type="search"], input[placeholder*="Search" i], textarea').first().isVisible().catch(() => false);
 
-    if (!searchBoxFallback) {
-      // Use first textbox if search-specific isn't available
-      await page.getByRole('textbox').first().fill('code');
-    } else {
-      await page.locator('input[type="search"], input[placeholder*="Search" i], textarea').first().fill('code');
-    }
+    // if (!searchBoxFallback) {
+    //   // Use first textbox if search-specific isn't available
+    //   await page.getByRole('textbox').first().fill('code');
+    // } else {
+    //   await page.locator('input[type="search"], input[placeholder*="Search" i], textarea').first().fill('code');
+    // }
 
-    // Wait for results to filter
-    await page.waitForTimeout(1500);
+    // // Wait for results to filter
+    // //    await page.waitForTimeout(1500);
+    // await expect(firstSourceLink).toBeVisible({
+    //   timeout: 30000
+    // });
+
+    //const searchBox = page.getByPlaceholder(/search/i);
+    const searchBox = page.getByRole('textbox', {name: /search by source name/i});
+
+    await expect(searchBox)
+      .toBeVisible({
+        timeout: 30000
+      });
+
+    await searchBox.fill('code');
 
     // Step 8: Click on the first source name link
-    const firstSourceLink = page
-      .getByRole('link')
-      .filter({ hasText: /code/i })
-      .first();
+    await expect.poll(
+      async () =>
+        await page
+          .getByRole('link')
+          .filter({ hasText: /code/i })
+          .count(),
+      {
+        timeout: 30000
+      }
+    ).toBeGreaterThan(0);
 
-    await expect(firstSourceLink).toBeVisible({
-      timeout: 30000
-    });
+    const firstSourceLink =
+      page
+        .getByRole('link')
+        .filter({ hasText: /code/i })
+        .first();
 
     await firstSourceLink.click();
+
     // Open Create Dictionary popup
     const createDictionaryBtn =
       page.getByRole('button', {
@@ -240,7 +262,7 @@ test.describe('Env - Intermediate Dictionary (Persist Success)', () => {
 
     await expect(dialog).toBeHidden({ timeout: 30000 });
 
-//    await createBtn.first().click({ force: true });
+    //    await createBtn.first().click({ force: true });
 
     await expect.poll(
       async () => {
@@ -293,10 +315,6 @@ test.describe('Env - Intermediate Dictionary (Persist Success)', () => {
 
 
     // Wait briefly for persist action to be processed (some UIs show immediate status change).
-    await page.waitForTimeout(2000);
-
-
-
 
     // Step 12: refresh the page and check dictionary status 'Persist Success'
     await page.waitForTimeout(2000);
