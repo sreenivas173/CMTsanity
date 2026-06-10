@@ -1,8 +1,8 @@
-- [ ] Create tests/DMTT/06-DMTT_Create_Snapshot.spec.ts
-  - [x] Log in to DMTT UI
-  - [x] Navigate to Env Configurations
-  - [x] Search for "sanity"
-  - [x] Click first config
-  - [x] Click "Create Snapshot"
-  - [x] Assert success (status completed or item count increase by 1)
+# TODO.md
+
+- [ ] Create `tests/DMTT/10_Create-Intermediate-Dictionary.spec.ts` based on required flow.
+- [ ] Implement snapshot-count logic (create snapshot if needed, then open first snapshot).
+- [ ] Implement "POC RTC Dictionaries" flow: search `code`, click first source link, create dictionary with name `Srini_intm_<date,time>`, status draft.
+- [ ] Persist dictionary, refresh, and assert status contains `Persist Success`.
+- [ ] Run Playwright for the new spec and fix selectors if needed.
 
