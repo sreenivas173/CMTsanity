@@ -53,12 +53,20 @@ test.describe('@DMTTsanity DMTT Configuration Edit', () => {
     // Click Exact/Edit button from details page
     const editButton = page.getByRole('button', { name: /^Edit$/i });
 
-    await editButton.waitFor({
-  state: 'visible',
-  timeout: 30000
-});
+    await expect(editButton).toBeVisible({
+      timeout: 30000
+    });
 
-await editButton.click();
+    await expect.poll(
+      async () => await editButton.isEnabled(),
+      {
+        timeout: 60000,
+        intervals: [1000]
+      }
+    ).toBe(true);
+
+    await editButton.click();
+
     // Popup/dialog should appear
     const dialog = page
       .locator('[role="dialog"], .ux-react-popup__wrapper')

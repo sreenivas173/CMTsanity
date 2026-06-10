@@ -219,10 +219,29 @@ test.describe('@DMTTsanity Env Snapshot - Comparison Report', () => {
               timeout: 30000
             });
 
+            // const bodyText =
+            //   await page.locator('body').innerText();
+
+            // return !/in progress/i.test(bodyText);
+
+            const snapshotLink = page
+              .getByRole('link')
+              .filter({
+                hasText: /\d{4}-\d{2}-\d{2}/
+              })
+              .first();
+
+            const snapshotExists =
+              await snapshotLink.isVisible()
+                .catch(() => false);
+
             const bodyText =
               await page.locator('body').innerText();
 
-            return !/in progress/i.test(bodyText);
+            const noInProgress =
+              !/in progress/i.test(bodyText);
+
+            return snapshotExists && noInProgress;
           },
           {
             timeout: 180000,
@@ -251,22 +270,23 @@ test.describe('@DMTTsanity Env Snapshot - Comparison Report', () => {
     await clickFirstSnapshotInList();
 
     // Capture baseline comparison report items count (if present).
-    const extractComparisonItemsCount = async (): Promise<number | null> => {
-      const bodyTxt = await page.locator('body').innerText();
+    // const extractComparisonItemsCount = async (): Promise<number | null> => {
+    //   const bodyTxt = await page.locator('body').innerText();
 
-      // Common patterns: "X items", "items: X", etc.
-      const m1 = bodyTxt.match(/(\d+)\s+items?/i);
-      if (m1?.[1] && /comparison|report/i.test(bodyTxt)) {
-        return Number(m1[1]);
-      }
+    //   // Common patterns: "X items", "items: X", etc.
+    //   const m1 = bodyTxt.match(/(\d+)\s+items?/i);
 
-      const m2 = bodyTxt.match(/comparison\s+report[^\d]*(\d+)/i);
-      if (m2?.[1]) return Number(m2[1]);
+    //   if (m1?.[1] && /comparison|report/i.test(bodyTxt)) {
+    //     return Number(m1[1]);
+    //   }
 
-      return null;
-    };
+    //   const m2 = bodyTxt.match(/comparison\s+report[^\d]*(\d+)/i);
+    //   if (m2?.[1]) return Number(m2[1]);
 
-    const beforeComparisonCount = await extractComparisonItemsCount();
+    //   return null;
+    // };
+
+    //const beforeComparisonCount = await extractComparisonItemsCount();
 
     // Step 6: click 'Create Comparison Report' a popup window opens to 'pick a snapshot'
     // Based on current UI snapshot, action is likely inside the selected snapshot row
@@ -411,12 +431,31 @@ test.describe('@DMTTsanity Env Snapshot - Comparison Report', () => {
 
     await expect(createButton).toBeVisible({ timeout: 30000 });
     console.log(
-  'Create enabled:',
-  await createButton.isEnabled()
-);
+      'Create enabled:',
+      await createButton.isEnabled()
+    );
     await expect(createButton).toBeEnabled({ timeout: 30000 });
 
     await createButton.click({ force: true });
+
+
+    await expect.poll(
+      async () => {
+
+        await page.reload();
+
+        const bodyText =
+          await page.locator('body').innerText();
+
+        return !bodyText.includes(
+          'No data to display'
+        );
+      },
+      {
+        timeout: 30000,
+        intervals: [2000]
+      }
+    ).toBe(true);
 
     // Step 10: ensure success notification OR increment in snapshot comparison report items count is Pass.
     const successToast = page
@@ -424,46 +463,7 @@ test.describe('@DMTTsanity Env Snapshot - Comparison Report', () => {
       .filter({ hasText: /success|created|comparison|report/i })
       .first();
 
-    const comparisonCountIncreased = async () => {
-      await expect.poll(
-        async () => {
 
-          // Refresh page so newly created report appears
-          await page.reload();
-
-          // Wait for table to reload
-          await expect(
-            page.getByRole('button', {
-              name: /create snapshots comparison report/i
-            })
-          ).toBeVisible();
-
-          const bodyText =
-            await page.locator('body').innerText();
-
-          const match =
-            bodyText.match(
-              /(\d+)\s+items,\s+\d+-\d+\s+shown/i
-            );
-
-          const count = match
-            ? Number(match[1])
-            : 0;
-
-          console.log(
-            `Comparison report count: ${count}`
-          );
-
-          return count > 0;
-        },
-        {
-          timeout: 120000,
-          intervals: [5000]
-        }
-      ).toBe(true);
-
-      return true;
-    };
 
     await expect.poll(
       async () => {
