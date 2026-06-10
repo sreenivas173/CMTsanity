@@ -22,7 +22,7 @@ import { DMTTEnvironmentConfigValidatePage } from '../../pages/DMTTEnvironmentCo
  * 12) refresh the page and check the dictionary status 'Persist Success' to pass the test
  */
 
-test.describe('Env - Intermediate Dictionary (Persist Success)', () => {
+test.describe('@DMTTsanity Create Intermediate Dictionary (Persist Success)', () => {
   test.setTimeout(240000);
 
   test('Create Intermediate Dictionary from first snapshot (create snapshot if needed)', async ({ page }, testInfo) => {
