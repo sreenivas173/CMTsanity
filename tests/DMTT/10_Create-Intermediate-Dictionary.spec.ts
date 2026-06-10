@@ -180,12 +180,22 @@ test.describe('Env - Intermediate Dictionary (Persist Success)', () => {
       .filter({ hasText: /code/i })
       .first();
 
-    // If filtering by code doesn't work, take first link in results area
-    if (!(await firstSourceLink.isVisible().catch(() => false))) {
-      await page.getByRole('link').first().click();
-    } else {
-      await firstSourceLink.click();
-    }
+    await expect(firstSourceLink).toBeVisible({
+      timeout: 30000
+    });
+
+    await firstSourceLink.click();
+    // Open Create Dictionary popup
+    const createDictionaryBtn =
+      page.getByRole('button', {
+        name: /create dictionary/i
+      });
+
+    await expect(createDictionaryBtn).toBeVisible({
+      timeout: 30000
+    });
+
+    await createDictionaryBtn.click();
 
     // Step 9: dictionary name as 'Srini_intm_<date,time>'
     const now = new Date();
@@ -198,23 +208,50 @@ test.describe('Env - Intermediate Dictionary (Persist Success)', () => {
 
     const dictName = `Srini_intm_${yyyy}-${mm}-${dd}_${hh}-${min}-${ss}`;
 
-    const dictNameInput = page
-      .getByRole('textbox')
-      .filter({ has: page.getByText(/dictionary name/i).first() })
-      .first();
+    // Wait for Create Dictionary dialog
+    const dialog = page.getByRole('dialog');
 
-    // Fallback for dictionary name label differences
-    if (!(await dictNameInput.isVisible({ timeout: 10000 }).catch(() => false))) {
-      // Attempt placeholder based
-      await page.getByRole('textbox').first().fill(dictName);
-    } else {
-      await dictNameInput.fill(dictName);
-    }
+    await expect(dialog).toBeVisible({
+      timeout: 30000
+    });
+
+    // Dictionary Name textbox inside popup
+    const dictNameInput =
+      dialog.getByRole('textbox', {
+        name: /dictionary name/i
+      });
+
+    await expect(dictNameInput).toBeVisible();
+
+    await dictNameInput.fill(dictName);
 
     // Step 10: Click create button - status as draft
-    const createBtn = page.getByRole('button', { name: /^create$/i }).or(page.getByRole('button', { name: /create/i }).first());
-    await expect(createBtn.first()).toBeEnabled({ timeout: 30000 });
-    await createBtn.first().click({ force: true });
+    //const createBtn = page.getByRole('button', { name: /^create$/i }).or(page.getByRole('button', { name: /create/i }).first());
+    // await expect(createBtn.first()).toBeEnabled({ timeout: 30000 });
+
+    const createBtn =
+      dialog.getByRole('button', {
+        name: /^create$/i
+      });
+
+    await expect(createBtn).toBeEnabled({ timeout: 30000 });
+
+    await createBtn.click();
+
+    await expect(dialog).toBeHidden({ timeout: 30000 });
+
+//    await createBtn.first().click({ force: true });
+
+    await expect.poll(
+      async () => {
+        const body = await page.locator('body').innerText();
+        return /draft/i.test(body);
+      },
+      {
+        timeout: 60000,
+        intervals: [2000]
+      }
+    ).toBe(true);
 
     // Status after create should become "draft" (as per required flow)
     // Some builds may not contain the literal word "draft"; treat any non-error state as best-effort.
