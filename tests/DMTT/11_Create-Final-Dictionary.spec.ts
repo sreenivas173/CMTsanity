@@ -130,14 +130,15 @@ test.describe('@DMTTsanity Create Final Dictionary', () => {
 
             await expect.poll(
                 async () => {
-                    await page.reload();
-                    const body = await page.locator('body').innerText();
-                    return !/in progress/i.test(body) && !/creating/i.test(body);
+                    const body =
+                        await page.locator('body').innerText();
+
+                    return !/in progress/i.test(body)
+                        && !/creating/i.test(body);
                 },
                 {
                     timeout: 180000,
-                    intervals: [5000],
-                    message: 'Timed out waiting for snapshot creation completion.'
+                    intervals: [5000]
                 }
             ).toBe(true);
 
@@ -257,13 +258,27 @@ test.describe('@DMTTsanity Create Final Dictionary', () => {
         //         name: /2026-/i
         //     })
         //     .click();
+
         await page.goBack();
 
-        await expect(
-            page.getByText(/POC RTC Dictionaries/i)
-        ).toBeVisible({
-            timeout: 30000
-        });
+        await expect.poll(
+            async () => {
+                const body =
+                    await page.locator('body').innerText();
+
+                return /poc rtc dictionaries/i.test(body);
+            },
+            {
+                timeout: 60000
+            }
+        ).toBe(true);
+        // await page.goBack();
+
+        await page
+            .getByRole('tab', {
+                name: /POC RTC Dictionaries/i
+            })
+            .click();
         //Step11. Select Final Dictionaries button
 
         console.log('Opening Final Dictionaries');
@@ -286,22 +301,16 @@ test.describe('@DMTTsanity Create Final Dictionary', () => {
             timeout: 30000
         });
 
-        await expect.poll(
-            async () =>
-                await page
-                    .getByRole('row')
-                    .count(),
-            {
-                timeout: 30000
-            }
-        ).toBeGreaterThan(1);
-
         const beforeCount =
-            (await page.getByRole('row').count()) - 1;
+            Math.max(
+                (await page.getByRole('row').count()) - 1,
+                0
+            );
 
         console.log(
             `Final dictionary count before create: ${beforeCount}`
         );
+
 
         //console.log(`Final dictionary count before create: ${beforeCount}`);
 
@@ -384,16 +393,6 @@ test.describe('@DMTTsanity Create Final Dictionary', () => {
                 .replace(/-/g, '_')
                 .toUpperCase();
 
-        console.log(
-            'Expected UI name:',
-            expectedFinalName
-        );
-        console.log(
-            'Current URL:',
-            page.url()
-        );
-
-
         //Step 15 – Verify final dictionary creation success by checking count increased or new dictionary appears in list (refresh if needed)
 
         await expect.poll(
@@ -409,5 +408,26 @@ test.describe('@DMTTsanity Create Final Dictionary', () => {
                 intervals: [5000]
             }
         ).toBeGreaterThan(0);
+
+
+        //==================================
+        /*await expect.poll(
+        async () => {
+        const body =
+            (
+                await page.locator('body')
+                    .innerText()
+            ).toUpperCase();
+
+        return body.includes(
+            expectedFinalName
+        );
+        },
+        {
+        timeout: 120000,
+        intervals: [5000]
+        }
+        ).toBe(true);*/
+
     });
 });

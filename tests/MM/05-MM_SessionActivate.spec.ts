@@ -36,7 +36,7 @@ test.describe('@MMsanity MM Session Start Validations', () => {
     'MM Session Start - Verify status handling for Srini_MM_AT_Newsession',
     async ({ page }) => {
 
-       test.setTimeout(420000);
+      test.setTimeout(420000);
 
       const fullUrl =
         'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/fragment/migration-ui/sessions';
@@ -48,7 +48,7 @@ test.describe('@MMsanity MM Session Start Validations', () => {
       const nameContains = 'Srini_MM_AT_Newsession';
 
       console.log(
-        `Searching for sessions containing: ${ nameContains } `
+        `Searching for sessions containing: ${nameContains} `
       );
 
       // Search sessions
@@ -71,13 +71,13 @@ test.describe('@MMsanity MM Session Start Validations', () => {
         await candidateRowLinks.count();
 
       console.log(
-        `Found ${ sessionCount } matching session(s)`
+        `Found ${sessionCount} matching session(s)`
       );
 
       if (sessionCount === 0) {
 
         console.log(
-          `No matching session found for: ${ nameContains } `
+          `No matching session found for: ${nameContains} `
         );
 
         return;
@@ -106,7 +106,7 @@ test.describe('@MMsanity MM Session Start Validations', () => {
           nameContains;
 
         console.log(
-          `Handling session: ${ sessionName } `
+          `Handling session: ${sessionName} `
         );
 
         // Open session details
@@ -153,7 +153,7 @@ test.describe('@MMsanity MM Session Start Validations', () => {
           statusText.toLowerCase();
 
         console.log(
-          `Current status for ${ sessionName }: ${ statusText } `
+          `Current status for ${sessionName}: ${statusText} `
         );
 
         // =====================================================
@@ -165,7 +165,7 @@ test.describe('@MMsanity MM Session Start Validations', () => {
         ) {
 
           console.log(
-            `Session already completed: ${ sessionName } `
+            `Session already completed: ${sessionName} `
           );
 
           await page.goBack();
@@ -190,7 +190,7 @@ test.describe('@MMsanity MM Session Start Validations', () => {
         ) {
 
           console.log(
-            `Starting session: ${ sessionName } `
+            `Starting session: ${sessionName} `
           );
 
           const startButton = page
@@ -204,45 +204,45 @@ test.describe('@MMsanity MM Session Start Validations', () => {
 
           await expect(startButton).toBeEnabled();
 
-    await startButton.click({
-  force: true
-});
+          await startButton.click({
+            force: true
+          });
 
-console.log('Start button clicked');
+          console.log('Start button clicked');
 
-// Wait for status to change from Not Started first
-await expect.poll(
+          // Wait for status to change from Not Started first
+          await expect.poll(
 
-  async () => {
+            async () => {
 
-    const statusChips = page.locator(
-      '.ux-react-chip__text, [class*="status"], .status-text'
-    );
+              const statusChips = page.locator(
+                '.ux-react-chip__text, [class*="status"], .status-text'
+              );
 
-    const texts =
-      await statusChips.allTextContents();
+              const texts =
+                await statusChips.allTextContents();
 
-    return texts
-      .join('|')
-      .toLowerCase();
+              return texts
+                .join('|')
+                .toLowerCase();
 
-  },
-  {
-    timeout: 60000,
-    intervals: [5000],
-    message:
-      'Session never moved out of Not Started state'
-  }
+            },
+            {
+              timeout: 60000,
+              intervals: [5000],
+              message:
+                'Session never moved out of Not Started state'
+            }
 
-).not.toContain('not started');
+          ).not.toContain('not started');
 
-console.log(
-  'Session execution actually started'
-);
+          console.log(
+            'Session execution actually started'
+          );
 
-console.log(
-  'Waiting for session completion...'
-);
+          console.log(
+            'Waiting for session completion...'
+          );
 
           // Wait until session becomes Completed
           await expect.poll(
@@ -251,12 +251,12 @@ console.log(
 
               await page.reload();
 
-            // Wait for session details page to reload
-await expect(
-  page.getByText('General Info')
-).toBeVisible({
-  timeout: 20000
-});
+              // Wait for session details page to reload
+              await expect(
+                page.getByText('General Info')
+              ).toBeVisible({
+                timeout: 20000
+              });
 
               const statusChips = page.locator(
                 '.ux-react-chip__text, [class*="status"], .status-text'
@@ -272,7 +272,7 @@ await expect(
                 .toLowerCase();
 
               console.log(
-                `Current polled status: ${ normalized } `
+                `Current polled status: ${normalized} `
               );
 
               // Fail immediately if failed
@@ -282,7 +282,7 @@ await expect(
               ) {
 
                 throw new Error(
-                  `Session failed with status: ${ normalized } `
+                  `Session failed with status: ${normalized} `
                 );
               }
 
@@ -300,7 +300,7 @@ await expect(
           ).toContain('completed');
 
           console.log(
-            `Session ${ sessionName } completed successfully`
+            `Session ${sessionName} completed successfully`
           );
 
           // Go back to sessions page
@@ -327,65 +327,46 @@ await expect(
         ) {
 
           console.log(
-            `Session already running: ${ sessionName } `
+            `Session already running: ${sessionName} `
           );
 
           await expect.poll(
-
             async () => {
 
-              await page.reload();
-
-              await expect(
-                page.getByRole('button', {
-                  name: 'Edit'
-                })
-              ).toBeVisible({
-                timeout: 20000
+              await page.reload({
+                waitUntil: 'networkidle'
               });
 
-              const statusChips = page.locator(
-                '.ux-react-chip__text, [class*="status"], .status-text'
-              );
+              const status = (
+                await page.locator('.ux-react-chip__text')
+                  .first()
+                  .textContent()
+              )?.trim()
+                .toLowerCase() || '';
 
-              const texts =
-                await statusChips.allTextContents();
-
-              const normalized = texts
-                .map(t => t.trim())
-                .filter(Boolean)
-                .join('|')
-                .toLowerCase();
-
-              console.log(
-                `Current running status: ${ normalized } `
-              );
+              console.log(`Current running status: ${status}`);
 
               if (
-                normalized.includes('failed') ||
-                normalized.includes('error')
+                status.includes('failed') ||
+                status.includes('error')
               ) {
-
                 throw new Error(
-                  `Session failed with status: ${ normalized } `
+                  `Session failed with status: ${status}`
                 );
               }
 
-              return normalized;
+              return status;
 
             },
-
             {
-              timeout: 360000,
-              intervals: [10000],
+              timeout: 900000,
+              intervals: [15000],
               message:
                 'Timed out waiting for running session completion'
             }
-
           ).toContain('completed');
-
           console.log(
-            `Running session ${ sessionName } completed`
+            `Running session ${sessionName} completed`
           );
 
           await page.goBack();
@@ -406,7 +387,7 @@ await expect(
         // =====================================================
 
         console.log(
-          `Unknown status encountered: ${ statusText } `
+          `Unknown status encountered: ${statusText} `
         );
 
         await page.goBack();

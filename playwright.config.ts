@@ -49,6 +49,7 @@ export default defineConfig({
     launchOptions: {
         args: [
             '--start-maximized',
+            '--start-fullscreen',
             '--disable-web-security',
             '--disable-features=IsolateOrigins,site-per-process'
         ]
