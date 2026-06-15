@@ -1,0 +1,179 @@
+name: CMT Regression Tests
+
+on:
+  workflow_dispatch:
+
+  # Example: Every Saturday 9 AM IST
+  # schedule:
+  #   - cron: '30 3 * * 6'
+
+permissions:
+  contents: write
+
+jobs:
+  regression:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+  ####################################################
+  # D2C Regression
+  ####################################################
+
+      - name: Run D2C Regression Tests
+        shell: powershell
+        env:
+          D2C_USERNAME: ${{ secrets.D2C_USERNAME }}
+          D2C_PASSWORD: ${{ secrets.D2C_PASSWORD }}
+
+        run: |
+
+          npx playwright test tests/Regression/D2C `
+            --project=QA1_D2C `
+            --workers=1
+
+          if (Test-Path "playwright-report") {
+
+            Rename-Item `
+              playwright-report `
+              d2c-regression-report `
+              -Force
+
+          }
+
+  ####################################################
+  # MM Regression
+  ####################################################
+
+      - name: Run MM Regression Tests
+        shell: powershell
+        env:
+          MM_USERNAME: ${{ secrets.MM_USERNAME }}
+          MM_PASSWORD: ${{ secrets.MM_PASSWORD }}
+
+        run: |
+
+          npx playwright test tests/Regression/MM `
+            --project=QA1_MM `
+            --workers=1
+
+          if (Test-Path "playwright-report") {
+
+            Rename-Item `
+              playwright-report `
+              mm-regression-report `
+              -Force
+
+          }
+
+  ####################################################
+  # DMTT Regression
+  ####################################################
+
+      - name: Run DMTT Regression Tests
+        shell: powershell
+        env:
+          DMTT_USERNAME: ${{ secrets.DMTT_USERNAME }}
+          DMTT_PASSWORD: ${{ secrets.DMTT_PASSWORD }}
+
+        run: |
+
+          npx playwright test tests/Regression/DMTT `
+            --project=QA1_DMTT `
+            --workers=1
+
+          if (Test-Path "playwright-report") {
+
+            Rename-Item `
+              playwright-report `
+              dmtt-regression-report `
+              -Force
+
+          }
+
+  ####################################################
+  # Upload HTML Reports
+  ####################################################
+
+      - name: Upload D2C Regression Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: d2c-regression-report
+          path: d2c-regression-report/
+
+      - name: Upload MM Regression Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mm-regression-report
+          path: mm-regression-report/
+
+      - name: Upload DMTT Regression Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dmtt-regression-report
+          path: dmtt-regression-report/
+
+  ####################################################
+  # Webex Notification
+  ####################################################
+
+      - name: Send Webex Notification
+        if: always()
+        run: node sendWebex.js
+        env:
+          WEBEX_TOKEN: ${{ secrets.WEBEX_TOKEN }}
+          WEBEX_ROOM_ID: ${{ secrets.WEBEX_ROOM_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+  ####################################################
+  # Print Time
+  ####################################################
+
+      - name: Print Time
+        shell: powershell
+        run: |
+
+          Write-Host "Runner Timezone:"
+          Get-TimeZone
+
+          $utc = Get-Date
+
+          Write-Host "UTC:"
+          Write-Host (
+            $utc.ToUniversalTime().ToString(
+              "yyyy-MM-dd HH:mm:ss UTC"
+            )
+          )
+
+          $istZone = [System.TimeZoneInfo]::FindSystemTimeZoneById(
+            "India Standard Time"
+          )
+
+          $ist = [System.TimeZoneInfo]::ConvertTimeFromUtc(
+            $utc.ToUniversalTime(),
+            $istZone
+          )
+
+          Write-Host "IST:"
+          Write-Host (
+            $ist.ToString(
+              "yyyy-MM-dd HH:mm:ss IST"
+            )
+          )

@@ -18,6 +18,23 @@ import path from 'path';
 import fs from 'fs';
 import 'dotenv/config';
 
+
+const testName = 'R02_D2C_mmDesignDownload';
+
+const potFolder = path.join(
+    process.cwd(),
+    'POT',
+    'D2C',
+    testName
+);
+
+if (fs.existsSync(potFolder)) {
+    fs.rmSync(potFolder, {
+        recursive: true,
+        force: true
+    });
+}
+
 test.describe('D2C Settings page validations', () => {
     let loginPage: LoginPage;
     let settingsPage: SettingsPage;

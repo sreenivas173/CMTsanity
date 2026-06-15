@@ -2,6 +2,8 @@
 results/
 test-results/
 blob-report/
+POT/
+Documents/
 .env
 # Runtime json
 report.json

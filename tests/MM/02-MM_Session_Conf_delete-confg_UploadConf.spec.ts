@@ -47,8 +47,8 @@ test.describe('@MMsanity MM Configuration Delete and Upload', () => {
 
         await mmLoginPage.goto();
 
-        await mmLoginPage.login(  process.env.MM_USERNAME!,process.env.MM_PASSWORD!);
-      
+        await mmLoginPage.login(process.env.MM_USERNAME!, process.env.MM_PASSWORD!);
+
 
         // =========================================================
         // STEP 2: OPEN CONFIGURATIONS
@@ -228,6 +228,9 @@ test.describe('@MMsanity MM Configuration Delete and Upload', () => {
         console.log(
           `Found ${matchingCount} matching session(s)`
         );
+
+        // Save current count BEFORE deleting
+const previousCount = matchingCount;
 
         console.log(
           `Found ${matchingCount} matching session(s)`
@@ -499,80 +502,42 @@ test.describe('@MMsanity MM Configuration Delete and Upload', () => {
             'domcontentloaded'
           );
 
+          // Verify deletion reduced row count
           await expect.poll(
             async () => {
 
-              const rows =
-                page
-                  .getByRole('row')
-                  .filter({
-                    hasText:
-                      sessionSearchText
-                  });
+              await page.goto(sessionsUrl);
 
-              return await rows.count();
+              await sessionSearchBox.clear();
+              await sessionSearchBox.fill(sessionSearchText);
+
+              return await page
+                .getByRole('row')
+                .filter({
+                  hasText: sessionSearchText
+                })
+                .count();
 
             },
             {
-              timeout: 20000,
-              intervals: [1000]
+              timeout: 20000
             }
-          ).toBeLessThan(
-            matchingCount
-          );
+          ).toBeLessThan(previousCount);
 
-          console.log(
-            'Session deletion verified'
-          );
-          // Refresh count after delete
-          matchingCount =
-            await getMatchingSessionLinks()
-              .count();
+          // recalculate count
+          matchingCount = await page
+            .getByRole('row')
+            .filter({
+              hasText: sessionSearchText
+            })
+            .count();
 
-          console.log(
-            `Remaining sessions:
-   ${matchingCount}`
-          );
+          console.log(`Remaining sessions: ${matchingCount}`);
 
-          // Continue deleting
-          if (
-            matchingCount > 0
-          ) {
+          if (matchingCount === 0)
+            break;
 
-            console.log(
-              'More sessions remain'
-            );
-
-            continue;
-          }
-
-          console.log(
-            'All sessions deleted'
-          );
-          //==================may20-1=e=========================
-
-
-          console.log(
-            `Remaining sessions:
-   ${matchingCount}`
-          );
-
-          // STOP config cleanup
-          if (
-            matchingCount > 0
-          ) {
-
-            console.log(
-              'More sessions remain'
-            );
-
-            continue;
-          }
-
-          console.log(
-            'All sessions deleted'
-          );
-
+          continue;
 
         }
 

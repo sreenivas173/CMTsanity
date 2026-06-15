@@ -42,20 +42,20 @@ export default defineConfig({
 
   use: {
 
-// Global settings for all tests; individual projects can override these.-----------
+    // Global settings for all tests; individual projects can override these.-----------
     channel: 'chrome',
     headless: false,
     ignoreHTTPSErrors: true,
     launchOptions: {
-        args: [
-            '--start-maximized',
-            '--start-fullscreen',
-            '--disable-web-security',
-            '--disable-features=IsolateOrigins,site-per-process'
-        ]
+      args: [
+        '--start-maximized',
+        '--start-fullscreen',
+        '--disable-web-security',
+        '--disable-features=IsolateOrigins,site-per-process'
+      ]
     },
     viewport: null,
-//==================================================================================
+    //==================================================================================
 
     trace:
       'on-first-retry',
@@ -80,7 +80,7 @@ export default defineConfig({
       use: {
 
         ...devices[
-          'Desktop Chrome'
+        'Desktop Chrome'
         ],
 
         baseURL:
@@ -100,7 +100,7 @@ export default defineConfig({
       use: {
 
         ...devices[
-          'Desktop Chrome'
+        'Desktop Chrome'
         ],
 
         baseURL:
@@ -109,7 +109,7 @@ export default defineConfig({
       }
 
     },
-    
+
     {
       name:
         'QA1_DMTT',
@@ -120,15 +120,28 @@ export default defineConfig({
       use: {
 
         ...devices[
-          'Desktop Chrome'
+        'Desktop Chrome'
         ],
 
         baseURL:
           'https://cdn-edge-service-qa1.cloudmt.managed.netcracker.cloud/'
-          
+
 
       }
 
+    },
+    {
+      name: 'QA1_D2C_Regression',
+
+      testDir: './tests/Regression/R_D2C',
+
+      use: {
+      //  ...devices['Desktop Chrome'],
+        viewport: null,
+
+        baseURL:
+          'https://migration-design2code-ui-qa1.cloudmt.managed.netcracker.cloud/'
+      }
     }
 
 
