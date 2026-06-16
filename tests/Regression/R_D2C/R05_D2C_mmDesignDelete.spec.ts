@@ -32,43 +32,79 @@ test.describe('@D2CRegression MM Design Delete Validation', () => {
 
     await capturePotStep(page, 'D2C', 'R05_D2C_mmDesignDelete', 2, 'MM Design page');
 
-    // Search for oss
+    // Search
     await page.getByPlaceholder('Search').fill('oss');
 
     const firstRow = page.getByRole('row').nth(1);
-    await expect(firstRow).toBeVisible({ timeout: 15000 });
 
-    await capturePotStep(page, 'D2C', 'R05_D2C_mmDesignDelete', 3, 'Search results');
+    await expect(firstRow).toBeVisible({
+      timeout: 15000
+    });
 
-    // Hover first row to reveal actions
+    // Save ID before any hover/menu/dialog operations
+    const deletedId = (
+      await page.getByRole('row').nth(1)
+        .locator('[role="gridcell"]')
+        .nth(1)
+        .textContent()
+    )?.trim();
+
+    console.log('Deleting:', deletedId);
+
+    // Hover and open menu
     await firstRow.hover();
     await page.waitForTimeout(1000);
 
-    // Open 3-dot menu
     const menuButton = firstRow.locator('xpath=..').locator('button').first();
-    await expect(menuButton).toBeVisible({ timeout: 10000 });
+
     await menuButton.click();
 
-    // Click View Delete
-    await page.getByText('View Delete', { exact: true }).click();
+    await page.getByRole('menuitem', {
+      name: 'Delete'
+    }).click();
 
-    await capturePotStep(page, 'D2C', 'R05_D2C_mmDesignDelete', 4, 'Delete confirmation popup');
-
-    // Verify confirmation dialog and click yes
     const confirmDialog = page.getByRole('dialog');
-    await expect(confirmDialog).toBeVisible({ timeout: 10000 });
 
-    await confirmDialog.getByRole('button', { name: /^Yes$/i }).click();
+    await expect(confirmDialog).toBeVisible();
 
-    // Ensure success notification to pass
-    const successToast = page.locator(
-      '[role="status"], [aria-live="polite"], .ant-notification-notice'
+    // Save count BEFORE deleting
+    const countLabelBefore = await page
+      .locator('li')
+      .filter({ hasText: /items.*shown/i })
+      .first()
+      .textContent();
+
+    console.log('Before:', countLabelBefore);
+
+    const totalBefore = Number(
+      countLabelBefore?.match(/\d+/)?.[0]
     );
 
-    await expect(successToast).toBeVisible({ timeout: 20000 });
-    await expect(successToast).toContainText(/success|deleted|removed/i, {
-      timeout: 20000,
-    });
+    // Click Yes
+    await confirmDialog.getByRole('button', {
+      name: /^Yes$/i
+    }).click();
+
+// Wait until delete confirmation dialog closes
+await expect(confirmDialog).not.toBeVisible({
+  timeout: 30000
+});
+
+     // Read count again
+    const countLabelAfter = await page
+      .locator('li')
+      .filter({ hasText: /items.*shown/i })
+      .first()
+      .textContent();
+
+    console.log('After:', countLabelAfter);
+
+    const totalAfter = Number(
+      countLabelAfter?.match(/\d+/)?.[0]
+    );
+
+    // Verify one item was removed
+    expect(totalAfter).toBe(totalBefore - 1);
 
     await generatePotDocument('D2C', 'R05_D2C_mmDesignDelete');
   });
