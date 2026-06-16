@@ -8,7 +8,7 @@ const mmReportUrl =
   "https://sreenivas173.github.io/CMTsanity/mm/";
 
 const dmttReportUrl =
-  `https://sreenivas173.github.io/CMTsanity/dmtt/`;  
+  `https://sreenivas173.github.io/CMTsanity/dmtt/`;
 
 // Parse Playwright reports
 function getSummary() {
@@ -86,13 +86,11 @@ function getSummary() {
           test => {
 
             summary.total++;
+            summary[moduleName].total++;
 
-            summary[
-              moduleName
-            ].total++;
-
+            // Use final attempt
             const result =
-              test.results?.[0];
+              test.results?.at(-1);
 
             if (!result)
               return;
@@ -106,6 +104,14 @@ function getSummary() {
               tcName
             );
 
+            // Debug log
+            console.log(
+              `${moduleName} | ${tcName} | all statuses = ${test.results
+                .map(r => r.status)
+                .join(", ")} | final status = ${result.status}`
+            );
+
+            // Passed
             if (
               result.status ===
               "passed"
@@ -125,9 +131,15 @@ function getSummary() {
 
             }
 
+            // Failed
             else if (
-              result.status ===
-              "failed"
+              [
+                "failed",
+                "timedOut",
+                "interrupted"
+              ].includes(
+                result.status
+              )
             ) {
 
               summary.failed++;
@@ -144,6 +156,7 @@ function getSummary() {
 
             }
 
+            // Skipped
             else if (
               result.status ===
               "skipped"
@@ -153,12 +166,34 @@ function getSummary() {
 
             }
 
+            // Unknown status
+            else {
+
+              console.log(
+                `${moduleName} | ${tcName} | Unknown status encountered: ${result.status}`
+              );
+
+              summary.failed++;
+
+              summary[
+                moduleName
+              ].failed++;
+
+              summary
+                .failedTests
+                .push(
+                  tcName
+                );
+
+            }
+
           }
         );
 
       }
     );
 
+    // Parse nested suites recursively
     suite.suites?.forEach(
       s =>
         parseSuite(
@@ -416,31 +451,31 @@ function sendMessage(
 
 ✅ **D2C Test Cases**
 ${summary.d2c.tests
-  .slice(0,10)
-  .map(
-    t =>
-      `• ${t}`
-  )
-  .join("\n")}
+        .slice(0, 10)
+        .map(
+          t =>
+            `• ${t}`
+        )
+        .join("\n")}
 
 ✅ **MM Test Cases**
 ${summary.mm.tests
-  .slice(0,10)
-  .map(
-    t =>
-      `• ${t}`
-  )
-  .join("\n")}
+        .slice(0, 10)
+        .map(
+          t =>
+            `• ${t}`
+        )
+        .join("\n")}
 
 
 ✅ **DMTT Test Cases**
 ${summary.dmtt.tests
-  .slice(0,10)
-  .map(
-    t =>
-      `• ${t}`
-  )
-  .join("\n")}
+        .slice(0, 10)
+        .map(
+          t =>
+            `• ${t}`
+        )
+        .join("\n")}
 
 🌐 D2C Report:
 ${d2cReportUrl}

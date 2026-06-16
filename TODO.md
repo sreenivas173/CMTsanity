@@ -1,8 +1,8 @@
-# TODO.md
-
-- [ ] Create `tests/DMTT/10_Create-Intermediate-Dictionary.spec.ts` based on required flow.
-- [ ] Implement snapshot-count logic (create snapshot if needed, then open first snapshot).
-- [ ] Implement "POC RTC Dictionaries" flow: search `code`, click first source link, create dictionary with name `Srini_intm_<date,time>`, status draft.
-- [ ] Persist dictionary, refresh, and assert status contains `Persist Success`.
-- [ ] Run Playwright for the new spec and fix selectors if needed.
+- [ ] Inspect existing test file: tests/Regression/R_D2C/R05_D2C_mmDesignDelete.ts
+- [ ] Build edit plan to align flow with R04_D2C_mmDesignErrorView.spec.ts
+- [ ] Update R05_D2C_mmDesignDelete.ts: imports, describe/test wrapper, login, navigate, search 'oss'
+- [ ] Implement UI interactions: hover first row, open 3-dot menu, click 'View Delete'
+- [ ] Handle confirmation popup: click 'Yes'
+- [ ] Assert success notification and add capturePotStep
+- [ ] Run Playwright test for R05 to verify
 
