@@ -137,10 +137,12 @@ test.describe('@MMsanity SMM Session Creation Validations', () => {
     // Wait until new session appears in FIRST row
     await expect
       .poll(async () => {
-        const text = await page.getByRole('row').nth(1).textContent();
-        return text;
-      }, { timeout: 20000 })
-      .toContain(sessionName);
+        return await page.getByRole('row').nth(1).textContent();
+      }, {
+        timeout: 20000,
+        message: 'Waiting for newly created session row'
+      })
+      .toContain(sessionDesc);
 
     // ✅ AFTER creation
     const finalCount = await mmSessionsPage.getTotalItems();

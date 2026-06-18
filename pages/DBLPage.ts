@@ -11,6 +11,8 @@ export interface UploadOptions {
   generateReports?: boolean;
   generateMeta?: boolean;
   generateScripts?: boolean;
+  generateProcedure?: boolean;
+  generatePSE?: boolean;
 }
 
 export class DBLPage {
@@ -137,21 +139,21 @@ export class DBLPage {
   async openFilterDialog() {
     // Ensure no dialog is open
     await expect(this.page.getByRole('dialog')).toHaveCount(0);
-    
+
     await expect(this.filtersButton).toBeVisible();
     await expect(this.filtersButton).toBeEnabled();
     await this.filtersButton.click();
-    
+
     await expect(this.filterDialog).toBeVisible();
   }
 
   async selectFilterType(type: string) {
     const dialog = this.filterDialog;
-    
+
     const labelSelect = dialog
       .locator('div:has(> div > div > [role="combobox"])')
       .first();
-    
+
     await expect(labelSelect).toBeVisible();
     await labelSelect.click();
     await this.page.getByRole('option', { name: type }).click();
@@ -159,11 +161,11 @@ export class DBLPage {
 
   async selectOperator(operator: string) {
     const dialog = this.filterDialog;
-    
+
     const operatorSelect = dialog
       .locator('div:has(> div > div > [role="combobox"])')
       .nth(1);
-    
+
     await expect(operatorSelect).toBeVisible();
     await operatorSelect.click();
     await this.page.getByRole('option', { name: operator }).click();
@@ -187,10 +189,10 @@ export class DBLPage {
     await this.selectFilterType(config.type);
     await this.selectOperator(config.operator);
     await this.enterFilterValue(config.value);
-    
+
     const oldPaginationText = await this.getPaginationText();
     await this.applyFilter();
-    
+
     // Wait for pagination to update
     await expect(this.paginationInfo).not.toHaveText(oldPaginationText);
   }
@@ -199,7 +201,7 @@ export class DBLPage {
     await this.openFilterDialog();
     await this.filterDialog.getByRole('button', { name: 'Clear All' }).click();
     await this.filterDialog.getByRole('button', { name: 'Apply' }).click();
-    
+
     // Wait for reset
     await expect(this.paginationInfo).toHaveText(/^\d+ items, 1-\d+ shown$/);
   }
@@ -247,12 +249,36 @@ export class DBLPage {
     }
   }
 
+
+    async selectGenerateProcedure() {
+  const radioLabel = this.uploadDialog.getByText(
+    'Generate Scripts with Procedure',
+    { exact: true }
+  );
+
+  await expect(radioLabel).toBeVisible();
+
+  await radioLabel.click();
+}
+
+
   async selectGenerateScripts(checked: boolean = true) {
-    const radio = this.uploadDialog.getByRole('radio', { name: 'Generate Scripts', exact: true });
-    if (checked) {
-      await radio.check();
-    }
+    const radioLabel = this.uploadDialog.getByRole('radio', { name: 'Generate Scripts', exact: true });
+  await expect(radioLabel).toBeVisible();
+
+  await radioLabel.click();
   }
+
+async selectGeneratePSE() {
+  const radioLabel = this.uploadDialog
+    .getByText('Generate Scripts with PSE', {
+      exact: true
+    });
+
+  await expect(radioLabel).toBeVisible();
+
+  await radioLabel.click();
+}
 
   async selectAllUploadOptions(options: UploadOptions) {
     if (options.generateReports !== undefined) {
@@ -261,8 +287,14 @@ export class DBLPage {
     if (options.generateMeta !== undefined) {
       await this.selectGenerateMeta(options.generateMeta);
     }
-    if (options.generateScripts !== undefined) {
-      await this.selectGenerateScripts(options.generateScripts);
+    if (options.generateProcedure) {
+      await this.selectGenerateProcedure();
+    }
+    else if (options.generatePSE) {
+      await this.selectGeneratePSE();
+    }
+    else if (options.generateScripts) {
+      await this.selectGenerateScripts();
     }
   }
 
@@ -276,13 +308,13 @@ export class DBLPage {
   async uploadDesignFile(filePath: string, options?: UploadOptions) {
     await this.openUploadDialog();
     await this.uploadFile(filePath);
-    
+
     if (options) {
       await this.selectAllUploadOptions(options);
     }
-    
+
     await this.clickProceed();
-    
+
     // Validate table refresh
     await expect(this.paginationInfo).toBeVisible();
   }
@@ -306,12 +338,12 @@ export class DBLPage {
   async clickDownloadButton() {
     await expect(this.downloadButton).toBeVisible();
     await expect(this.downloadButton).toBeEnabled();
-    
+
     const [download] = await Promise.all([
       this.page.waitForEvent('download'),
       this.downloadButton.click()
     ]);
-    
+
     return download;
   }
 
@@ -327,13 +359,13 @@ export class DBLPage {
 
   // async goToPage(pageNumber: number) {
   //   const pageButton = this.paginationContainer.getByRole('listitem', { name: String(pageNumber) });
-    
+
   //   // Check if page button exists
   //   const count = await pageButton.count();
   //   if (count === 0) {
   //     return false;
   //   }
-    
+
   //   await pageButton.click({ force: true });
   //   return true;
   // }
@@ -346,13 +378,13 @@ export class DBLPage {
       .first();
 
     let count = await pageButton.count();
-    
+
     // If exact page button not found, try using role button
     if (count === 0) {
       pageButton = this.paginationContainer.getByRole('button', { name: String(pageNumber) });
       count = await pageButton.count();
     }
-    
+
     // If still not found, return false
     if (count === 0) {
       console.log(`Page ${pageNumber} button not found`);
@@ -375,39 +407,39 @@ export class DBLPage {
       const { start } = await this.getCurrentPageRange();
       return start === expectedStart;
     }, { timeout: 10000 }).toBeTruthy();
-    
+
     return true;
   }
 
   async clickNextArrow() {
     const nextArrow = this.paginationContainer.locator('li.ux-react-pagination-next');
-    
+
     await expect(nextArrow).toBeVisible();
-    
+
     // Check if disabled
     const isDisabled = await nextArrow.getAttribute('aria-disabled');
     if (isDisabled === 'true') {
       return false;
     }
-    
+
     await nextArrow.click({ force: true });
     return true;
   }
 
   async clickPreviousArrow() {
     const prevArrow = this.paginationContainer.locator('li.ux-react-pagination-prev');
-    
+
     await expect(prevArrow).toBeVisible();
-    
+
     // Check if disabled
     const isDisabled = await prevArrow.getAttribute('aria-disabled');
     if (isDisabled === 'true') {
       return false;
     }
-    
+
     // Click and wait for table to reload first
     await prevArrow.click({ force: true });
-    
+
     // Wait for valid pagination data to appear (not 0 items)
     await expect.poll(async () => {
       const text = await this.getPaginationText();
@@ -415,10 +447,10 @@ export class DBLPage {
       const totalItems = match ? Number(match[1]) : 0;
       return totalItems > 0;
     }, { timeout: 10000 }).toBeTruthy();
-    
+
     // Additional wait for pagination to stabilize
     await this.page.waitForTimeout(500);
-    
+
     return true;
   }
 
