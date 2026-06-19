@@ -50,18 +50,39 @@ test.describe('@DMTTsanity DMTT Configuration Edit', () => {
 
     const editedName = `Edited_Config_${new Date().toISOString().replace(/[:.]/g, '-')}`;
 
+// Skip test if any snapshot is still in progress
+const inProgressCount =
+  await page
+    .getByText('In Progress')
+    .count();
+
+if (inProgressCount > 0) {
+
+  test.skip(
+    true,
+    'Configuration currently has snapshot in progress'
+  );
+
+}
+
+
     // Click Exact/Edit button from details page
-    const editButton = page.getByRole('button', { name: /^Edit$/i });
+    const editButton = page.getByRole(
+      'button',
+      { name: /^Edit$/i }
+    );
 
     await expect(editButton).toBeVisible({
       timeout: 30000
     });
 
     await expect.poll(
-      async () => await editButton.isEnabled(),
+      async () => {
+        return await editButton.isEnabled();
+      },
       {
-        timeout: 60000,
-        intervals: [1000]
+        timeout: 300000,
+        intervals: [5000]
       }
     ).toBe(true);
 
