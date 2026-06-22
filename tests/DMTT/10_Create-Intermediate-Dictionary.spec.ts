@@ -317,20 +317,50 @@ test.describe('@DMTTsanity Create Intermediate Dictionary (Persist Success)', ()
     // Wait briefly for persist action to be processed (some UIs show immediate status change).
 
     // Step 12: refresh the page and check dictionary status 'Persist Success'
-    await page.waitForTimeout(2000);
-    await page.reload();
+    let status = '';
 
-    await expect.poll(
-      async () => {
-        const body = await page.locator('body').innerText();
-        return /persist success/i.test(body);
-      },
-      {
-        timeout: 120000,
-        intervals: [3000],
-        message: 'Timed out waiting for Persist Success status after refresh.'
-      }
-    ).toBe(true);
+for (let i = 0; i < 60; i++) {
+
+    console.log(`Checking dictionary status (${i + 1}/60)`);
+
+    await page.reload({
+        waitUntil: 'domcontentloaded'
+    });
+
+    await page.waitForTimeout(3000);
+
+    const inProgressRow =
+        page.getByRole('row')
+            .filter({ hasText: /in progress/i });
+
+    if (!(await inProgressRow.isVisible().catch(() => false))) {
+
+        const rows = page.getByRole('row');
+        const rowCount = await rows.count();
+
+        const latestRow = rows.nth(rowCount - 1);
+
+        status = (
+            await latestRow
+                .getByRole('gridcell')
+                .first()
+                .textContent()
+        )?.trim() || '';
+
+        console.log(`Current status = ${status}`);
+
+        if (/persist success/i.test(status)) {
+            console.log('✅ Persist completed');
+            return;
+        }
+    }
+
+    console.log('⏳ Dictionary still in progress...');
+
+    await page.waitForTimeout(5000);
+}
+
+throw new Error('Persist Success status not reached within 5 minutes');
 
     // Avoid relying on Node.js "process" typing in this repo
     const ci = (globalThis as any)?.process?.env?.CI;

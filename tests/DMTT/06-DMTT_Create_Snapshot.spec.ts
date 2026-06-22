@@ -22,6 +22,7 @@ import { DMTTEnvironmentConfigValidatePage } from '../../pages/DMTTEnvironmentCo
  */
 
 test.describe('@DMTTsanity Env Configuration - Create Snapshot', () => {
+  test.setTimeout(6 * 60 * 1000);
   test('Create Snapshot from first sanity config', async ({ page }) => {
     const login = new DMTT_LoginPage(page);
     const envNav = new DMTTEnvironmentPage(page);
@@ -56,30 +57,7 @@ test.describe('@DMTTsanity Env Configuration - Create Snapshot', () => {
     await expect(createSnapshotAction.first()).toBeVisible({ timeout: 30000 });
     await createSnapshotAction.first().click({ force: true });
 
-    // Primary pass condition: Operation status changes to completed.
-    await expect
-      .poll(async () => {
-        const bodyTxt = (await page.locator('body').innerText()).toLowerCase();
-        return bodyTxt.includes('completed') || bodyTxt.includes('complete');
-      }, {
-        timeout: 120000,
-        message: 'Timed out waiting for snapshot operation to reach completed status.'
-      })
-      .toBeTruthy();
-
-    // Secondary pass condition: item/snapshot count increases by 1 (if parseable).
-    if (beforeCount !== null) {
-      await expect
-        .poll(async () => {
-          const bodyTxt = await page.locator('body').innerText();
-          const afterCount = extractNumericCount(bodyTxt);
-          return afterCount !== null && afterCount === beforeCount + 1;
-        }, {
-          timeout: 120000,
-          message: 'Timed out waiting for snapshot item count to increase by 1.'
-        })
-        .toBeTruthy();
-    }
+   await validatePage.waitForSnapshotCompletion();
 
     // Success toast/message
     const successToast = page

@@ -81,8 +81,8 @@ export class DMTTEnvironmentConfigValidatePage {
     const menuToClick = hasMenuBtn
       ? menuBtn
       : this.page
-          .locator('button, [role="button"]').filter({ hasText: /more|menu|\.\.\.|\u22EE/i })
-          .first();
+        .locator('button, [role="button"]').filter({ hasText: /more|menu|\.\.\.|\u22EE/i })
+        .first();
 
     // Click menu if visible; otherwise fallback to clicking the first config link.
     if (await menuToClick.isVisible().catch(() => false)) {
@@ -178,7 +178,54 @@ export class DMTTEnvironmentConfigValidatePage {
   }
 
 
+  async waitForSnapshotCompletion() {
 
+    for (let i = 0; i < 60; i++) {
+
+      console.log(`Checking snapshot status (${i + 1}/60)`);
+
+      await this.page.reload({
+        waitUntil: 'domcontentloaded'
+      });
+
+      await this.page.waitForTimeout(3000);
+
+      const inProgressRow =
+        this.page.getByRole('row')
+          .filter({ hasText: /in progress/i });
+
+      // No more "In Progress" rows
+      if (!(await inProgressRow.isVisible().catch(() => false))) {
+
+        // Find latest row
+        const rows = this.page.getByRole('row');
+        const rowCount = await rows.count();
+
+        const latestRow = rows.nth(rowCount - 1);
+
+        const status =
+          (
+            await latestRow
+              .getByRole('gridcell')
+              .nth(1)
+              .textContent()
+          )?.trim() || '';
+
+        console.log(`Current status = ${status}`);
+
+        if (status.toLowerCase() === 'completed') {
+          console.log('✅ Snapshot completed');
+          return;
+        }
+      }
+
+      console.log('⏳ Snapshot still in progress...');
+
+      await this.page.waitForTimeout(5000);
+    }
+
+    throw new Error('Snapshot operation did not complete within 5 minutes');
+  }
 
 
   async expectValidationSuccess(): Promise<void> {
