@@ -250,34 +250,29 @@ export class DBLPage {
   }
 
 
-    async selectGenerateProcedure() {
-  const radioLabel = this.uploadDialog.getByText(
-    'Generate Scripts with Procedure',
-    { exact: true }
-  );
+async selectGenerateProcedure() {
+  const option = this.uploadDialog
+    .locator('div')
+    .filter({ hasText: /^Generate Scripts with Procedure$/ })
+    .first();
 
-  await expect(radioLabel).toBeVisible();
-
-  await radioLabel.click();
+  await option.click();
 }
 
 
-  async selectGenerateScripts(checked: boolean = true) {
-    const radioLabel = this.uploadDialog.getByRole('radio', { name: 'Generate Scripts', exact: true });
-  await expect(radioLabel).toBeVisible();
-
-  await radioLabel.click();
-  }
+async selectGenerateScripts() {
+    await this.uploadDialog
+        .getByText('Generate Scripts', { exact: true })
+        .click();
+}
 
 async selectGeneratePSE() {
-  const radioLabel = this.uploadDialog
-    .getByText('Generate Scripts with PSE', {
-      exact: true
-    });
+  const option = this.uploadDialog
+    .locator('div')
+    .filter({ hasText: /^Generate Scripts with PSE$/ })
+    .first();
 
-  await expect(radioLabel).toBeVisible();
-
-  await radioLabel.click();
+  await option.click();
 }
 
   async selectAllUploadOptions(options: UploadOptions) {
