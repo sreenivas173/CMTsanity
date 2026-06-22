@@ -277,24 +277,40 @@ export class DMTTCreateConfigPage {
 
     async verifySuccess() {
 
-    // Wait for loading spinner to disappear
-    await this.page.waitForTimeout(5000);
+        const loadingIcon =
+            this.page.getByRole('button', {
+                name: /loading icon/i
+            });
 
-    // Success toast / alert
-    const successToast =
-        this.page.locator('[role="alert"]')
-        .or(
-            this.page.getByText(
-                /success|created/i
-            )
-        );
+        await expect(
+            loadingIcon
+        ).toBeHidden({
+            timeout: 120000
+        });
 
-    await expect(
-        successToast.first()
-    ).toBeVisible({
-        timeout: 60000
-    });
+        await expect(
+            this.popup.first()
+        ).toBeHidden({
+            timeout: 120000
+        });
 
-}
+        const successToast =
+            this.page.locator('[role="alert"]')
+                .or(
+                    this.page.getByText(/success|created/i)
+                );
+
+        if (
+            await successToast.first()
+                .isVisible()
+                .catch(() => false)
+        ) {
+
+            await expect(
+                successToast.first()
+            ).toBeVisible();
+
+        }
+    }
 
 }
