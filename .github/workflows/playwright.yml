@@ -254,7 +254,8 @@ jobs:
 
     # Webex notification
     - name: Send Webex Notification
-      if: always()
+     # if: always()
+      if: false
       run: node sendWebex.js
       env:
         WEBEX_TOKEN: ${{ secrets.WEBEX_TOKEN }}
