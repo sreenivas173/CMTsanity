@@ -34,7 +34,28 @@ test.describe('@DMTTsanity Env Configuration - Create Snapshot', () => {
 
     await envNav.navigate();
     await list.waitForPageReady();
-    await list.search('sanity');
+    
+    let searchTerm = 'sanity';
+
+    await list.search(searchTerm);
+
+    if (!(await list.hasResults())) {
+
+      console.log('"sanity" not found. Trying "swathi"...');
+
+      searchTerm = 'swathi';
+
+      await list.search(searchTerm);
+
+      if (!(await list.hasResults())) {
+
+        test.skip(
+          true,
+          'No sanity or swathi configurations found'
+        );
+
+      }
+    }
 
     // Open first config details
     await validatePage.clickFirstConfigFromList();

@@ -64,9 +64,23 @@ export class DMTTEnvironmentSearchPaginationPage {
 
     await this.searchInput.fill(term);
 
+    const oldPagination =
+      await this.getPaginationText()
+        .catch(() => '');
+
     await this.searchInput.press('Enter');
 
-    await this.page.waitForTimeout(3000);
+    await expect.poll(
+      async () => {
+
+        return await this.getPaginationText()
+          .catch(() => '');
+
+      },
+      {
+        timeout: 15000
+      }
+    ).not.toBe(oldPagination);
 
     const paginationText =
       await this.getPaginationText();
@@ -198,28 +212,26 @@ export class DMTTEnvironmentSearchPaginationPage {
 
   async goToPage2(): Promise<void> {
 
+    const page2Control =
+      this.page.locator(
+        'li, [role="listitem"]'
+      ).filter({
+        hasText: /^2$/
+      }).first();
+
     if (
-      await this.page2Button
+      await page2Control
         .isVisible()
         .catch(() => false)
     ) {
 
-      await this.page2Button.click();
-      return;
-    }
+      await page2Control.click();
 
-    if (
-      await this.nextPageButton
-        .isVisible()
-        .catch(() => false)
-    ) {
-
-      await this.nextPageButton.click();
       return;
     }
 
     throw new Error(
-      'Page 2 button not found'
+      'Page 2 control not found'
     );
   }
 

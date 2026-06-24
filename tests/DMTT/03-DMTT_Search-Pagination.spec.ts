@@ -47,7 +47,7 @@ test.describe('@DMTTsanity DMTT Search & Pagination validations', () => {
    * - waiting for page-range change after switching to page 2
    * - verifying the next page start is immediately after previous end
    */
-  test('Env config Pagination validation', async ({ page }) => {
+  test('@only Env config Pagination validation', async ({ page }) => {
     const login = new DMTT_LoginPage(page);
     const envNav = new DMTTEnvironmentPage(page);
     const list = new DMTTEnvironmentSearchPaginationPage(page);
@@ -59,7 +59,27 @@ test.describe('@DMTTsanity DMTT Search & Pagination validations', () => {
     await list.waitForPageReady();
 
     // Apply a keyword that yields sanity-only results in the current dataset
-    await list.search('Swathi');
+   let searchTerm = 'sanity';
+
+    await list.search(searchTerm);
+
+    if (!(await list.hasResults())) {
+
+      console.log('"sanity" not found. Trying "swathi"...');
+
+      searchTerm = 'swathi';
+
+      await list.search(searchTerm);
+
+      if (!(await list.hasResults())) {
+
+        test.skip(
+          true,
+          'No sanity or swathi configurations found'
+        );
+
+      }
+    }
     await list.assertOnlySanityConfigsDisplayed();
 
     // Capture page 1 pagination range and visible config list

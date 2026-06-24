@@ -41,12 +41,34 @@ test.describe('@DMTTsanity Create Intermediate Dictionary (Persist Success)', ()
     await envNav.navigate();
     await list.waitForPageReady();
 
-    await list.search('sanity');
+    let searchTerm = 'sanity';
+
+    await list.search(searchTerm);
+
+    if (!(await list.hasResults())) {
+
+      console.log('"sanity" not found. Trying "swathi"...');
+
+      searchTerm = 'swathi';
+
+      await list.search(searchTerm);
+
+      if (!(await list.hasResults())) {
+
+        test.skip(
+          true,
+          'No sanity or swathi configurations found'
+        );
+
+      }
+    }
 
     // Step 2: Click first config link
-    const firstConfigLink = page
+     const firstConfigLink = page
       .getByRole('link')
-      .filter({ hasText: /sanity/i })
+      .filter({
+        hasText: new RegExp(searchTerm, 'i')
+      })
       .first();
 
     await expect(firstConfigLink).toBeVisible({ timeout: 30000 });

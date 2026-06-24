@@ -85,12 +85,12 @@ test.describe('@D2CRegression MM Design Delete Validation', () => {
       name: /^Yes$/i
     }).click();
 
-// Wait until delete confirmation dialog closes
-await expect(confirmDialog).not.toBeVisible({
-  timeout: 30000
-});
+    // Wait until delete confirmation dialog closes
+    await expect(confirmDialog).not.toBeVisible({
+      timeout: 30000
+    });
 
-     // Read count again
+    // Read count again
     const countLabelAfter = await page
       .locator('li')
       .filter({ hasText: /items.*shown/i })

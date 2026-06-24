@@ -33,38 +33,23 @@ test.describe('@DMTTsanity DMTT EC Config Delete', () => {
     await envNav.navigate();
     await list.waitForPageReady();
 
-    let searchitem = 'sanity';
+    let searchTerm = 'sanity';
 
-    await list.search(searchitem);
+    await list.search(searchTerm);
 
-    // Check pagination text
-    let paginationText =
-      await page.locator('text=/items,/i').first().textContent()
-        .catch(() => '');
+    if (!(await list.hasResults())) {
 
-    if (
-      paginationText?.includes('0 items')
-    ) {
+      console.log('"sanity" not found. Trying "swathi"...');
 
-      console.log(
-        `"${searchitem}" not found. Trying "swathi"...`
-      );
+      searchTerm = 'swathi';
 
-      searchitem = 'swathi';
+      await list.search(searchTerm);
 
-      await list.search(searchitem);
-
-      paginationText =
-        await page.locator('text=/items,/i').first().textContent()
-          .catch(() => '');
-
-      if (
-        paginationText?.includes('0 items')
-      ) {
+      if (!(await list.hasResults())) {
 
         test.skip(
           true,
-          'No configurations found for sanity or swathi'
+          'No sanity or swathi configurations found'
         );
 
       }
@@ -121,13 +106,28 @@ test.describe('@DMTTsanity DMTT EC Config Delete', () => {
 
     // Click first config returned by search
     // Prefer config links on grid/table.
-    const firstConfigLink = page
-      .getByRole('link')
-      .filter({ hasText: searchitem })
-      .first();
+    const configLinks =
+      page.locator(
+        'table tr td a, [role="gridcell"] a'
+      );
 
-    await expect(firstConfigLink).toBeVisible({ timeout: 30000 });
+    await expect(configLinks.first())
+      .toBeVisible({
+        timeout: 30000
+      });
+
+    const firstConfigLink =
+      configLinks.first();
+
+    const configName =
+      await firstConfigLink.textContent();
+
+    console.log(
+      `Opening configuration: ${configName}`
+    );
+
     await firstConfigLink.click();
+
 
     // Wait for details page
     await expect(

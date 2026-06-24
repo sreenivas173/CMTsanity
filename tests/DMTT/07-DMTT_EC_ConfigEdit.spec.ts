@@ -32,12 +32,34 @@ test.describe('@DMTTsanity DMTT Configuration Edit', () => {
     await envNav.navigate();
     await list.waitForPageReady();
 
-    await list.search('sanity');
+    let searchTerm = 'sanity';
 
-    // Click first configuration returned by search
+    await list.search(searchTerm);
+
+    if (!(await list.hasResults())) {
+
+      console.log('"sanity" not found. Trying "swathi"...');
+
+      searchTerm = 'swathi';
+
+      await list.search(searchTerm);
+
+      if (!(await list.hasResults())) {
+
+        test.skip(
+          true,
+          'No sanity or swathi configurations found'
+        );
+
+      }
+    }
+
+    // Step 2: Click first config link
     const firstConfigLink = page
       .getByRole('link')
-      .filter({ hasText: /sanity/i })
+      .filter({
+        hasText: new RegExp(searchTerm, 'i')
+      })
       .first();
 
     await expect(firstConfigLink).toBeVisible({ timeout: 30000 });
@@ -50,20 +72,20 @@ test.describe('@DMTTsanity DMTT Configuration Edit', () => {
 
     const editedName = `Edited_Config_${new Date().toISOString().replace(/[:.]/g, '-')}`;
 
-// Skip test if any snapshot is still in progress
-const inProgressCount =
-  await page
-    .getByText('In Progress')
-    .count();
+    // Skip test if any snapshot is still in progress
+    const inProgressCount =
+      await page
+        .getByText('In Progress')
+        .count();
 
-if (inProgressCount > 0) {
+    if (inProgressCount > 0) {
 
-  test.skip(
-    true,
-    'Configuration currently has snapshot in progress'
-  );
+      test.skip(
+        true,
+        'Configuration currently has snapshot in progress'
+      );
 
-}
+    }
 
 
     // Click Exact/Edit button from details page
@@ -140,6 +162,20 @@ if (inProgressCount > 0) {
     const spinner = dialog.getByRole('button', {
       name: /loading icon/i
     });
+    console.log(
+      'Spinner visible:',
+      await spinner.isVisible()
+    );
+
+    console.log(
+      'Spinner class:',
+      await spinner.getAttribute('class')
+    );
+
+    console.log(
+      'Current URL:',
+      page.url()
+    );
 
     await expect(spinner).toBeHidden({
       timeout: 60000

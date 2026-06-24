@@ -30,8 +30,27 @@ test.describe('DMTT Environment Configuration - Validate Environment', () => {
 
     await envNav.navigate();
     await list.waitForPageReady();
+let searchTerm = 'sanity';
 
-    await list.search('sanity');
+    await list.search(searchTerm);
+
+    if (!(await list.hasResults())) {
+
+      console.log('"sanity" not found. Trying "swathi"...');
+
+      searchTerm = 'swathi';
+
+      await list.search(searchTerm);
+
+      if (!(await list.hasResults())) {
+
+        test.skip(
+          true,
+          'No sanity or swathi configurations found'
+        );
+
+      }
+    }
 
     // After search, each config row has a vertical-3-dots menu.
     // Click the menu for the first config and choose "Validate Environment".

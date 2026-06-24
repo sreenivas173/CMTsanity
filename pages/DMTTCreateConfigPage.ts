@@ -73,6 +73,8 @@ export class DMTTCreateConfigPage {
                 {
                     name: /Namespace/i
                 }
+
+
             );
 
         this.sourcesDropdown =
@@ -169,35 +171,41 @@ export class DMTTCreateConfigPage {
 
 
 
-
-
     async selectDropdown(
         dropdown: Locator,
         value: string
     ) {
 
-        // Wait for dropdown
         await expect(
             dropdown
         ).toBeVisible({
             timeout: 30000
         });
 
-        // Open dropdown safely
         await dropdown.scrollIntoViewIfNeeded();
 
         await dropdown.click({
             force: true
         });
 
-        // Wait options menu
+        // DEBUG - Print all available options
+        const options =
+            await this.page
+                .getByRole('option')
+                .allTextContents();
+
+        console.log(
+            `Available options for "${value}":`,
+            options
+        );
+
         const option =
-            this.page.getByRole(
-                'option',
-                {
-                    name: value
-                }
-            ).first();
+            this.page
+                .getByRole('option')
+                .filter({
+                    hasText: value
+                })
+                .first();
 
         await expect(
             option
@@ -205,16 +213,27 @@ export class DMTTCreateConfigPage {
             timeout: 30000
         });
 
-        // Select option
         await option.click({
             force: true
         });
 
-        // Small stabilization wait
-        await this.page.waitForTimeout(1000);
+        console.log(
+            `Successfully clicked option: ${value}`
+        );
+
+        // Wait for option list to disappear
+        await expect(option)
+            .toBeHidden({
+                timeout: 10000
+            })
+            .catch(() => { });
+
+        console.log(
+            `Available options for "${value}":`,
+            options
+        );
 
     }
-
     async createConfiguration(
         data: {
             configName: string;
@@ -240,16 +259,65 @@ export class DMTTCreateConfigPage {
             data.configName
         );
 
-
         await this.selectDropdown(
             this.cloudDropdown,
             data.cloud
         );
 
+        console.log(
+            'Cloud selected, waiting for Namespace to load...'
+        );
+
+        await expect(
+            this.namespaceDropdown
+        ).toBeVisible({
+            timeout: 60000
+        });
+
+
+        console.log(
+            'Expected Namespace:',
+            data.namespace
+        );
+
+        console.log(
+            'Page still open:',
+            !this.page.isClosed()
+        );
+        // Cloud selection triggers namespace loading
+        const namespaceLoader = this.page
+            .getByRole('img', {
+                name: /loading icon/i
+            });
+
+        if (
+            await namespaceLoader
+                .isVisible()
+                .catch(() => false)
+        ) {
+            await namespaceLoader.waitFor({
+                state: 'hidden',
+                timeout: 60000
+            });
+        }
+
         await this.selectDropdown(
             this.namespaceDropdown,
             data.namespace
         );
+
+        console.log(
+            'Namespace selected:',
+            await this.namespaceDropdown
+                .inputValue()
+                .catch(() => 'N/A')
+        );
+
+        await expect(
+            this.sourcesDropdown
+        ).toBeEnabled({
+            timeout: 60000
+        });
 
         await this.selectDropdown(
             this.sourcesDropdown,
@@ -287,6 +355,11 @@ export class DMTTCreateConfigPage {
         ).toBeHidden({
             timeout: 120000
         });
+
+
+        console.log('=================');
+        console.log(await this.page.locator('body').innerText());
+        console.log('=================');
 
         await expect(
             this.popup.first()

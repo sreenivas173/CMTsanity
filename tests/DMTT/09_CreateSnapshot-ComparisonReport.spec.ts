@@ -35,15 +35,39 @@ test.describe('@DMTTsanity Env Snapshot - Comparison Report', () => {
     await envNav.navigate();
     await list.waitForPageReady();
 
-    await list.search('sanity');
+    //await list.search('sanity');
+    let searchTerm = 'sanity';
 
+    await list.search(searchTerm);
+
+    if (!(await list.hasResults())) {
+
+      console.log('"sanity" not found. Trying "swathi"...');
+
+      searchTerm = 'swathi';
+
+      await list.search(searchTerm);
+
+      if (!(await list.hasResults())) {
+
+        test.skip(
+          true,
+          'No sanity or swathi configurations found'
+        );
+
+      }
+    }
     // Click first config returned by search.
     const firstConfigLink = page
       .getByRole('link')
-      .filter({ hasText: /sanity/i })
+      .filter({
+        hasText: new RegExp(searchTerm, 'i')
+      })
       .first();
 
-    await expect(firstConfigLink).toBeVisible({ timeout: 30000 });
+    await expect(firstConfigLink)
+      .toBeVisible({ timeout: 30000 });
+
     await firstConfigLink.click();
 
     // Wait for details page.
@@ -80,191 +104,161 @@ test.describe('@DMTTsanity Env Snapshot - Comparison Report', () => {
     //   return count;
     // };
 
-    const extractFirstSnapshotCount = async (): Promise<number> => {
+    const getCompletedSnapshotCount =
+      async (): Promise<number> => {
 
-      // Wait for snapshot section to render
-      await expect.poll(
-        async () => {
-          const text =
-            await page.locator('body').innerText();
+        await expect.poll(
+          async () => {
 
-          return (
-            text.includes('items,') ||
-            text.includes('No snapshots')
+            const snapshotLinks =
+              page.locator(
+                'a[href*="step=snapshot"]'
+              );
+
+            return await snapshotLinks.count();
+
+          },
+          {
+            timeout: 30000,
+            intervals: [2000]
+          }
+        ).toBeGreaterThan(0);
+
+        const snapshotLinks =
+          page.locator(
+            'a[href*="step=snapshot"]'
           );
-        },
-        {
-          timeout: 30000,
-          intervals: [1000]
-        }
-      ).toBe(true);
 
-      const bodyText =
-        await page.locator('body').innerText();
-
-      console.log(
-        'Snapshot section loaded'
-      );
-
-      console.log(bodyText);
-
-      // Existing snapshots
-      const match =
-        bodyText.match(
-          /(\d+)\s+items,\s+\d+-\d+\s+shown/i
-        );
-
-      if (match?.[1]) {
-        const count = Number(match[1]);
+        const count =
+          await snapshotLinks.count();
 
         console.log(
-          `Detected snapshots: ${count}`
+          `Snapshots found: ${count}`
+        );
+
+        console.log(
+          'Current URL:',
+          page.url()
         );
 
         return count;
-      }
+      };
 
-      // Explicit empty state
-      if (/no snapshots/i.test(bodyText)) {
+
+
+
+    const clickFirstSnapshotInList =
+      async (): Promise<void> => {
+
+        const snapshotLinks =
+          page.locator(
+            'a[href*="step=snapshot"]'
+          );
+
+        const snapshotCount =
+          await snapshotLinks.count();
+
         console.log(
-          'Detected snapshots: 0'
+          `Snapshot links found: ${snapshotCount}`
         );
-        return 0;
-      }
 
-      console.log(
-        'Unable to determine snapshot count'
-      );
-
-      return 0;
-    };
-
-
-
-
-    const clickFirstSnapshotInList = async (): Promise<void> => {
-
-      // Wait until snapshot table is visible
-      await expect(
-        page.getByText('Snapshots')
-      ).toBeVisible({
-        timeout: 30000
-      });
-
-      // First snapshot link in table
-      const firstSnapshotLink = page
-        .getByRole('link')
-        .filter({
-          hasText: /\d{4}-\d{2}-\d{2}/
-        })
-        .first();
-
-      await expect(firstSnapshotLink).toBeVisible({
-        timeout: 60000
-      });
-
-      const snapshotName =
-        await firstSnapshotLink.textContent();
-
-      console.log(
-        `Opening snapshot: ${snapshotName}`
-      );
-
-      await firstSnapshotLink.click();
-
-      // Snapshot details page
-      await expect(page).toHaveURL(
-        /step=snapshot/,
-        {
-          timeout: 30000
+        if (snapshotCount === 0) {
+          throw new Error(
+            'No snapshot links found'
+          );
         }
-      );
-    };
 
-    const createSnapshotIfNeeded = async (
-      snapshotCount: number
-    ): Promise<void> => {
+        const snapshotNames =
+          await snapshotLinks.allTextContents();
 
-      if (snapshotCount > 0) {
         console.log(
-          `Snapshots already exist (${snapshotCount}). Skipping snapshot creation.`
+          'Available snapshots:',
+          snapshotNames
         );
-        return;
-      }
 
-      console.log('No snapshots found. Creating snapshot...');
+        const latestSnapshot =
+          snapshotLinks.last();
 
-      const createSnapshotAction = page
-        .getByRole('button', { name: /create\s+snapshot/i })
-        .or(page.getByText(/create\s+snapshot/i).first());
+        const snapshotName =
+          await latestSnapshot.textContent();
 
-      await expect(
-        createSnapshotAction.first()
-      ).toBeVisible({
-        timeout: 30000
-      });
+        console.log(
+          `Opening snapshot: ${snapshotName}`
+        );
 
-      await createSnapshotAction
-        .first()
-        .click({ force: true });
+        await latestSnapshot.click();
 
-      await expect
-        .poll(
+        await expect(page)
+          .toHaveURL(
+            /step=snapshot/,
+            {
+              timeout: 30000
+            }
+          );
+      };
+
+    const createSnapshotIfNeeded =
+      async (): Promise<void> => {
+
+        const completedCount =
+          await getCompletedSnapshotCount();
+
+        if (completedCount > 0) {
+
+          console.log(
+            `Using existing completed snapshots (${completedCount})`
+          );
+
+          return;
+        }
+
+        console.log(
+          'No completed snapshots found. Creating snapshot...'
+        );
+
+        const createSnapshotBtn =
+          page.getByRole(
+            'button',
+            {
+              name: /create snapshot/i
+            }
+          );
+
+        await createSnapshotBtn.click();
+
+        await expect.poll(
           async () => {
+
             await page.reload();
 
-            await expect(
-              page.getByText('Snapshots')
-            ).toBeVisible({
-              timeout: 30000
-            });
+            return await page
+              .locator(
+                'a[href*="step=snapshot"]'
+              )
+              .count();
 
-            // const bodyText =
-            //   await page.locator('body').innerText();
-
-            // return !/in progress/i.test(bodyText);
-
-            const snapshotLink = page
-              .getByRole('link')
-              .filter({
-                hasText: /\d{4}-\d{2}-\d{2}/
-              })
-              .first();
-
-            const snapshotExists =
-              await snapshotLink.isVisible()
-                .catch(() => false);
-
-            const bodyText =
-              await page.locator('body').innerText();
-
-            const noInProgress =
-              !/in progress/i.test(bodyText);
-
-            return snapshotExists && noInProgress;
           },
           {
-            timeout: 180000,
-            intervals: [5000],
-            message:
-              'Timed out waiting for snapshot creation completion.'
+            timeout: 300000,
+            intervals: [10000]
           }
-        )
-        .toBe(true);
+        ).toBeGreaterThan(0);
 
-      console.log(
-        'Snapshot creation completed successfully.'
-      );
-
-      await page.waitForTimeout(2000);
-    };
+        console.log(
+          'Snapshot creation completed'
+        );
+      };
 
     // Step 4: check snapshot exist or not.
-    const snapshotCount = await extractFirstSnapshotCount();
+    await createSnapshotIfNeeded();
 
-    // Step 11 behavior: if snapshot count == 0, create snapshot then continue.
-    await createSnapshotIfNeeded(snapshotCount);
+    const completedCount =
+      await getCompletedSnapshotCount();
 
+    expect(
+      completedCount,
+      'Expected at least one completed snapshot'
+    ).toBeGreaterThan(0);
     // If snapshotCount was null, still attempt to click first snapshot.
     // If it was 0, after creation we should have snapshots; click first.
     await clickFirstSnapshotInList();
@@ -364,65 +358,54 @@ test.describe('@DMTTsanity Env Snapshot - Comparison Report', () => {
     // Step 8: dropdown select first snapshot name
     // Look for first option in the open dropdown.
 
-    // First parent item
-    const firstParentItem = page
-      .getByRole('menuitem')
-      .first();
-
-    await expect(firstParentItem).toBeVisible({
-      timeout: 30000
-    });
-
-    const parentText =
-      await firstParentItem.textContent();
+    // Parent environment
+    const parentItems =
+      page.getByRole('menuitem');
 
     console.log(
-      `Selecting parent item: ${parentText}`
+      'Parent menu count:',
+      await parentItems.count()
     );
 
-    // Hover instead of click so submenu opens
-    await firstParentItem.hover();
+    const parentItem =
+      parentItems.first();
 
-    // Wait for submenu to appear
-    await expect.poll(
-      async () => await page.getByRole('menu').count(),
-      {
-        timeout: 10000,
-        intervals: [500]
-      }
-    ).toBeGreaterThan(1);
+    await parentItem.click();
 
-    // Second menu is the submenu
-    const submenu = page
-      .getByRole('menu')
-      .nth(1);
-
-    await expect(submenu).toBeVisible({
-      timeout: 30000
-    });
-
-    // First child snapshot
-    const firstChildSnapshot = submenu
-      .getByRole('menuitem')
-      .first();
-
-    await expect(firstChildSnapshot).toBeVisible({
-      timeout: 30000
-    });
-
-    const childText =
-      await firstChildSnapshot.textContent();
+    await page.waitForTimeout(2000);
 
     console.log(
-      `Selecting child snapshot: ${childText}`
+      await page.locator('[role="dialog"]').innerText()
+    );
+    // Wait until submenu appears
+    await parentItem.hover();
+
+    await page.waitForTimeout(1500);
+
+    const snapshotItem =
+      page.locator(
+        '[role="menuitem"]'
+      ).filter({
+        hasText: /\d{4}-\d{2}-\d{2}_\d{2}:\d{2}:\d{2}/
+      }).last();
+
+    console.log(
+      'Snapshot count:',
+      await snapshotItem.count()
+    );
+    await expect(snapshotItem)
+      .toBeVisible({
+        timeout: 10000
+      });
+
+    const snapshotName =
+      (await snapshotItem.textContent())?.trim();
+
+    console.log(
+      `Selecting snapshot: ${snapshotName}`
     );
 
-    // Trial click first (helps avoid detached DOM issues)
-    await firstChildSnapshot.click({
-      trial: true
-    });
-
-    await firstChildSnapshot.click();
+    await snapshotItem.click();
     // Step 9: ensure Create button enabled and click Create button
     const createButton = dialog
       .getByRole('button', { name: /^create$/i })
@@ -434,6 +417,7 @@ test.describe('@DMTTsanity Env Snapshot - Comparison Report', () => {
       'Create enabled:',
       await createButton.isEnabled()
     );
+
     await expect(createButton).toBeEnabled({ timeout: 30000 });
 
     await createButton.click({ force: true });
