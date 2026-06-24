@@ -15,7 +15,7 @@ const testCases = [
     configToDelete: 'oss-lm-migMaySr-21011',
     uploadFile: 'test-data/oss-lm-mmip_d2c_may_OP.zip',
     configVersionToMatch: '1.0.1-1777625561',
-    sessionSearchText: 'Srini_MM_AT'
+    sessionSearchText: 'oss-lm-migMaySr'
   }
 ];
 
