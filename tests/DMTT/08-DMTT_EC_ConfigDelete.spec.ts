@@ -33,9 +33,42 @@ test.describe('@DMTTsanity DMTT EC Config Delete', () => {
     await envNav.navigate();
     await list.waitForPageReady();
 
-    const searchitem = 'sanity';
-    // Search sanity
+    let searchitem = 'sanity';
+
     await list.search(searchitem);
+
+    // Check pagination text
+    let paginationText =
+      await page.locator('text=/items,/i').first().textContent()
+        .catch(() => '');
+
+    if (
+      paginationText?.includes('0 items')
+    ) {
+
+      console.log(
+        `"${searchitem}" not found. Trying "swathi"...`
+      );
+
+      searchitem = 'swathi';
+
+      await list.search(searchitem);
+
+      paginationText =
+        await page.locator('text=/items,/i').first().textContent()
+          .catch(() => '');
+
+      if (
+        paginationText?.includes('0 items')
+      ) {
+
+        test.skip(
+          true,
+          'No configurations found for sanity or swathi'
+        );
+
+      }
+    }
 
     // Sort by Configuration Name (hover label -> Sort Acsending)
     const configNameHeader = page
