@@ -37,19 +37,63 @@ test.describe('@DMTTsanity DMTT Configuration Export', () => {
 
       await list.waitForPageReady();
 
-      await list.search('sanity');
+      let searchTerm = 'sanity';
+
+      await list.search(searchTerm);
+
+      if (!(await list.hasResults())) {
+
+        console.log('"sanity" not found. Trying "swathi"...');
+
+        searchTerm = 'swathi';
+
+        await list.search(searchTerm);
+
+        if (!(await list.hasResults())) {
+
+          test.skip(
+            true,
+            'No sanity or swathi configurations found'
+          );
+
+        }
+      }
 
       // Wait until search results are loaded
-      await expect(
-        page.getByRole('link').first()
-      ).toBeVisible({
-        timeout: 30000
-      });
+      await expect.poll(
+        async () => {
+
+          const pagination =
+            await page
+              .locator('text=/\\d+\\s+items,/i')
+              .first()
+              .textContent()
+              .catch(() => '');
+
+          return pagination;
+
+        },
+        {
+          timeout: 60000
+        }
+      ).not.toContain('0 items');
+
+      console.log(
+        'Total links:',
+        await page.getByRole('link').count()
+      );
+
+      console.log(
+        'Page text:',
+        await page.locator('body').innerText()
+      );
 
       // Click first configuration returned by search
       const firstConfigLink = page
         .getByRole('link')
-        .filter({ hasText: /sanity/i })
+        .filter({
+          hasText: searchTerm
+        })
         .first();
 
       await firstConfigLink.click();

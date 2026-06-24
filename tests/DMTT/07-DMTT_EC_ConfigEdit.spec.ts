@@ -98,15 +98,24 @@ test.describe('@DMTTsanity DMTT Configuration Edit', () => {
       timeout: 30000
     });
 
-    await expect.poll(
-      async () => {
-        return await editButton.isEnabled();
-      },
-      {
-        timeout: 300000,
-        intervals: [5000]
-      }
-    ).toBe(true);
+    console.log(
+      'Current URL:',
+      page.url()
+    );
+
+    console.log(
+      await page.locator('body').innerText()
+    );
+
+    await expect(editButton)
+      .toBeVisible({
+        timeout: 60000
+      });
+
+    await expect(editButton)
+      .toBeEnabled({
+        timeout: 60000
+      });
 
     await editButton.click();
 

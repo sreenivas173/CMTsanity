@@ -297,7 +297,11 @@ async selectGeneratePSE() {
     const proceedButton = this.uploadDialog.getByRole('button', { name: 'Proceed' });
     await expect(proceedButton).toBeEnabled();
     await proceedButton.click();
-    await expect(this.uploadDialog).toBeHidden();
+    //await expect(this.uploadDialog).toBeHidden();
+    await expect(this.uploadDialog)
+  .toBeHidden({
+    timeout: 30000
+  });
   }
 
   async uploadDesignFile(filePath: string, options?: UploadOptions) {

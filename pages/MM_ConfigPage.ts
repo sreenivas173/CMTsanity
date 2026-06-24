@@ -438,6 +438,21 @@ async uploadFile(filePath: string) {
   console.log(
     `Upload verified for version: ${configVersion}`
   );
+
+  console.log(
+  'Looking for config:',
+  configVersion
+);
+
+const rows =
+  await this.page
+    .getByRole('row')
+    .allTextContents();
+
+console.log(
+  'Current rows:',
+  rows
+);
 }
 
 async filterByStatus(status: 'Active' | 'Failed' | 'Not Active') {

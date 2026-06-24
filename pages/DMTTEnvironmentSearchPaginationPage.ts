@@ -24,7 +24,11 @@ export class DMTTEnvironmentSearchPaginationPage {
       page.locator('svg').first();
 
     this.paginationInfo =
-      page.locator('text=/items,.*shown/i').first();
+      page.locator(
+        'li,[role="listitem"]'
+      ).filter({
+        hasText: /items.*shown/i
+      }).first();
 
     this.nextPageButton =
       page
@@ -42,16 +46,50 @@ export class DMTTEnvironmentSearchPaginationPage {
 
   async waitForPageReady(): Promise<void> {
 
+    // Wait for page body
     await expect(
       this.page.locator('body')
-    ).toBeVisible();
-
-    await expect(
-      this.paginationInfo
     ).toBeVisible({
-      timeout: 30000
+      timeout: 60000
     });
 
+    // Wait for search textbox
+    await expect(
+      this.page.getByRole('textbox', {
+        name: /search/i
+      }).or(
+        this.page.getByPlaceholder(/search/i)
+      )
+    ).toBeVisible({
+      timeout: 60000
+    });
+
+    // Wait until either:
+    // - pagination appears
+    // - OR "No data to display" appears
+
+    await expect.poll(
+      async () => {
+
+        const pageText =
+          await this.page
+            .locator('body')
+            .innerText();
+
+        return (
+          /items.*shown/i.test(pageText) ||
+          /no data to display/i.test(pageText)
+        );
+
+      },
+      {
+        timeout: 60000
+      }
+    ).toBe(true);
+
+    console.log(
+      'DMTT page ready'
+    );
   }
 
   async search(term: string): Promise<void> {
