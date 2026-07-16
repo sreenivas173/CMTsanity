@@ -184,16 +184,26 @@ export class DMTTCreateConfigPage {
 
         await dropdown.scrollIntoViewIfNeeded();
 
-        await dropdown.click({
-            force: true
-        });
+        await dropdown.click();
 
-        // DEBUG - Print all available options
+        // Wait until at least one option exists
+        await expect
+            .poll(
+                async () =>
+                    await this.page.getByRole('option').count(),
+                {
+                    timeout: 60000,
+                    message: `Waiting for options in dropdown`
+                }
+            )
+            .toBeGreaterThan(0);
+
         const options =
             await this.page
                 .getByRole('option')
                 .allTextContents();
 
+        console.log('Available options:', options);
         console.log(
             `Available options for "${value}":`,
             options

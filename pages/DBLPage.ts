@@ -250,30 +250,30 @@ export class DBLPage {
   }
 
 
-async selectGenerateProcedure() {
-  const option = this.uploadDialog
-    .locator('div')
-    .filter({ hasText: /^Generate Scripts with Procedure$/ })
-    .first();
+  async selectGenerateProcedure() {
+    const option = this.uploadDialog
+      .locator('div')
+      .filter({ hasText: /^Generate Scripts with Procedure$/ })
+      .first();
 
-  await option.click();
-}
+    await option.click();
+  }
 
 
-async selectGenerateScripts() {
+  async selectGenerateScripts() {
     await this.uploadDialog
-        .getByText('Generate Scripts', { exact: true })
-        .click();
-}
+      .getByText('Generate Scripts', { exact: true })
+      .click();
+  }
 
-async selectGeneratePSE() {
-  const option = this.uploadDialog
-    .locator('div')
-    .filter({ hasText: /^Generate Scripts with PSE$/ })
-    .first();
+  async selectGeneratePSE() {
+    const option = this.uploadDialog
+      .locator('div')
+      .filter({ hasText: /^Generate Scripts with PSE$/ })
+      .first();
 
-  await option.click();
-}
+    await option.click();
+  }
 
   async selectAllUploadOptions(options: UploadOptions) {
     if (options.generateReports !== undefined) {
@@ -297,11 +297,34 @@ async selectGeneratePSE() {
     const proceedButton = this.uploadDialog.getByRole('button', { name: 'Proceed' });
     await expect(proceedButton).toBeEnabled();
     await proceedButton.click();
+
+
+    try {
+
+      await expect(
+        this.uploadDialog
+      ).toBeHidden({
+        timeout: 30000
+      });
+
+    } catch (error) {
+
+      console.log(
+        'Upload dialog still visible after Proceed'
+      );
+
+      console.log(
+        await this.uploadDialog.textContent()
+      );
+
+      throw error;
+
+    }
     //await expect(this.uploadDialog).toBeHidden();
     await expect(this.uploadDialog)
-  .toBeHidden({
-    timeout: 30000
-  });
+      .toBeHidden({
+        timeout: 30000
+      });
   }
 
   async uploadDesignFile(filePath: string, options?: UploadOptions) {
